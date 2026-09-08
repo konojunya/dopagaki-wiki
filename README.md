@@ -7,7 +7,9 @@
 ## macOS への導入
 
 ```sh
-aqua install
+# nodenvの場合（他のNode.js管理ツールでも可）
+nodenv install -s 24.5.0
+nodenv local 24.5.0
 brew install ffmpeg-full
 npm ci
 npm run setup
@@ -16,7 +18,7 @@ npm run cli -- doctor --start-voicevox
 npm run skill:install
 ```
 
-Node.jsは `aqua.yaml` で固定します。FFmpeg・ffprobeはHomebrewでグローバルに導入します。字幕描画用libassを含む [ffmpeg-full](https://formulae.brew.sh/formula/ffmpeg-full) が必要です。VOICEVOXアプリは別途インストールが必要です。Chromiumはnpmで固定したPlaywrightが対応ビルドを管理します。日本語・コード用フォントは `assets/fonts/` に同梱しています。動画生成とこのリポジトリの回帰テストにGo・Python・uvは不要です。
+Node.jsの検証バージョンを `.node-version` に記録し、インストール・切り替えは利用者のnodenv等に任せます。対応範囲は `package.json` の `engines.node`（24.5.0以上の24系）です。FFmpeg・ffprobeはHomebrewでグローバルに導入します。字幕描画用libassを含む [ffmpeg-full](https://formulae.brew.sh/formula/ffmpeg-full) が必要です。VOICEVOXアプリは別途インストールが必要です。Chromiumはnpmで固定したPlaywrightが対応ビルドを管理します。日本語・コード用フォントは `assets/fonts/` に同梱しています。動画生成とこのリポジトリの回帰テストにaqua・Go・Python・uvは不要です。
 
 Skillインストールは `~/.codex/skills/dopagaki-wiki` からこのリポジトリへのシンボリックリンクです。`CODEX_HOME` があればそちらを使います。既存の別Skillは上書きしません。リポジトリを動かしたらリンクを張り直してください。Skillだけのコピーでは動きません。
 
@@ -31,7 +33,7 @@ npm run cli -- preview examples/go-integers.story.json --out "$workdir/result"
 npm run cli -- render examples/go-integers.story.json --out "$workdir/result"
 ```
 
-任意の作業ディレクトリからは、Skillの `scripts/run.mjs` を絶対パスで実行できます。FFmpeg・ffprobeは `FFMPEG_PATH` / `FFPROBE_PATH` の明示指定、Homebrewの `opt/ffmpeg-full/bin`、通常のHomebrew配置、PATHの順で探します。Homebrewの配置は `HOMEBREW_PREFIX` またはmacOSの標準パスから解決するため、古いaqua shimがPATHの先頭でも利用できます。doctorは解決した実行パスとバージョン、字幕対応を確認します。
+任意の作業ディレクトリからは、Skillの `scripts/run.mjs` を絶対パスで実行できます。FFmpeg・ffprobeは `FFMPEG_PATH` / `FFPROBE_PATH` の明示指定、Homebrewの `opt/ffmpeg-full/bin`、通常のHomebrew配置、PATHの順で探します。Homebrewの配置は `HOMEBREW_PREFIX` またはmacOSの標準パスから解決します。doctorは解決した実行パスとバージョン、字幕対応を確認します。
 
 Skillはグローバルに登録されるため、別プロジェクトのタスクでも、例えば次のように依頼できます。
 
@@ -40,7 +42,7 @@ $dopagaki-wiki このリポジトリの認証処理をソースコードから�
 $dopagaki-wiki /path/to/another-repo のキャッシュの仕組みを動画で説明して
 ```
 
-エージェントが指定先（「このリポジトリ」ならそのタスクの作業ディレクトリ）のコードを調べて原稿を作成し、グローバルSkillのCLIを起動します。対象リポジトリへのインストールは不要です。生成する台本・画像・動画などはGit管理するコードとは別の成果物なので、既定では `/tmp/dopagaki-wiki.*` にまとめ、対話で動画とリンクを共有します。CLIのNode.jsはツール側のaqua設定で固定します。
+エージェントが指定先（「このリポジトリ」ならそのタスクの作業ディレクトリ）のコードを調べて原稿を作成し、グローバルSkillのCLIを起動します。対象リポジトリへのインストールは不要です。生成する台本・画像・動画などはGit管理するコードとは別の成果物なので、既定では `/tmp/dopagaki-wiki.*` にまとめ、対話で動画とリンクを共有します。CLIは起動に使ったNode.jsをそのまま使います。別リポジトリで異なるNode.jsを選択している場合は、対象の設定ファイルを書き換えず、対応するNode.jsでSkillを起動してください（nodenvなら `NODENV_VERSION=24.5.0 nodenv exec node <skill-dir>/scripts/run.mjs ...`）。
 
 CLIの `--out` も省略できます。その場合は実行ごとに新しい `/tmp/dopagaki-wiki-*` を作り、出力パスを返します。プレビューから再開するときは返されたパスを `--out` に指定してください。
 
@@ -48,7 +50,7 @@ CLIの `--out` も省略できます。その場合は実行ごとに新しい `
 
 `--cache <directory>` を省略すると `~/Library/Caches/dopagaki-wiki`。同じ出力先で再実行できます。見た目のみ変更した場合は音声を再利用し、1文の変更では該当する音声を再生成します。原稿全体の辞書・声・速度を変更すると音声キャッシュが失効します。
 
-動画キャッシュにはFFmpegのビルド設定とリンクライブラリのバージョンも含めます。同じFFmpegバージョンでもaqua版からHomebrew版へ切り替えると再エンコードし、画像・音声は再利用します。
+動画キャッシュにはFFmpegのビルド設定とリンクライブラリのバージョンも含めます。同じFFmpegバージョンでも異なる構成のビルドへ切り替えると再エンコードし、画像・音声は再利用します。
 
 ## 出力
 
@@ -60,6 +62,8 @@ CLIの `--out` も省略できます。その場合は実行ごとに新しい `
 - `narration.wav`: 再利用用48kHz mono PCM。Git保存時は必要がなければ除外
 
 成果物は `/tmp` に置き、対象・ツール双方のリポジトリへ書き込まず、commit・pushもしません。再利用キャッシュのみリポジトリ外のキャッシュ領域に保持します。Git保存を明示的に求められた場合だけ指定先に保存します。過去のバージョン比較用資料 `docs/generation/0.0.1/` は、その明示依頼で保存したものです。
+
+比較記録の保存先・必須情報・評価基準・容量上限・追加手順は [docs/generationの保存ルール](docs/generation/README.md) に定めています。
 
 ## 品質と再検証
 

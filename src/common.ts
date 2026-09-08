@@ -42,7 +42,7 @@ export async function resolveMediaBinary(
     : process.platform === "darwin"
       ? ["/opt/homebrew", "/usr/local"]
       : [];
-  // Prefer Homebrew over stale aqua shims; ffmpeg-full supplies libass.
+  // Prefer Homebrew over PATH shims; ffmpeg-full supplies libass.
   const candidates = override
     ? [resolve(override)]
     : [

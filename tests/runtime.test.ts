@@ -1,8 +1,43 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { chmod, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import {
+  chmod,
+  mkdir,
+  mkdtemp,
+  rm,
+  writeFile,
+  copyFile,
+} from "node:fs/promises";
+import { spawnSync } from "node:child_process";
 import { join, isAbsolute } from "node:path";
-import { createOutputDirectory, resolveMediaBinary } from "../src/common.js";
+import {
+  createOutputDirectory,
+  resolveMediaBinary,
+  ROOT,
+} from "../src/common.js";
+
+test("global launcher uses its Node runtime without a manager on PATH and preserves relative input paths", async () => {
+  const tmp = await mkdtemp("/tmp/dopagaki-launcher-");
+  try {
+    await copyFile(
+      join(ROOT, "examples/minimal.story.json"),
+      join(tmp, "story.json"),
+    );
+    const result = spawnSync(
+      process.execPath,
+      [
+        join(ROOT, "skills/dopagaki-wiki/scripts/run.mjs"),
+        "validate",
+        "story.json",
+      ],
+      { cwd: tmp, env: { ...process.env, PATH: "" }, encoding: "utf8" },
+    );
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(JSON.parse(result.stdout).passed, true);
+  } finally {
+    await rm(tmp, { recursive: true, force: true });
+  }
+});
 
 test("media resolution uses Homebrew before a stale PATH shim, with explicit overrides", async () => {
   const tmp = await mkdtemp("/tmp/dopagaki-runtime-");

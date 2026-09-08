@@ -28,7 +28,7 @@ CLI は LLM API を呼ばない。エージェントが調査と story.json を�
 
 対象のAGENTS.md、ソースコード、仕様、テストをエージェントが読み、[research.md](references/research.md) に従って根拠と原稿を作る。CLIに対象リポジトリのパスだけを渡しても、自動でコードを調査する機能はない。ユーザーからは自然言語の依頼を受け、story.json作成とCLI起動はエージェントが行う。
 
-`examples/`、`src/`、`schemas/` を参照するときは、このSkillのシンボリックリンクを解決したツール側のリポジトリを基準にする。対象リポジトリへツールや依存をコピーする必要はない。CLIのNode.jsはツール側のaqua設定を使い、FFmpeg・ffprobeはHomebrewの `ffmpeg-full` を優先して、次に通常のHomebrew配置とPATHから解決する。`FFMPEG_PATH` / `FFPROBE_PATH` で明示指定もできる。
+`examples/`、`src/`、`schemas/` を参照するときは、このSkillのシンボリックリンクを解決したツール側のリポジトリを基準にする。対象リポジトリへツールや依存をコピーする必要はない。CLIは起動に使ったNode.jsをそのまま使い、バージョン管理ツールには依存しない。検証バージョンはツール側の `.node-version`、対応範囲は `package.json` の `engines.node` を確認する。対象リポジトリで異なるNode.jsを使用している場合は、利用者の管理ツールでコマンド単位の切り替えを行う（nodenvなら `NODENV_VERSION=24.5.0 nodenv exec node <skill-dir>/scripts/run.mjs ...`）。動画生成のために対象の `.node-version` やグローバル設定を書き換えない。FFmpeg・ffprobeはHomebrewの `ffmpeg-full` を優先して、次に通常のHomebrew配置とPATHから解決する。`FFMPEG_PATH` / `FFPROBE_PATH` で明示指定もできる。
 
 ## 成果物の置き場所
 
@@ -57,3 +57,5 @@ CLI は LLM API を呼ばない。エージェントが調査と story.json を�
 ## 完了時
 
 `/tmp` にあるMP4を絶対パスのMarkdown画像記法でこの会話に表示し、必要な原稿・根拠・プレビュー・manifest・品質評価も絶対パスのリンクで共有する。実測の生成時間、キャッシュ利用、未検証事項を区別する。共有後に作業領域を削除しない。公開や他者への送信は別の依頼として扱う。成果物のGit保存が明示的に求められた場合は、容量を確認し、再評価に必要な動画と記録を保存する。
+
+ツールの `docs/generation/` に比較記録を残す場合は、リンク先を解決したツール側リポジトリの `docs/generation/README.md` に従う。通常の生成ではこの保存手順を実行しない。

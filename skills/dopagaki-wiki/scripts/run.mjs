@@ -9,25 +9,14 @@ const root = resolve(
 );
 if (!existsSync(join(root, "node_modules/tsx/dist/cli.mjs"))) {
   console.error(
-    `Dependencies missing. Run: cd "${root}" && aqua install && npm ci && npm run setup`,
+    `Dependencies missing. Select the Node.js version in "${root}/.node-version", then run npm ci && npm run setup in "${root}".`,
   );
   process.exit(1);
 }
-// Resolve the pinned runtime from the tool repository, while preserving the
+// Use the runtime selected by the caller's Node.js manager and preserve the
 // caller's working directory for relative story and output paths.
-const runtime = spawnSync("aqua", ["which", "node"], {
-  cwd: root,
-  encoding: "utf8",
-});
-if (runtime.error || runtime.status !== 0 || !runtime.stdout.trim()) {
-  console.error(
-    `Cannot resolve the CLI's Node.js runtime. Run aqua install in "${root}".`,
-  );
-  console.error(runtime.error?.message ?? runtime.stderr);
-  process.exit(1);
-}
 const result = spawnSync(
-  runtime.stdout.trim(),
+  process.execPath,
   [
     join(root, "node_modules/tsx/dist/cli.mjs"),
     join(root, "src/cli.ts"),

@@ -32,16 +32,17 @@
 
 ## 再生成
 
-リポジトリのルートで以下を実行する。比較のため、既存の0.0.1ディレクトリを直接上書きしない。
+現在の依存導入手順は [リポジトリのREADME](../../../README.md)、新しい比較記録の配置は [保存ルール](../README.md) を参照。リポジトリのルートで以下を実行する。比較のため、既存の0.0.1ディレクトリを直接上書きしない。
 
 ```sh
 npm ci
 npm run setup
 npm run cli -- doctor --start-voicevox
-npm run cli -- render docs/generation/0.0.1/story.json --out output/recheck
-node scripts/contact-sheet.mjs output/recheck
-node scripts/playback-check.mjs output/recheck
-./node_modules/.bin/tsx scripts/subtitle-check.ts output/recheck
+workdir=$(mktemp -d /tmp/dopagaki-wiki.XXXXXX)
+npm run cli -- render docs/generation/0.0.1/story.json --out "$workdir/result"
+node scripts/contact-sheet.mjs "$workdir/result"
+node scripts/playback-check.mjs "$workdir/result"
+./node_modules/.bin/tsx scripts/subtitle-check.ts "$workdir/result"
 ```
 
 VOICEVOX ENGINE 0.25.1、コア/話者モデル0.16.1で生成。エンジンやモデルが変わると音声や尺は変わり得る。現時点のエンジンを再配布してはいない。
