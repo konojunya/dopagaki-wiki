@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "decoded": true,
+  "audioLoudness": {
+    "integratedLufs": -16.38,
+    "truePeakDbtp": -1.09
+  },
+  "expectedSeconds": 368,
+  "actualSeconds": 368,
+  "frames": 11040,
+  "width": 1920,
+  "height": 1080,
+  "fps": "30/1",
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "bytes": 16202515,
+  "toleranceSeconds": 0.05466666666666667
+}

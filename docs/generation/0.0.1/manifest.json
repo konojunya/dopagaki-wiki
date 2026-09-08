@@ -1,0 +1,433 @@
+{
+  "status": "complete",
+  "version": "0.0.1",
+  "generatedAt": "2026-09-08T18:12:53.270Z",
+  "storySha256": "02361902d52c2f76c436872f3a211df8ff1ed519a8f3f1fd4f1687d5f3533bce",
+  "implementationSha256": "8a836b1ae1c61190c19e609a895410829f586947e9c56727acc29df11cd8f266",
+  "lockfileSha256": "294098d4143699c42df57430190a839cfdd72286af0148857fd7941f2d6d75c5",
+  "videoSha256": "ac9a4504dd1d99fe69db32f30597a2aaa19211e4d1bc5771572691360b30c328",
+  "engine": {
+    "version": "0.25.1",
+    "speaker": "ずんだもん",
+    "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+    "speakerVersion": "0.16.1",
+    "userDictionarySha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "ノーマル",
+    "styleId": 3,
+    "engineUuid": "074fc39e-678b-4c13-8916-ffca8d505d1d",
+    "coreVersions": [
+      "0.16.1"
+    ]
+  },
+  "tools": {
+    "node": "v24.5.0",
+    "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "playwright": "1.55.1"
+  },
+  "stagesMs": {
+    "slides": 1024,
+    "speech": 63,
+    "timeline": 4,
+    "encode": 57,
+    "videoValidation": 6554
+  },
+  "totalMs": 7718,
+  "cache": {
+    "images": 16,
+    "speech": 61,
+    "video": true
+  },
+  "audio": [
+    {
+      "id": "answer-1",
+      "key": "b389cbe5302a1a8689b4eac87e3332e4de5151f93ea1fa552652136da2e3e87a",
+      "samples": 213504,
+      "hit": true
+    },
+    {
+      "id": "answer-2",
+      "key": "6b9e7d15d8db3909a8933066aceafaf5019f62bdb98f38aa9db450f6ea7990e0",
+      "samples": 388096,
+      "hit": true
+    },
+    {
+      "id": "answer-3",
+      "key": "ee4a7eb4b397f5b22102b5c2e37f5ae7bf0c63620e2df653dd75bfa2c42555b1",
+      "samples": 205824,
+      "hit": true
+    },
+    {
+      "id": "answer-4",
+      "key": "d33b28ec03769d420f4fd4055453c3363cc46f7113401eba404b698c4a92b381",
+      "samples": 257024,
+      "hit": true
+    },
+    {
+      "id": "answer-5",
+      "key": "cc01a50ac20a0d61408683d162a57123611b112c05eb660b968a0f46d2681010",
+      "samples": 244224,
+      "hit": true
+    },
+    {
+      "id": "bits-1",
+      "key": "c07f3f73d9e7167ce9ba67cd37ed0475c5bb31d4bc412523a61c40b36e5e56af",
+      "samples": 173568,
+      "hit": true
+    },
+    {
+      "id": "bits-2",
+      "key": "2d6537e24744ae47ccb69a6ddb1673ed45ea8908075be6d2725e72921ec020ed",
+      "samples": 313344,
+      "hit": true
+    },
+    {
+      "id": "bits-3",
+      "key": "7934637c5ea2711f99b540d1e3629e032719329e6bb5c282bc23b6b63e3026a3",
+      "samples": 233472,
+      "hit": true
+    },
+    {
+      "id": "bits-4",
+      "key": "0074843cf3a9af1bd7c485864d642cba6e6e8a48a5b61d3a0519853a9869cfbd",
+      "samples": 215040,
+      "hit": true
+    },
+    {
+      "id": "ranges-small-1",
+      "key": "bae83fdf8c3e3bdf0ef22dba9c1bcb8bbd1dc5863bc7c5bb5d0c2303e9f95e83",
+      "samples": 252416,
+      "hit": true
+    },
+    {
+      "id": "ranges-small-2",
+      "key": "e14087168c4f9b33842bd028c083f9f0fadaf6a995656d5f50341b1f2bcf07a3",
+      "samples": 390656,
+      "hit": true
+    },
+    {
+      "id": "ranges-small-3",
+      "key": "d94c5b8d9c7a85851adc9257364b3dc1775459bfa324c51fda2976814c9cb0f3",
+      "samples": 246784,
+      "hit": true
+    },
+    {
+      "id": "range-int32-1",
+      "key": "ae88ba0618daaea0a7584405dd8f8144762b4cf0dbcbbfda4f0d9b113f87db65",
+      "samples": 181248,
+      "hit": true
+    },
+    {
+      "id": "range-int32-2",
+      "key": "e12525a2a158cf3f382a59423950c5703bf476e67d1455697ca9cae764799111",
+      "samples": 275456,
+      "hit": true
+    },
+    {
+      "id": "range-int32-3",
+      "key": "759d20dc8a2d809abcd24d2da88a2f743aaf1e053d4b2040fe60737235fbd401",
+      "samples": 215040,
+      "hit": true
+    },
+    {
+      "id": "range-int64-1",
+      "key": "ec1b46838511078088af4dd18a2b034c49c1f67352610404ee58c74304ed847a",
+      "samples": 196096,
+      "hit": true
+    },
+    {
+      "id": "range-int64-2",
+      "key": "dc5bcb1ecbe3de0791c1b1591cd8bb5374a95cbfbcd236c3308ad71e5d7c73e3",
+      "samples": 279040,
+      "hit": true
+    },
+    {
+      "id": "range-int64-3",
+      "key": "2f778b149bd83f74dd86cde385db9336e59823b94006513681023739c87d623b",
+      "samples": 240640,
+      "hit": true
+    },
+    {
+      "id": "signed-unsigned-1",
+      "key": "199d9aab7045f0e1f61f7e5f621df54a63ef65c091977d16ff013ab22f1e958a",
+      "samples": 186368,
+      "hit": true
+    },
+    {
+      "id": "signed-unsigned-2",
+      "key": "511f557ff3a5bfe263e58b3f75e058c180d85dfac4d660f4e9f9916fe46189de",
+      "samples": 328704,
+      "hit": true
+    },
+    {
+      "id": "signed-unsigned-3",
+      "key": "6731c9d2c11f9bb29affe5b9f0ca0e5558dcf5dedfa02ced9ec9e336cc0315ac",
+      "samples": 317440,
+      "hit": true
+    },
+    {
+      "id": "signed-unsigned-4",
+      "key": "7a13fcff9d57ca4669e050b0080ec319557f79475856f8e9f4c2fe2a98178b26",
+      "samples": 271360,
+      "hit": true
+    },
+    {
+      "id": "interpretation-1",
+      "key": "627ea5967e9912d654aee07a9a52c50ce27243541183d4567441033329073fe4",
+      "samples": 172032,
+      "hit": true
+    },
+    {
+      "id": "interpretation-2",
+      "key": "85e37b1d0abf6a61ea7a96a38b4aeea7d42601997ce3e9107b99f60335df5d9b",
+      "samples": 278528,
+      "hit": true
+    },
+    {
+      "id": "interpretation-3",
+      "key": "bbcdd703c1857ee78c2ff307d40d6ffc7bb4e767589badfcad7fde3b700245a7",
+      "samples": 193024,
+      "hit": true
+    },
+    {
+      "id": "interpretation-4",
+      "key": "7755aa6b85e8be9d42e35f7986c874a72794bd6c95fa96d6005ce100ecabca34",
+      "samples": 355328,
+      "hit": true
+    },
+    {
+      "id": "interpretation-5",
+      "key": "ac1461e5bc337c2d25169c80c2fb372da63db338978c711db650f1b29bbe0682",
+      "samples": 187392,
+      "hit": true
+    },
+    {
+      "id": "formula-1",
+      "key": "727fd26bace67f4e903b377dd611c9d7b7e5f294e272c2b0d0f6a9c8ea165488",
+      "samples": 280576,
+      "hit": true
+    },
+    {
+      "id": "formula-2",
+      "key": "6ff346a9abe9ea9b2fc6d9e6eb5f8a736e3db53e37e04247beea81c367f8dbfb",
+      "samples": 303616,
+      "hit": true
+    },
+    {
+      "id": "formula-3",
+      "key": "431ee2c0d166e267540eaf7e1667454379e52708fffe1fe00bcadcd454af12e4",
+      "samples": 254464,
+      "hit": true
+    },
+    {
+      "id": "formula-4",
+      "key": "2aa28a64ee26e1a25039ec209a92cde37bc5e1cffc44f17142f9f337e713ec7e",
+      "samples": 331776,
+      "hit": true
+    },
+    {
+      "id": "native-width-1",
+      "key": "e2859542128ec7e4593ba31a7c461b2946fe3a3a50b1538d6892067458d14c17",
+      "samples": 258048,
+      "hit": true
+    },
+    {
+      "id": "native-width-2",
+      "key": "19963d7d118f18201e9e5ed3f0cb8ef54c720c18d45ae80869b44f62e1520f2b",
+      "samples": 302592,
+      "hit": true
+    },
+    {
+      "id": "native-width-3",
+      "key": "3c416e687f2e0c4f9481f7e1b647a351df8c15ef8b29f0c7024476d0b0dc7d99",
+      "samples": 226304,
+      "hit": true
+    },
+    {
+      "id": "native-width-4",
+      "key": "fb633310a93f4ca34c5b8fe463965875160d7f9f10d96e350b038454bdd55b6d",
+      "samples": 383488,
+      "hit": true
+    },
+    {
+      "id": "overflow-1",
+      "key": "f8a20ddf8afb06efce7002a71fe2636aef2c637f996cdc140cb8f156b0a1bda8",
+      "samples": 246272,
+      "hit": true
+    },
+    {
+      "id": "overflow-2",
+      "key": "83369dedd6113a8c0c0f184e795a35386c679b253eccf413729a6cdce5dc93a4",
+      "samples": 259584,
+      "hit": true
+    },
+    {
+      "id": "overflow-3",
+      "key": "f46bb1456cc2419cf051c8e0b909bf344c1ae18d90c13f25483b7d1ef41da09e",
+      "samples": 249856,
+      "hit": true
+    },
+    {
+      "id": "overflow-4",
+      "key": "9b778b727c76fb4194a70f19d25ab9a0cd9dceb6490a80eba60bba0e208aefa7",
+      "samples": 237056,
+      "hit": true
+    },
+    {
+      "id": "underflow-1",
+      "key": "6e22034bf01a72601ad0617a463f96b463b9e7f0345fd58a6497ef502c9e9165",
+      "samples": 222720,
+      "hit": true
+    },
+    {
+      "id": "underflow-2",
+      "key": "5c26e8d382b8adf2d351e5a9f736f3361328edfc83feeefffab2f206206390b2",
+      "samples": 229888,
+      "hit": true
+    },
+    {
+      "id": "underflow-3",
+      "key": "5401a521e0256088ab6b67945e63e3afdf3cc04de633f34a37cab3fac45c8425",
+      "samples": 290304,
+      "hit": true
+    },
+    {
+      "id": "constant-1",
+      "key": "c61154ef689b01cd89faff2b7c29621672ec3ccbdabe638122076edecbb2653a",
+      "samples": 313344,
+      "hit": true
+    },
+    {
+      "id": "constant-2",
+      "key": "e4113bb095dae8f38190dfc15d8036effbf5087b5b2d46390f532cfae5ba3a62",
+      "samples": 269824,
+      "hit": true
+    },
+    {
+      "id": "constant-3",
+      "key": "817b775fd27582ccfdacac19c0b3f725d42a1f647d49893ae1e69039f8ba1ce9",
+      "samples": 211968,
+      "hit": true
+    },
+    {
+      "id": "conversion-1",
+      "key": "132a67d6d9ed117d5b857f701381e6ab8d60ede9f24894d5e910b704c77a9ccb",
+      "samples": 244224,
+      "hit": true
+    },
+    {
+      "id": "conversion-2",
+      "key": "53d31915d32f2beabc541ef4818af0816a44e0fa7277eb90266564932cb2bb7a",
+      "samples": 295936,
+      "hit": true
+    },
+    {
+      "id": "conversion-3",
+      "key": "ba0f3eaeb3c6e736818a36fff871d159f8ed03b86e9d16f23d35f4e5d696289d",
+      "samples": 225280,
+      "hit": true
+    },
+    {
+      "id": "conversion-4",
+      "key": "08213d61558f19fd748877b5fe61df30e66dd07b50397299109a6365533976e6",
+      "samples": 309760,
+      "hit": true
+    },
+    {
+      "id": "conversion-5",
+      "key": "22ce1b35ce49cd94da24545110c088f6d1ab80cc5c792b32a94f5438116a99fd",
+      "samples": 245248,
+      "hit": true
+    },
+    {
+      "id": "choose-1",
+      "key": "9fcf571a6b1fd97ee321b5254c05b3453c37c227e00fb42c240a5908af98346b",
+      "samples": 297984,
+      "hit": true
+    },
+    {
+      "id": "choose-2",
+      "key": "158360b8837f0113331f43e2cb83953e4cf8f066d61a78ee6d55b6a178a729aa",
+      "samples": 281600,
+      "hit": true
+    },
+    {
+      "id": "choose-3",
+      "key": "5f058efb8aea4e2de2d49be866c51d46e5d0440b6aeb9f59d3eaeb390a0a5c30",
+      "samples": 272896,
+      "hit": true
+    },
+    {
+      "id": "choose-4",
+      "key": "c708ba7c77978ae5252bd0d6032bcfd5aa8b7eb64481a207022ecfcfdc44ec5a",
+      "samples": 253440,
+      "hit": true
+    },
+    {
+      "id": "aliases-1",
+      "key": "86c1e31f9e484328670a678cf8160991fa7f3501039aab96abea7a799faa26c9",
+      "samples": 288256,
+      "hit": true
+    },
+    {
+      "id": "aliases-2",
+      "key": "0d665f79359d4faa148be0840ea1ad27d26d89844e579d4ab4a4a64d2ee0909a",
+      "samples": 261120,
+      "hit": true
+    },
+    {
+      "id": "aliases-3",
+      "key": "baf8e1078e95ee8957113400976f0a8942f79d67b00573fcd9f6b2a5590d6b89",
+      "samples": 253440,
+      "hit": true
+    },
+    {
+      "id": "recap-1",
+      "key": "f9e4f59e8ed11139ff8a6ca059702a3f1251994c5689c083871073b41f35c128",
+      "samples": 243200,
+      "hit": true
+    },
+    {
+      "id": "recap-2",
+      "key": "e7dee6e942b9fcfb669bc39176a33346dd0715e485a7b4391015dd005bed8e33",
+      "samples": 365568,
+      "hit": true
+    },
+    {
+      "id": "recap-3",
+      "key": "e4774e9213d9a10eb57bfa01d8114bb07fb9ae169678f9902b947de6dd0858f0",
+      "samples": 274432,
+      "hit": true
+    },
+    {
+      "id": "recap-4",
+      "key": "528034c0eaa60fb0036bb222ce88a6cb1f12fc9ed8cffcc1604e1e6717561ddd",
+      "samples": 321024,
+      "hit": true
+    }
+  ],
+  "validation": {
+    "schema": true,
+    "layout": true,
+    "timeline": true,
+    "video": {
+      "passed": true,
+      "decoded": true,
+      "audioLoudness": {
+        "integratedLufs": -16.38,
+        "truePeakDbtp": -1.09
+      },
+      "expectedSeconds": 368,
+      "actualSeconds": 368,
+      "frames": 11040,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "bytes": 16202515,
+      "toleranceSeconds": 0.05466666666666667
+    },
+    "semanticReview": "required: see quality-review.md; automation does not prove factual correctness",
+    "listeningReview": "required"
+  }
+}

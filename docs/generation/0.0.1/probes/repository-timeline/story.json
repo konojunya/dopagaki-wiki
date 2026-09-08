@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "0.0.1",
+  "title": "音声と字幕の時間管理",
+  "question": "このCLIは音声と字幕の時刻をどう揃える？",
+  "audience": "Go を学び始めた人。変数と整数は知っているがビットや符号付きは未学習。",
+  "research": {
+    "kind": "repository",
+    "repository": "https://github.com/konojunya/dopagaki-wiki",
+    "revision": "06cdebaa58398e55877f44abf6ae230e773d9aa3"
+  },
+  "sources": [
+    {
+      "id": "timeline-code",
+      "title": "makeTimeline implementation",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/06cdebaa58398e55877f44abf6ae230e773d9aa3/src/timeline.ts#L5-L10",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "ローカルcommitの実装を確認。remoteへのpushは実施していないため、URLの閲覧にはそのcommitが必要。",
+      "revision": "06cdebaa58398e55877f44abf6ae230e773d9aa3",
+      "file": "src/timeline.ts",
+      "lines": [
+        5,
+        10
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "id": "timing",
+      "question": "時間は何を基準にしているか？",
+      "slides": [
+        "pipeline",
+        "timing-example"
+      ]
+    }
+  ],
+  "voice": {
+    "speaker": "ずんだもん",
+    "style": "ノーマル",
+    "speed": 1.1,
+    "dictionary": {
+      "負の": "ふの",
+      "値": "あたい",
+      "京": "けい",
+      "整数型": "せいすうがた",
+      "型": "かた",
+      "uint64": "ユーイントろくじゅうよん",
+      "uint32": "ユーイントさんじゅうに",
+      "uint16": "ユーイントじゅうろく",
+      "uint8": "ユーイントはち",
+      "int64": "イントろくじゅうよん",
+      "int32": "イントさんじゅうに",
+      "int16": "イントじゅうろく",
+      "int8": "イントはち",
+      "uint": "ユーイント",
+      "int": "イント",
+      "Go": "ゴー",
+      "byte": "バイト",
+      "rune": "ルーン",
+      "Unicode": "ユニコード",
+      "panic": "パニック",
+      "00000101": "ゼロゼロゼロゼロゼロイチゼロイチ"
+    }
+  },
+  "theme": "accessible-light-v1",
+  "slides": [
+    {
+      "id": "pipeline",
+      "title": "音声の実サンプル数を、時刻の基準にする",
+      "claim": "実測音声のサンプル数を加算しスライドのフレーム境界へ切り上げる。",
+      "evidence": [
+        "timeline-code"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "音声を測定",
+            "detail": "48kHz の PCM\nサンプル数を得る"
+          },
+          {
+            "label": "順に加算",
+            "detail": "前後の余白と\n音声の長さを足す"
+          },
+          {
+            "label": "フレームへ",
+            "detail": "30fps の境界に\n切り上げる"
+          }
+        ],
+        "takeaway": "文字数の比率で音声の長さを推測しない。"
+      },
+      "narration": [
+        {
+          "id": "pipeline-1",
+          "text": "この実装では、音声の実際のサンプル数を足して、字幕の時刻を決めるのだ。"
+        },
+        {
+          "id": "pipeline-2",
+          "text": "スライドの終わりは映像のフレーム境界に切り上げるのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "timing-example",
+      "title": "音声 10 秒と 20 秒なら、合計 34 秒",
+      "claim": "各スライドの前後1秒を加えると34秒になる。",
+      "evidence": [
+        "timeline-code"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "スライド",
+          "音声",
+          "前後込み"
+        ],
+        "rows": [
+          [
+            "1 枚目",
+            "10 秒",
+            "12 秒"
+          ],
+          [
+            "2 枚目",
+            "20 秒",
+            "22 秒"
+          ]
+        ],
+        "takeaway": "12 + 22 = 34 秒。字幕は音声区間だけに表示。"
+      },
+      "narration": [
+        {
+          "id": "timing-example-1",
+          "text": "音声が10秒と20秒なら、各ページの前後1秒を加えて、合計34秒なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    }
+  ]
+}

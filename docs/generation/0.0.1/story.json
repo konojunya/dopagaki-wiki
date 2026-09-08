@@ -1,0 +1,846 @@
+{
+  "schemaVersion": "0.0.1",
+  "title": "Go の整数型",
+  "question": "Go の int8, int16, int32, int64 は何か。uint との差はなにかを説明して欲しい",
+  "audience": "Go を学び始めた人。変数と整数は知っているがビットや符号付きは未学習。",
+  "research": {
+    "kind": "concept"
+  },
+  "sources": [
+    {
+      "id": "go-types",
+      "title": "Go specification: Numeric types",
+      "url": "https://go.dev/ref/spec#Numeric_types",
+      "accessed": "2026-09-09",
+      "kind": "official",
+      "note": "整数の幅、範囲、2の補数、別名と型の区別。"
+    },
+    {
+      "id": "go-overflow",
+      "title": "Go specification: Integer overflow",
+      "url": "https://go.dev/ref/spec#Integer_overflow",
+      "accessed": "2026-09-09",
+      "kind": "official",
+      "note": "実行時の整数演算の折り返しと panic の有無。"
+    },
+    {
+      "id": "go-constants",
+      "title": "Go specification: Constants",
+      "url": "https://go.dev/ref/spec#Constants",
+      "accessed": "2026-09-09",
+      "kind": "official",
+      "note": "型付き定数には表現可能性が必要。"
+    },
+    {
+      "id": "go-conversions",
+      "title": "Go specification: Conversions",
+      "url": "https://go.dev/ref/spec#Conversions_between_numeric_types",
+      "accessed": "2026-09-09",
+      "kind": "official",
+      "note": "整数変換では符号拡張またはゼロ拡張後、目的型の幅に切り詰める。"
+    },
+    {
+      "id": "go-tour",
+      "title": "A Tour of Go: Basic types",
+      "url": "https://go.dev/tour/basics/11",
+      "accessed": "2026-09-09",
+      "kind": "official",
+      "note": "特別な理由がない限り整数には int を選ぶ。"
+    },
+    {
+      "id": "go-strings",
+      "title": "Go blog: Strings, bytes, runes and characters",
+      "url": "https://go.dev/blog/strings",
+      "accessed": "2026-09-09",
+      "kind": "official",
+      "note": "コードポイントと文字の関係。"
+    }
+  ],
+  "objectives": [
+    {
+      "id": "width",
+      "question": "数字は何を意味し、各型はどの範囲か？",
+      "slides": [
+        "answer",
+        "bits",
+        "ranges-small",
+        "range-int32",
+        "range-int64"
+      ]
+    },
+    {
+      "id": "sign",
+      "question": "uint 系との違いとビットの読み方は？",
+      "slides": [
+        "signed-unsigned",
+        "interpretation",
+        "formula"
+      ]
+    },
+    {
+      "id": "uint",
+      "question": "数字のない int / uint の幅は？",
+      "slides": [
+        "native-width"
+      ]
+    },
+    {
+      "id": "boundaries",
+      "question": "上限、下限、定数、変換では何が起きる？",
+      "slides": [
+        "overflow",
+        "underflow",
+        "constant",
+        "conversion"
+      ]
+    },
+    {
+      "id": "selection",
+      "question": "どう使い分け、byte / rune は何か？",
+      "slides": [
+        "choose",
+        "aliases",
+        "recap"
+      ]
+    }
+  ],
+  "voice": {
+    "speaker": "ずんだもん",
+    "style": "ノーマル",
+    "speed": 1.1,
+    "dictionary": {
+      "負の": "ふの",
+      "値": "あたい",
+      "京": "けい",
+      "整数型": "せいすうがた",
+      "型": "かた",
+      "uint64": "ユーイントろくじゅうよん",
+      "uint32": "ユーイントさんじゅうに",
+      "uint16": "ユーイントじゅうろく",
+      "uint8": "ユーイントはち",
+      "int64": "イントろくじゅうよん",
+      "int32": "イントさんじゅうに",
+      "int16": "イントじゅうろく",
+      "int8": "イントはち",
+      "uint": "ユーイント",
+      "int": "イント",
+      "Go": "ゴー",
+      "byte": "バイト",
+      "rune": "ルーン",
+      "Unicode": "ユニコード",
+      "panic": "パニック",
+      "00000101": "ゼロゼロゼロゼロゼロイチゼロイチ"
+    }
+  },
+  "theme": "accessible-light-v1",
+  "slides": [
+    {
+      "id": "answer",
+      "title": "違いは「幅」と「符号」",
+      "claim": "数字はビット幅、u は符号なしを表す。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "key",
+        "headline": "数字 = ビット数　／　u = 符号なし",
+        "points": [
+          {
+            "label": "int8 〜 int64",
+            "detail": "負の数・ゼロ・正の数を表す整数型"
+          },
+          {
+            "label": "uint 系",
+            "detail": "ゼロ・正の数を表す整数型"
+          },
+          {
+            "label": "uint は幅が可変",
+            "detail": "32 または 64 ビット。uint8 とは別の型"
+          }
+        ]
+      },
+      "narration": [
+        {
+          "id": "answer-1",
+          "text": "Goの整数型は、幅と符号を分けると理解しやすいのだ。"
+        },
+        {
+          "id": "answer-2",
+          "text": "int8、int16、int32、int64の数字は、使うビット数を表すのだ。"
+        },
+        {
+          "id": "answer-3",
+          "text": "どれも負の数を扱える、符号付きの整数型なのだ。"
+        },
+        {
+          "id": "answer-4",
+          "text": "一方、uint系は符号なし。ゼロと正の数を扱うのだ。"
+        },
+        {
+          "id": "answer-5",
+          "text": "ただし、数字のないuintと、uint8は別の型なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "bits",
+      "title": "8 ビット = 0 / 1 の箱が 8 個",
+      "claim": "n ビットには 2ⁿ 通りの状態がある。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "example",
+        "label": "1 ビットは 0 または 1。この箱が 8 個ある。",
+        "cells": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0",
+          "1"
+        ],
+        "equation": "2⁸ = 256 通り",
+        "explanation": "幅が増えるほど、区別できる整数の数も増える。"
+      },
+      "narration": [
+        {
+          "id": "bits-1",
+          "text": "ビットは、ゼロかイチを入れる箱だと考えるのだ。"
+        },
+        {
+          "id": "bits-2",
+          "text": "8ビットなら、箱が8個。並べ方は2の8乗で、256通りなのだ。"
+        },
+        {
+          "id": "bits-3",
+          "text": "右から1と4の位がイチなので、足すと十進数の5になるのだ。"
+        },
+        {
+          "id": "bits-4",
+          "text": "ビット数は十進数の桁数ではなく、この箱の数なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "ranges-small",
+      "title": "int8 と int16：幅で範囲が変わる",
+      "claim": "固定幅符号付き整数の範囲。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "型 / 大きさ",
+          "最小値",
+          "最大値"
+        ],
+        "rows": [
+          [
+            "int8 / 1 byte",
+            "−128",
+            "127"
+          ],
+          [
+            "int16 / 2 bytes",
+            "−32,768",
+            "32,767"
+          ]
+        ],
+        "takeaway": "int8 では 200 を表せない。int16 なら表せる。"
+      },
+      "narration": [
+        {
+          "id": "ranges-small-1",
+          "text": "int8は1バイトで、マイナス128から127までなのだ。"
+        },
+        {
+          "id": "ranges-small-2",
+          "text": "int16は2バイトで、マイナス32768から32767まで表せるのだ。"
+        },
+        {
+          "id": "ranges-small-3",
+          "text": "たとえば200はint8の範囲外。でもint16には入るのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "range-int32",
+      "title": "int32：32 ビット、4 バイト",
+      "claim": "int32 の正確な範囲。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "key",
+        "headline": "約 −21 億 〜 ＋21 億",
+        "points": [
+          {
+            "label": "最小値",
+            "detail": "−2,147,483,648"
+          },
+          {
+            "label": "最大値",
+            "detail": "2,147,483,647"
+          },
+          {
+            "label": "大きさ",
+            "detail": "32 ビット = 4 バイト"
+          }
+        ]
+      },
+      "narration": [
+        {
+          "id": "range-int32-1",
+          "text": "int32は32ビット、4バイトなのだ。"
+        },
+        {
+          "id": "range-int32-2",
+          "text": "およそマイナス21億から、プラス21億までの整数を扱えるのだ。"
+        },
+        {
+          "id": "range-int32-3",
+          "text": "正確な最小値と最大値は、画面のとおりなのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "range-int64",
+      "title": "int64：64 ビット、8 バイト",
+      "claim": "int64 の正確な範囲。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "key",
+        "headline": "約 −922 京 〜 ＋922 京",
+        "points": [
+          {
+            "label": "最小値",
+            "detail": "−9,223,372,036,854,775,808"
+          },
+          {
+            "label": "最大値",
+            "detail": "9,223,372,036,854,775,807"
+          },
+          {
+            "label": "大きさ",
+            "detail": "64 ビット = 8 バイト"
+          }
+        ]
+      },
+      "narration": [
+        {
+          "id": "range-int64-1",
+          "text": "int64は64ビット、8バイトなのだ。"
+        },
+        {
+          "id": "range-int64-2",
+          "text": "およそマイナス922京から、プラス922京まで表せるのだ。"
+        },
+        {
+          "id": "range-int64-3",
+          "text": "とても広いけれど、無限に大きな整数を入れられるわけではないのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "signed-unsigned",
+      "title": "同じ 8 ビットでも、範囲が違う",
+      "claim": "同幅なら状態数は同じで、符号付きは負の側にも割り当てる。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "型",
+          "値の範囲",
+          "値の個数"
+        ],
+        "rows": [
+          [
+            "int8",
+            "−128 〜 127",
+            "256 個"
+          ],
+          [
+            "uint8",
+            "0 〜 255",
+            "256 個"
+          ]
+        ],
+        "takeaway": "符号なしは、負の数に使う分もゼロ以上の値に使う。"
+      },
+      "narration": [
+        {
+          "id": "signed-unsigned-1",
+          "text": "同じ8ビットのint8とuint8を比べるのだ。"
+        },
+        {
+          "id": "signed-unsigned-2",
+          "text": "int8はマイナス128から127。uint8はゼロから255なのだ。"
+        },
+        {
+          "id": "signed-unsigned-3",
+          "text": "どちらも値は256個。uint8のほうが記憶容量が多いわけではないのだ。"
+        },
+        {
+          "id": "signed-unsigned-4",
+          "text": "符号付きでは、半分を負の数、残りをゼロと正の数に使っているのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "interpretation",
+      "title": "同じビット列を、どう読む？",
+      "claim": "2 の補数では上位ビットの重みが負になり、単なる符号＋絶対値ではない。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "example",
+        "label": "8 ビットが、すべて 1 のとき",
+        "cells": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "equation": "uint8 なら 255　／　int8 なら −1",
+        "explanation": "int8 の左端の重みは −128。残りの合計 127 と足すと −1。"
+      },
+      "narration": [
+        {
+          "id": "interpretation-1",
+          "text": "ここで、8個のビットが全部イチの例を見るのだ。"
+        },
+        {
+          "id": "interpretation-2",
+          "text": "uint8として読めば255。int8として読めばマイナス1なのだ。"
+        },
+        {
+          "id": "interpretation-3",
+          "text": "符号付きでは、2の補数という表し方を使うのだ。"
+        },
+        {
+          "id": "interpretation-4",
+          "text": "int8の左端の重みはマイナス128。残りの127と足すと、マイナス1なのだ。"
+        },
+        {
+          "id": "interpretation-5",
+          "text": "先頭にマイナス記号をつけるだけの仕組みとは違うのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "formula",
+      "title": "n ビットの範囲を式にすると",
+      "claim": "符号付きと符号なしの一般式。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "種類",
+          "最小値",
+          "最大値"
+        ],
+        "rows": [
+          [
+            "int 系",
+            "−2ⁿ⁻¹",
+            "2ⁿ⁻¹ − 1"
+          ],
+          [
+            "uint 系",
+            "0",
+            "2ⁿ − 1"
+          ]
+        ],
+        "takeaway": "どちらも 2ⁿ 通り。符号付きの正の最大値は、ゼロの分だけ 1 小さい。"
+      },
+      "narration": [
+        {
+          "id": "formula-1",
+          "text": "幅をエヌビットとすると、符号なしの最大値は、2のエヌ乗ひく1なのだ。"
+        },
+        {
+          "id": "formula-2",
+          "text": "符号付きは、マイナス2のエヌひく1乗から、プラス2のエヌひく1乗ひく1までなのだ。"
+        },
+        {
+          "id": "formula-3",
+          "text": "ゼロも一つの値なので、正の最大値には、ひく1がつくのだ。"
+        },
+        {
+          "id": "formula-4",
+          "text": "uint16、uint32、uint64も、この同じ規則なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "native-width",
+      "title": "数字のない int / uint は何ビット？",
+      "claim": "int と uint は実装により32または64ビット。同幅でも固定幅型とは別型。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "種類",
+          "幅の決まり方"
+        ],
+        "rows": [
+          [
+            "int32 / uint32",
+            "どの環境でも 32 ビット"
+          ],
+          [
+            "int64 / uint64",
+            "どの環境でも 64 ビット"
+          ],
+          [
+            "int / uint",
+            "実装により 32 または 64 ビット"
+          ]
+        ],
+        "takeaway": "int と uint は同じ幅。ただし、int64 や uint64 の別名ではない。"
+      },
+      "narration": [
+        {
+          "id": "native-width-1",
+          "text": "数字のある型は、実行する環境が変わっても、幅が変わらないのだ。"
+        },
+        {
+          "id": "native-width-2",
+          "text": "数字のないintとuintは、実装によって32ビットか64ビットになるのだ。"
+        },
+        {
+          "id": "native-width-3",
+          "text": "intとuintの幅は同じだけれど、符号の有無は違うのだ。"
+        },
+        {
+          "id": "native-width-4",
+          "text": "また、幅が同じでも、intとint64、uintとuint64は別々の型なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "overflow",
+      "title": "上限を超えても、自動では広がらない",
+      "claim": "実行時の整数演算はオーバーフローし、panic しない。",
+      "evidence": [
+        "go-overflow"
+      ],
+      "content": {
+        "layout": "code",
+        "code": "var u uint8 = 255\nu++\nfmt.Println(u) // 0\nvar i int8 = 127\ni++\nfmt.Println(i) // -128",
+        "explanation": [
+          "uint8：255 の次は 0",
+          "int8：127 の次は −128",
+          "演算による桁あふれで panic しない"
+        ],
+        "takeaway": "型はそのまま。必要な範囲を、計算する前に確認する。"
+      },
+      "narration": [
+        {
+          "id": "overflow-1",
+          "text": "型の上限を超えると、オーバーフロー、つまり桁あふれが起きるのだ。"
+        },
+        {
+          "id": "overflow-2",
+          "text": "実行中のuint8の255にイチを足すと、ゼロに戻るのだ。"
+        },
+        {
+          "id": "overflow-3",
+          "text": "int8の127にイチを足すと、マイナス128になるのだ。"
+        },
+        {
+          "id": "overflow-4",
+          "text": "この演算ではパニックにならず、自動で大きい型にも変わらないのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "underflow",
+      "title": "uint は「負にならない安全な数」？",
+      "claim": "符号なしのゼロからの減算も折り返す。",
+      "evidence": [
+        "go-overflow"
+      ],
+      "content": {
+        "layout": "code",
+        "code": "var stock uint8 = 0\nstock--\nfmt.Println(stock)\n// 255",
+        "explanation": [
+          "0 から 1 を引く",
+          "−1 にはならず、255 になる",
+          "在庫が増えたような誤りになり得る"
+        ],
+        "takeaway": "「負にしたくない」だけで uint を選ばず、減算前に条件を確認。"
+      },
+      "narration": [
+        {
+          "id": "underflow-1",
+          "text": "符号なしなら、負の数を防げて安心、とは限らないのだ。"
+        },
+        {
+          "id": "underflow-2",
+          "text": "ゼロからイチを引くと、uint8では255に戻るのだ。"
+        },
+        {
+          "id": "underflow-3",
+          "text": "在庫ゼロが255に見えたら困るので、減算してよいか先に確認するのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "constant",
+      "title": "定数の範囲外は、コンパイルで止まる",
+      "claim": "表現不能な定数はコンパイルエラー。実行時演算と区別する。",
+      "evidence": [
+        "go-constants"
+      ],
+      "content": {
+        "layout": "code",
+        "code": "var a int8 = 128\n// コンパイルエラー\n\nvar b uint8 = -1\n// コンパイルエラー",
+        "explanation": [
+          "128 は int8 に入らない",
+          "−1 は uint8 に入らない",
+          "先ほどの実行時の桁あふれとは別"
+        ],
+        "takeaway": "コードに書いた定数が型の範囲外なら、実行前にエラー。"
+      },
+      "narration": [
+        {
+          "id": "constant-1",
+          "text": "一方、定数として128をint8に入れようとすると、コンパイルエラーなのだ。"
+        },
+        {
+          "id": "constant-2",
+          "text": "uint8にマイナス1という定数を入れる場合も、実行前に止まるのだ。"
+        },
+        {
+          "id": "constant-3",
+          "text": "実行時の演算と、定数の範囲チェックを区別するのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "conversion",
+      "title": "型が違う値は、明示して変換する",
+      "claim": "異なる整数型の代入には明示変換が必要。縮小変換は切り詰められる。",
+      "evidence": [
+        "go-conversions"
+      ],
+      "content": {
+        "layout": "code",
+        "code": "var a int8 = 100\nvar b int64 = int64(a)\n// int8 → int64 は収まる\nvar x int16 = 300\ny := uint8(x)\nfmt.Println(y) // 44",
+        "explanation": [
+          "変換を int64(a) のように書く",
+          "小さい幅への変換は欠落し得る",
+          "300 → uint8 は下位 8 ビットの 44"
+        ],
+        "takeaway": "変換は「安全確認」ではない。変換前に、値の範囲を確認。"
+      },
+      "narration": [
+        {
+          "id": "conversion-1",
+          "text": "異なる整数型の値を代入するときは、変換を明示するのだ。"
+        },
+        {
+          "id": "conversion-2",
+          "text": "たとえばint8の値をint64に変えると、元の値は必ず収まるのだ。"
+        },
+        {
+          "id": "conversion-3",
+          "text": "でも小さい幅への変換では、上位のビットが切り捨てられるのだ。"
+        },
+        {
+          "id": "conversion-4",
+          "text": "int16の変数に入った300をuint8にすると、44になってしまうのだ。"
+        },
+        {
+          "id": "conversion-5",
+          "text": "変換は自動の安全チェックではないので、先に範囲を確かめるのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "choose",
+      "title": "型を選ぶときの順番",
+      "claim": "通常は int、幅や範囲の要件がある場合は固定幅型を選ぶ。",
+      "evidence": [
+        "go-tour",
+        "go-types"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "① 要件を確認",
+            "detail": "負の値はある？\n必要な最大値は？"
+          },
+          {
+            "label": "② 幅の指定は？",
+            "detail": "通信やファイル形式が\n32 / 64 などを指定？"
+          },
+          {
+            "label": "③ 型を選ぶ",
+            "detail": "普段の整数は int。\n要件があれば固定幅。"
+          }
+        ],
+        "takeaway": "負の値がなくても uint が必須ではない。API が求める型にも合わせる。"
+      },
+      "narration": [
+        {
+          "id": "choose-1",
+          "text": "型を選ぶときは、まず負の値があるか、どこまでの値が必要かを確かめるのだ。"
+        },
+        {
+          "id": "choose-2",
+          "text": "通信やファイルの形式で幅が決まっていれば、それに合う固定幅の型を選ぶのだ。"
+        },
+        {
+          "id": "choose-3",
+          "text": "特別な理由がなければ、普段の整数はintを出発点にするとよいのだ。"
+        },
+        {
+          "id": "choose-4",
+          "text": "負の値がないという理由だけで、必ずuintにする必要はないのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "aliases",
+      "title": "よく見る byte と rune も整数型",
+      "claim": "byte は uint8、rune は int32 の別名。",
+      "evidence": [
+        "go-types",
+        "go-strings"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "別名",
+          "同じ型",
+          "主な意味"
+        ],
+        "rows": [
+          [
+            "byte",
+            "uint8",
+            "1 バイトのデータ"
+          ],
+          [
+            "rune",
+            "int32",
+            "Unicode コードポイント"
+          ]
+        ],
+        "takeaway": "rune 1 個 = 見た目の文字 1 個、とは限らない。"
+      },
+      "narration": [
+        {
+          "id": "aliases-1",
+          "text": "最後に、byteはuint8の別名で、1バイトのデータによく使うのだ。"
+        },
+        {
+          "id": "aliases-2",
+          "text": "runeはint32の別名で、Unicodeのコードポイントを扱うのだ。"
+        },
+        {
+          "id": "aliases-3",
+          "text": "ただし、見た目の文字一つが、必ずrune一つになるわけではないのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "recap",
+      "title": "覚えることは、この 3 つ",
+      "claim": "幅・符号・境界を区別して整数型を選ぶ。",
+      "evidence": [
+        "go-types",
+        "go-overflow",
+        "go-conversions"
+      ],
+      "content": {
+        "layout": "key",
+        "headline": "幅・符号・範囲を分けて考える",
+        "points": [
+          {
+            "label": "数字はビット数",
+            "detail": "int8 / 16 / 32 / 64 は固定幅の符号付き整数"
+          },
+          {
+            "label": "u は符号なし",
+            "detail": "uint8 は 0〜255。uint の幅は 32 または 64"
+          },
+          {
+            "label": "境界に注意",
+            "detail": "桁あふれや縮小変換では、値が変わり得る"
+          }
+        ]
+      },
+      "narration": [
+        {
+          "id": "recap-1",
+          "text": "まとめるのだ。数字はビット数で、uは符号なしを表すのだ。"
+        },
+        {
+          "id": "recap-2",
+          "text": "int8からint64は固定幅。数字のないuintは、32ビットか64ビットなのだ。"
+        },
+        {
+          "id": "recap-3",
+          "text": "同じ幅でも値の範囲が変わり、桁あふれや変換には注意が必要なのだ。"
+        },
+        {
+          "id": "recap-4",
+          "text": "幅、符号、必要な範囲。この三つで選べば、型の違いを説明できるのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    }
+  ]
+}

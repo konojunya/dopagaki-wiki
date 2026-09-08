@@ -1,0 +1,19 @@
+{
+  "target": {
+    "integratedLufs": -16,
+    "truePeakDbtp": -1.5,
+    "rangeLu": 11
+  },
+  "input": {
+    "input_i": "-25.72",
+    "input_tp": "-2.43",
+    "input_lra": "5.80",
+    "input_thresh": "-36.09",
+    "output_i": "-17.04",
+    "output_tp": "-1.50",
+    "output_lra": "4.30",
+    "output_thresh": "-27.38",
+    "normalization_type": "dynamic",
+    "target_offset": "1.04"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "cold",
+      "totalMs": 2549,
+      "stagesMs": {
+        "slides": 373,
+        "speech": 814,
+        "timeline": 3,
+        "encode": 1079,
+        "videoValidation": 272
+      },
+      "cache": {
+        "images": 0,
+        "speech": 0,
+        "video": false
+      },
+      "videoSha256": "30cf2a5748c135ab61d6c6f4bbdfe81a994fe2d954f31a7270397b0530179c45",
+      "audio": [
+        {
+          "id": "answer-1",
+          "key": "b389cbe5302a1a8689b4eac87e3332e4de5151f93ea1fa552652136da2e3e87a",
+          "samples": 213504
+        },
+        {
+          "id": "bits-1",
+          "key": "c07f3f73d9e7167ce9ba67cd37ed0475c5bb31d4bc412523a61c40b36e5e56af",
+          "samples": 173568
+        }
+      ]
+    },
+    {
+      "name": "warm",
+      "totalMs": 588,
+      "stagesMs": {
+        "slides": 252,
+        "speech": 32,
+        "timeline": 2,
+        "encode": 26,
+        "videoValidation": 270
+      },
+      "cache": {
+        "images": 2,
+        "speech": 2,
+        "video": true
+      },
+      "videoSha256": "30cf2a5748c135ab61d6c6f4bbdfe81a994fe2d954f31a7270397b0530179c45",
+      "audio": [
+        {
+          "id": "answer-1",
+          "key": "b389cbe5302a1a8689b4eac87e3332e4de5151f93ea1fa552652136da2e3e87a",
+          "samples": 213504
+        },
+        {
+          "id": "bits-1",
+          "key": "c07f3f73d9e7167ce9ba67cd37ed0475c5bb31d4bc412523a61c40b36e5e56af",
+          "samples": 173568
+        }
+      ]
+    },
+    {
+      "name": "visual-only",
+      "totalMs": 1593,
+      "stagesMs": {
+        "slides": 308,
+        "speech": 33,
+        "timeline": 2,
+        "encode": 967,
+        "videoValidation": 272
+      },
+      "cache": {
+        "images": 1,
+        "speech": 2,
+        "video": false
+      },
+      "videoSha256": "048985a4e2212d20a143256760e37e1aeb3214a7f1485fdb809b738ab8fb6538",
+      "audio": [
+        {
+          "id": "answer-1",
+          "key": "b389cbe5302a1a8689b4eac87e3332e4de5151f93ea1fa552652136da2e3e87a",
+          "samples": 213504
+        },
+        {
+          "id": "bits-1",
+          "key": "c07f3f73d9e7167ce9ba67cd37ed0475c5bb31d4bc412523a61c40b36e5e56af",
+          "samples": 173568
+        }
+      ]
+    },
+    {
+      "name": "one-sentence",
+      "totalMs": 2085,
+      "stagesMs": {
+        "slides": 246,
+        "speech": 503,
+        "timeline": 2,
+        "encode": 1044,
+        "videoValidation": 283
+      },
+      "cache": {
+        "images": 2,
+        "speech": 1,
+        "video": false
+      },
+      "videoSha256": "9daaf3549f4b2ab13231ddc95634d80935daa1d8db69fde0c71d00fa2fa5f461",
+      "audio": [
+        {
+          "id": "answer-1",
+          "key": "7f37e16b73b627a627edc297709e0d19696c95d342ac7a3f21db0ae3090920e0",
+          "samples": 246272
+        },
+        {
+          "id": "bits-1",
+          "key": "c07f3f73d9e7167ce9ba67cd37ed0475c5bb31d4bc412523a61c40b36e5e56af",
+          "samples": 173568
+        }
+      ]
+    },
+    {
+      "name": "resume-corrupt-speech",
+      "totalMs": 1084,
+      "stagesMs": {
+        "slides": 251,
+        "speech": 501,
+        "timeline": 2,
+        "encode": 35,
+        "videoValidation": 288
+      },
+      "cache": {
+        "images": 2,
+        "speech": 1,
+        "video": true
+      },
+      "videoSha256": "9daaf3549f4b2ab13231ddc95634d80935daa1d8db69fde0c71d00fa2fa5f461",
+      "audio": [
+        {
+          "id": "answer-1",
+          "key": "7f37e16b73b627a627edc297709e0d19696c95d342ac7a3f21db0ae3090920e0",
+          "samples": 246272
+        },
+        {
+          "id": "bits-1",
+          "key": "c07f3f73d9e7167ce9ba67cd37ed0475c5bb31d4bc412523a61c40b36e5e56af",
+          "samples": 173568
+        }
+      ]
+    }
+  ]
+}

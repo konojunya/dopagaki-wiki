@@ -1,0 +1,549 @@
+{
+  "sampleRate": 48000,
+  "fps": 30,
+  "totalSamples": 17664000,
+  "totalFrames": 11040,
+  "slides": [
+    {
+      "id": "answer",
+      "startFrame": 0,
+      "endFrame": 878,
+      "startSample": 0,
+      "endSample": 1404800
+    },
+    {
+      "id": "bits",
+      "startFrame": 878,
+      "endFrame": 1523,
+      "startSample": 1404800,
+      "endSample": 2436800
+    },
+    {
+      "id": "ranges-small",
+      "startFrame": 1523,
+      "endFrame": 2140,
+      "startSample": 2436800,
+      "endSample": 3424000
+    },
+    {
+      "id": "range-int32",
+      "startFrame": 2140,
+      "endFrame": 2620,
+      "startSample": 3424000,
+      "endSample": 4192000
+    },
+    {
+      "id": "range-int64",
+      "startFrame": 2620,
+      "endFrame": 3128,
+      "startSample": 4192000,
+      "endSample": 5004800
+    },
+    {
+      "id": "signed-unsigned",
+      "startFrame": 3128,
+      "endFrame": 3878,
+      "startSample": 5004800,
+      "endSample": 6204800
+    },
+    {
+      "id": "interpretation",
+      "startFrame": 3878,
+      "endFrame": 4680,
+      "startSample": 6204800,
+      "endSample": 7488000
+    },
+    {
+      "id": "formula",
+      "startFrame": 4680,
+      "endFrame": 5472,
+      "startSample": 7488000,
+      "endSample": 8755200
+    },
+    {
+      "id": "native-width",
+      "startFrame": 5472,
+      "endFrame": 6264,
+      "startSample": 8755200,
+      "endSample": 10022400
+    },
+    {
+      "id": "overflow",
+      "startFrame": 6264,
+      "endFrame": 6945,
+      "startSample": 10022400,
+      "endSample": 11112000
+    },
+    {
+      "id": "underflow",
+      "startFrame": 6945,
+      "endFrame": 7470,
+      "startSample": 11112000,
+      "endSample": 11952000
+    },
+    {
+      "id": "constant",
+      "startFrame": 7470,
+      "endFrame": 8027,
+      "startSample": 11952000,
+      "endSample": 12843200
+    },
+    {
+      "id": "conversion",
+      "startFrame": 8027,
+      "endFrame": 8913,
+      "startSample": 12843200,
+      "endSample": 14260800
+    },
+    {
+      "id": "choose",
+      "startFrame": 8913,
+      "endFrame": 9665,
+      "startSample": 14260800,
+      "endSample": 15464000
+    },
+    {
+      "id": "aliases",
+      "startFrame": 9665,
+      "endFrame": 10227,
+      "startSample": 15464000,
+      "endSample": 16363200
+    },
+    {
+      "id": "recap",
+      "startFrame": 10227,
+      "endFrame": 11040,
+      "startSample": 16363200,
+      "endSample": 17664000
+    }
+  ],
+  "segments": [
+    {
+      "id": "answer-1",
+      "slideId": "answer",
+      "text": "Goの整数型は、幅と符号を分けると理解しやすいのだ。",
+      "startSample": 48000,
+      "endSample": 261504
+    },
+    {
+      "id": "answer-2",
+      "slideId": "answer",
+      "text": "int8、int16、int32、int64の数字は、使うビット数を表すのだ。",
+      "startSample": 261504,
+      "endSample": 649600
+    },
+    {
+      "id": "answer-3",
+      "slideId": "answer",
+      "text": "どれも負の数を扱える、符号付きの整数型なのだ。",
+      "startSample": 649600,
+      "endSample": 855424
+    },
+    {
+      "id": "answer-4",
+      "slideId": "answer",
+      "text": "一方、uint系は符号なし。ゼロと正の数を扱うのだ。",
+      "startSample": 855424,
+      "endSample": 1112448
+    },
+    {
+      "id": "answer-5",
+      "slideId": "answer",
+      "text": "ただし、数字のないuintと、uint8は別の型なのだ。",
+      "startSample": 1112448,
+      "endSample": 1356672
+    },
+    {
+      "id": "bits-1",
+      "slideId": "bits",
+      "text": "ビットは、ゼロかイチを入れる箱だと考えるのだ。",
+      "startSample": 1452800,
+      "endSample": 1626368
+    },
+    {
+      "id": "bits-2",
+      "slideId": "bits",
+      "text": "8ビットなら、箱が8個。並べ方は2の8乗で、256通りなのだ。",
+      "startSample": 1626368,
+      "endSample": 1939712
+    },
+    {
+      "id": "bits-3",
+      "slideId": "bits",
+      "text": "右から1と4の位がイチなので、足すと十進数の5になるのだ。",
+      "startSample": 1939712,
+      "endSample": 2173184
+    },
+    {
+      "id": "bits-4",
+      "slideId": "bits",
+      "text": "ビット数は十進数の桁数ではなく、この箱の数なのだ。",
+      "startSample": 2173184,
+      "endSample": 2388224
+    },
+    {
+      "id": "ranges-small-1",
+      "slideId": "ranges-small",
+      "text": "int8は1バイトで、マイナス128から127までなのだ。",
+      "startSample": 2484800,
+      "endSample": 2737216
+    },
+    {
+      "id": "ranges-small-2",
+      "slideId": "ranges-small",
+      "text": "int16は2バイトで、マイナス32768から32767まで表せるのだ。",
+      "startSample": 2737216,
+      "endSample": 3127872
+    },
+    {
+      "id": "ranges-small-3",
+      "slideId": "ranges-small",
+      "text": "たとえば200はint8の範囲外。でもint16には入るのだ。",
+      "startSample": 3127872,
+      "endSample": 3374656
+    },
+    {
+      "id": "range-int32-1",
+      "slideId": "range-int32",
+      "text": "int32は32ビット、4バイトなのだ。",
+      "startSample": 3472000,
+      "endSample": 3653248
+    },
+    {
+      "id": "range-int32-2",
+      "slideId": "range-int32",
+      "text": "およそマイナス21億から、プラス21億までの整数を扱えるのだ。",
+      "startSample": 3653248,
+      "endSample": 3928704
+    },
+    {
+      "id": "range-int32-3",
+      "slideId": "range-int32",
+      "text": "正確な最小値と最大値は、画面のとおりなのだ。",
+      "startSample": 3928704,
+      "endSample": 4143744
+    },
+    {
+      "id": "range-int64-1",
+      "slideId": "range-int64",
+      "text": "int64は64ビット、8バイトなのだ。",
+      "startSample": 4240000,
+      "endSample": 4436096
+    },
+    {
+      "id": "range-int64-2",
+      "slideId": "range-int64",
+      "text": "およそマイナス922京から、プラス922京まで表せるのだ。",
+      "startSample": 4436096,
+      "endSample": 4715136
+    },
+    {
+      "id": "range-int64-3",
+      "slideId": "range-int64",
+      "text": "とても広いけれど、無限に大きな整数を入れられるわけではないのだ。",
+      "startSample": 4715136,
+      "endSample": 4955776
+    },
+    {
+      "id": "signed-unsigned-1",
+      "slideId": "signed-unsigned",
+      "text": "同じ8ビットのint8とuint8を比べるのだ。",
+      "startSample": 5052800,
+      "endSample": 5239168
+    },
+    {
+      "id": "signed-unsigned-2",
+      "slideId": "signed-unsigned",
+      "text": "int8はマイナス128から127。uint8はゼロから255なのだ。",
+      "startSample": 5239168,
+      "endSample": 5567872
+    },
+    {
+      "id": "signed-unsigned-3",
+      "slideId": "signed-unsigned",
+      "text": "どちらも値は256個。uint8のほうが記憶容量が多いわけではないのだ。",
+      "startSample": 5567872,
+      "endSample": 5885312
+    },
+    {
+      "id": "signed-unsigned-4",
+      "slideId": "signed-unsigned",
+      "text": "符号付きでは、半分を負の数、残りをゼロと正の数に使っているのだ。",
+      "startSample": 5885312,
+      "endSample": 6156672
+    },
+    {
+      "id": "interpretation-1",
+      "slideId": "interpretation",
+      "text": "ここで、8個のビットが全部イチの例を見るのだ。",
+      "startSample": 6252800,
+      "endSample": 6424832
+    },
+    {
+      "id": "interpretation-2",
+      "slideId": "interpretation",
+      "text": "uint8として読めば255。int8として読めばマイナス1なのだ。",
+      "startSample": 6424832,
+      "endSample": 6703360
+    },
+    {
+      "id": "interpretation-3",
+      "slideId": "interpretation",
+      "text": "符号付きでは、2の補数という表し方を使うのだ。",
+      "startSample": 6703360,
+      "endSample": 6896384
+    },
+    {
+      "id": "interpretation-4",
+      "slideId": "interpretation",
+      "text": "int8の左端の重みはマイナス128。残りの127と足すと、マイナス1なのだ。",
+      "startSample": 6896384,
+      "endSample": 7251712
+    },
+    {
+      "id": "interpretation-5",
+      "slideId": "interpretation",
+      "text": "先頭にマイナス記号をつけるだけの仕組みとは違うのだ。",
+      "startSample": 7251712,
+      "endSample": 7439104
+    },
+    {
+      "id": "formula-1",
+      "slideId": "formula",
+      "text": "幅をエヌビットとすると、符号なしの最大値は、2のエヌ乗ひく1なのだ。",
+      "startSample": 7536000,
+      "endSample": 7816576
+    },
+    {
+      "id": "formula-2",
+      "slideId": "formula",
+      "text": "符号付きは、マイナス2のエヌひく1乗から、プラス2のエヌひく1乗ひく1までなのだ。",
+      "startSample": 7816576,
+      "endSample": 8120192
+    },
+    {
+      "id": "formula-3",
+      "slideId": "formula",
+      "text": "ゼロも一つの値なので、正の最大値には、ひく1がつくのだ。",
+      "startSample": 8120192,
+      "endSample": 8374656
+    },
+    {
+      "id": "formula-4",
+      "slideId": "formula",
+      "text": "uint16、uint32、uint64も、この同じ規則なのだ。",
+      "startSample": 8374656,
+      "endSample": 8706432
+    },
+    {
+      "id": "native-width-1",
+      "slideId": "native-width",
+      "text": "数字のある型は、実行する環境が変わっても、幅が変わらないのだ。",
+      "startSample": 8803200,
+      "endSample": 9061248
+    },
+    {
+      "id": "native-width-2",
+      "slideId": "native-width",
+      "text": "数字のないintとuintは、実装によって32ビットか64ビットになるのだ。",
+      "startSample": 9061248,
+      "endSample": 9363840
+    },
+    {
+      "id": "native-width-3",
+      "slideId": "native-width",
+      "text": "intとuintの幅は同じだけれど、符号の有無は違うのだ。",
+      "startSample": 9363840,
+      "endSample": 9590144
+    },
+    {
+      "id": "native-width-4",
+      "slideId": "native-width",
+      "text": "また、幅が同じでも、intとint64、uintとuint64は別々の型なのだ。",
+      "startSample": 9590144,
+      "endSample": 9973632
+    },
+    {
+      "id": "overflow-1",
+      "slideId": "overflow",
+      "text": "型の上限を超えると、オーバーフロー、つまり桁あふれが起きるのだ。",
+      "startSample": 10070400,
+      "endSample": 10316672
+    },
+    {
+      "id": "overflow-2",
+      "slideId": "overflow",
+      "text": "実行中のuint8の255にイチを足すと、ゼロに戻るのだ。",
+      "startSample": 10316672,
+      "endSample": 10576256
+    },
+    {
+      "id": "overflow-3",
+      "slideId": "overflow",
+      "text": "int8の127にイチを足すと、マイナス128になるのだ。",
+      "startSample": 10576256,
+      "endSample": 10826112
+    },
+    {
+      "id": "overflow-4",
+      "slideId": "overflow",
+      "text": "この演算ではパニックにならず、自動で大きい型にも変わらないのだ。",
+      "startSample": 10826112,
+      "endSample": 11063168
+    },
+    {
+      "id": "underflow-1",
+      "slideId": "underflow",
+      "text": "符号なしなら、負の数を防げて安心、とは限らないのだ。",
+      "startSample": 11160000,
+      "endSample": 11382720
+    },
+    {
+      "id": "underflow-2",
+      "slideId": "underflow",
+      "text": "ゼロからイチを引くと、uint8では255に戻るのだ。",
+      "startSample": 11382720,
+      "endSample": 11612608
+    },
+    {
+      "id": "underflow-3",
+      "slideId": "underflow",
+      "text": "在庫ゼロが255に見えたら困るので、減算してよいか先に確認するのだ。",
+      "startSample": 11612608,
+      "endSample": 11902912
+    },
+    {
+      "id": "constant-1",
+      "slideId": "constant",
+      "text": "一方、定数として128をint8に入れようとすると、コンパイルエラーなのだ。",
+      "startSample": 12000000,
+      "endSample": 12313344
+    },
+    {
+      "id": "constant-2",
+      "slideId": "constant",
+      "text": "uint8にマイナス1という定数を入れる場合も、実行前に止まるのだ。",
+      "startSample": 12313344,
+      "endSample": 12583168
+    },
+    {
+      "id": "constant-3",
+      "slideId": "constant",
+      "text": "実行時の演算と、定数の範囲チェックを区別するのだ。",
+      "startSample": 12583168,
+      "endSample": 12795136
+    },
+    {
+      "id": "conversion-1",
+      "slideId": "conversion",
+      "text": "異なる整数型の値を代入するときは、変換を明示するのだ。",
+      "startSample": 12891200,
+      "endSample": 13135424
+    },
+    {
+      "id": "conversion-2",
+      "slideId": "conversion",
+      "text": "たとえばint8の値をint64に変えると、元の値は必ず収まるのだ。",
+      "startSample": 13135424,
+      "endSample": 13431360
+    },
+    {
+      "id": "conversion-3",
+      "slideId": "conversion",
+      "text": "でも小さい幅への変換では、上位のビットが切り捨てられるのだ。",
+      "startSample": 13431360,
+      "endSample": 13656640
+    },
+    {
+      "id": "conversion-4",
+      "slideId": "conversion",
+      "text": "int16の変数に入った300をuint8にすると、44になってしまうのだ。",
+      "startSample": 13656640,
+      "endSample": 13966400
+    },
+    {
+      "id": "conversion-5",
+      "slideId": "conversion",
+      "text": "変換は自動の安全チェックではないので、先に範囲を確かめるのだ。",
+      "startSample": 13966400,
+      "endSample": 14211648
+    },
+    {
+      "id": "choose-1",
+      "slideId": "choose",
+      "text": "型を選ぶときは、まず負の値があるか、どこまでの値が必要かを確かめるのだ。",
+      "startSample": 14308800,
+      "endSample": 14606784
+    },
+    {
+      "id": "choose-2",
+      "slideId": "choose",
+      "text": "通信やファイルの形式で幅が決まっていれば、それに合う固定幅の型を選ぶのだ。",
+      "startSample": 14606784,
+      "endSample": 14888384
+    },
+    {
+      "id": "choose-3",
+      "slideId": "choose",
+      "text": "特別な理由がなければ、普段の整数はintを出発点にするとよいのだ。",
+      "startSample": 14888384,
+      "endSample": 15161280
+    },
+    {
+      "id": "choose-4",
+      "slideId": "choose",
+      "text": "負の値がないという理由だけで、必ずuintにする必要はないのだ。",
+      "startSample": 15161280,
+      "endSample": 15414720
+    },
+    {
+      "id": "aliases-1",
+      "slideId": "aliases",
+      "text": "最後に、byteはuint8の別名で、1バイトのデータによく使うのだ。",
+      "startSample": 15512000,
+      "endSample": 15800256
+    },
+    {
+      "id": "aliases-2",
+      "slideId": "aliases",
+      "text": "runeはint32の別名で、Unicodeのコードポイントを扱うのだ。",
+      "startSample": 15800256,
+      "endSample": 16061376
+    },
+    {
+      "id": "aliases-3",
+      "slideId": "aliases",
+      "text": "ただし、見た目の文字一つが、必ずrune一つになるわけではないのだ。",
+      "startSample": 16061376,
+      "endSample": 16314816
+    },
+    {
+      "id": "recap-1",
+      "slideId": "recap",
+      "text": "まとめるのだ。数字はビット数で、uは符号なしを表すのだ。",
+      "startSample": 16411200,
+      "endSample": 16654400
+    },
+    {
+      "id": "recap-2",
+      "slideId": "recap",
+      "text": "int8からint64は固定幅。数字のないuintは、32ビットか64ビットなのだ。",
+      "startSample": 16654400,
+      "endSample": 17019968
+    },
+    {
+      "id": "recap-3",
+      "slideId": "recap",
+      "text": "同じ幅でも値の範囲が変わり、桁あふれや変換には注意が必要なのだ。",
+      "startSample": 17019968,
+      "endSample": 17294400
+    },
+    {
+      "id": "recap-4",
+      "slideId": "recap",
+      "text": "幅、符号、必要な範囲。この三つで選べば、型の違いを説明できるのだ。",
+      "startSample": 17294400,
+      "endSample": 17615424
+    }
+  ]
+}

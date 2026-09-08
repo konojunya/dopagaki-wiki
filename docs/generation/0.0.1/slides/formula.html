@@ -1,0 +1,18 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>n ビットの範囲を式にすると</title><style>
+@font-face{font-family:'Noto Sans JP';src:url('fonts/NotoSansJP.ttf');font-weight:100 900;font-display:block}
+@font-face{font-family:'Noto Sans Mono';src:url('fonts/NotoSansMono.ttf');font-weight:100 900;font-display:block}
+*{box-sizing:border-box}html,body{margin:0;background:#e8e8e8;color:#1a1a1c;font-family:'Noto Sans JP',sans-serif}body{width:1920px}
+.slide{width:1920px;height:1080px;padding:48px 96px 32px;background:white;display:grid;grid-template-rows:48px 120px 1fr 160px 40px;gap:16px}
+.topline{display:flex;justify-content:space-between;align-items:center;color:#115a36;font-size:24px;line-height:1.5;font-weight:700;border-bottom:2px solid #808080;padding-bottom:8px}
+h1{font-size:64px;line-height:1.4;padding:4px 0;margin:0;font-weight:700;align-self:center;letter-spacing:.01em}
+main{min-height:0;display:flex;flex-direction:column;justify-content:center;gap:28px}p{margin:0} .headline{font-size:64px;line-height:1.4;font-weight:700;color:#115a36}
+.points{display:grid;gap:20px}.point{display:grid;grid-template-columns:410px 1fr;gap:32px;align-items:baseline;border-top:2px solid #808080;padding-top:20px;font-size:48px;line-height:1.5}.point strong{color:#115a36}.point p{font-size:48px}
+.takeaway{font-size:48px;line-height:1.5;padding:18px 28px;background:#e6f5ec;border-left:8px solid #115a36}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:48px;line-height:1.45}th{text-align:left;background:#e6f5ec;color:#115a36;font-weight:700}td,th{padding:18px 24px;border-bottom:2px solid #808080;overflow-wrap:anywhere}td:first-child{font-weight:700}
+.steps{display:flex;gap:28px;align-items:stretch}.step{flex:1;min-width:0;background:#e6f5ec;padding:28px;display:flex;flex-direction:column;gap:24px;font-size:48px;line-height:1.5}.step b{color:#115a36;font-size:48px}.arrow{align-self:center;font-size:52px;color:#115a36}
+.code-grid{display:grid;grid-template-columns:1.12fr 1fr;gap:44px;align-items:center}pre{margin:0;padding:24px;background:#f2f2f2;font:40px/1.5 'Noto Sans Mono','Noto Sans JP',monospace;white-space:pre;tab-size:2} .explanations{display:grid;gap:26px;font-size:48px;line-height:1.5}.explanations p{border-left:5px solid #115a36;padding-left:22px}
+.visual{height:400px;display:flex;align-items:center;justify-content:center}.visual img{max-width:100%;max-height:100%;object-fit:contain}
+.example-label{font-size:48px;color:#4d4d4d}.cells{display:flex;gap:12px;justify-content:center}.cell{flex:1;text-align:center;border:3px solid #115a36;border-radius:10px;background:#e6f5ec;padding:24px 8px;font-size:64px;font-weight:700;line-height:1.4}.equation{font-size:64px;line-height:1.4;font-weight:700;text-align:center;color:#115a36}
+.caption{height:160px;display:flex;align-items:center;justify-content:center;padding:12px 16px;border-top:2px solid #808080}.caption p{font-size:48px;line-height:1.4;text-align:center;white-space:pre-wrap;overflow-wrap:normal;word-break:normal}
+footer{display:flex;justify-content:space-between;font-size:24px;color:#4d4d4d;line-height:1.5}
+</style><section class="slide"><div class="topline"><span>ずんだもんと学ぶ · Go の整数型</span><span>08 / 16</span></div><h1>n ビットの範囲を式にすると</h1><main><table><thead><tr><th>種類</th><th>最小値</th><th>最大値</th></tr></thead><tbody><tr><td>int 系</td><td>−2ⁿ⁻¹</td><td>2ⁿ⁻¹ − 1</td></tr><tr><td>uint 系</td><td>0</td><td>2ⁿ − 1</td></tr></tbody></table><p class="takeaway">どちらも 2ⁿ 通り。符号付きの正の最大値は、ゼロの分だけ 1 小さい。</p></main><div class="caption"><p></p></div><footer><span>出典: go-types</span><span>VOICEVOX:ずんだもん</span></footer></section></html>

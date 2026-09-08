@@ -1,0 +1,55 @@
+{
+  "hardware": {
+    "chip": "Apple M2 Ultra",
+    "memoryGiB": 64,
+    "os": "macOS 26.5.2"
+  },
+  "renderImplementationCommit": "8b1a0d1",
+  "cold": {
+    "totalMs": 57314,
+    "stagesMs": {
+      "slides": 2012,
+      "speech": 29678,
+      "timeline": 7,
+      "encode": 18989,
+      "videoValidation": 6590
+    },
+    "cache": {
+      "images": 0,
+      "speech": 0,
+      "video": false
+    }
+  },
+  "warm": {
+    "totalMs": 7847,
+    "stagesMs": {
+      "slides": 1044,
+      "speech": 65,
+      "timeline": 3,
+      "encode": 83,
+      "videoValidation": 6631
+    },
+    "cache": {
+      "images": 16,
+      "speech": 61,
+      "video": true
+    }
+  },
+  "includes": [
+    "schema",
+    "layout",
+    "TTS",
+    "timeline",
+    "two-pass loudness normalization",
+    "MP4 encoding",
+    "full decode",
+    "output loudness validation"
+  ],
+  "excludes": [
+    "research and script authoring",
+    "tool installation",
+    "initial ASR model download",
+    "manual/semantic review"
+  ],
+  "measurementsPerMode": 1
+}

@@ -1,0 +1,85 @@
+{
+  "status": "complete",
+  "version": "0.0.1",
+  "generatedAt": "2026-09-08T18:13:01.775Z",
+  "storySha256": "b2082e6c07ef774cf23a1d705d9ab05b94097f953dd473d019da84c0939a7164",
+  "implementationSha256": "8a836b1ae1c61190c19e609a895410829f586947e9c56727acc29df11cd8f266",
+  "lockfileSha256": "294098d4143699c42df57430190a839cfdd72286af0148857fd7941f2d6d75c5",
+  "videoSha256": "f9dad550fc55d708b8af0151a2098f81a300c605d2776ed67108e18904c297d4",
+  "engine": {
+    "version": "0.25.1",
+    "speaker": "ずんだもん",
+    "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+    "speakerVersion": "0.16.1",
+    "userDictionarySha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "ノーマル",
+    "styleId": 3,
+    "engineUuid": "074fc39e-678b-4c13-8916-ffca8d505d1d",
+    "coreVersions": [
+      "0.16.1"
+    ]
+  },
+  "tools": {
+    "node": "v24.5.0",
+    "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "playwright": "1.55.1"
+  },
+  "stagesMs": {
+    "slides": 367,
+    "speech": 1556,
+    "timeline": 3,
+    "encode": 1747,
+    "videoValidation": 433
+  },
+  "totalMs": 4115,
+  "cache": {
+    "images": 0,
+    "speech": 0,
+    "video": false
+  },
+  "audio": [
+    {
+      "id": "pipeline-1",
+      "key": "a3c29f5dc4a3b9ea895ef97a308fad8571b5fb2a3cf326aa49961862ff057ad3",
+      "samples": 295424,
+      "hit": false
+    },
+    {
+      "id": "pipeline-2",
+      "key": "a92fb4516ab2910a51e87816008c3975e9afebd009df39d29f055ddcbacbcb90",
+      "samples": 193024,
+      "hit": false
+    },
+    {
+      "id": "timing-example-1",
+      "key": "b038ee6644a7840fe65b18fe85b579598aae747bfa1389425a8473cc3c93c6b2",
+      "samples": 345600,
+      "hit": false
+    }
+  ],
+  "validation": {
+    "schema": true,
+    "layout": true,
+    "timeline": true,
+    "video": {
+      "passed": true,
+      "decoded": true,
+      "audioLoudness": {
+        "integratedLufs": -16.13,
+        "truePeakDbtp": -1.38
+      },
+      "expectedSeconds": 21.4,
+      "actualSeconds": 21.4,
+      "frames": 642,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "bytes": 965976,
+      "toleranceSeconds": 0.05466666666666667
+    },
+    "semanticReview": "required: see quality-review.md; automation does not prove factual correctness",
+    "listeningReview": "required"
+  }
+}

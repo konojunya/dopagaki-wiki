@@ -1,0 +1,50 @@
+[
+  {
+    "id": "go-types",
+    "title": "Go specification: Numeric types",
+    "url": "https://go.dev/ref/spec#Numeric_types",
+    "accessed": "2026-09-09",
+    "kind": "official",
+    "note": "整数の幅、範囲、2の補数、別名と型の区別。"
+  },
+  {
+    "id": "go-overflow",
+    "title": "Go specification: Integer overflow",
+    "url": "https://go.dev/ref/spec#Integer_overflow",
+    "accessed": "2026-09-09",
+    "kind": "official",
+    "note": "実行時の整数演算の折り返しと panic の有無。"
+  },
+  {
+    "id": "go-constants",
+    "title": "Go specification: Constants",
+    "url": "https://go.dev/ref/spec#Constants",
+    "accessed": "2026-09-09",
+    "kind": "official",
+    "note": "型付き定数には表現可能性が必要。"
+  },
+  {
+    "id": "go-conversions",
+    "title": "Go specification: Conversions",
+    "url": "https://go.dev/ref/spec#Conversions_between_numeric_types",
+    "accessed": "2026-09-09",
+    "kind": "official",
+    "note": "整数変換では符号拡張またはゼロ拡張後、目的型の幅に切り詰める。"
+  },
+  {
+    "id": "go-tour",
+    "title": "A Tour of Go: Basic types",
+    "url": "https://go.dev/tour/basics/11",
+    "accessed": "2026-09-09",
+    "kind": "official",
+    "note": "特別な理由がない限り整数には int を選ぶ。"
+  },
+  {
+    "id": "go-strings",
+    "title": "Go blog: Strings, bytes, runes and characters",
+    "url": "https://go.dev/blog/strings",
+    "accessed": "2026-09-09",
+    "kind": "official",
+    "note": "コードポイントと文字の関係。"
+  }
+]

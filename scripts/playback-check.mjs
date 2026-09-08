@@ -37,9 +37,11 @@ for (const at of [4, 137, 219, 360]) {
     throw new Error(JSON.stringify(result));
   samples.push(result);
   if (at === 137) {
+    await page.locator("video").evaluate((v) => (v.controls = false));
     await page.setViewportSize({ width: 844, height: 475 });
     await page.screenshot({ path: join(out, "review/mobile-landscape.png") });
     await page.setViewportSize({ width: 1280, height: 720 });
+    await page.locator("video").evaluate((v) => (v.controls = true));
   }
 }
 await writeFile(

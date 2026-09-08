@@ -1,0 +1,22 @@
+{
+  "node": "v24.5.0",
+  "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "ffprobe": "ffprobe version 9.0.1 Copyright (c) 2007-2026 the FFmpeg developers",
+  "libass": true,
+  "chromium": "140.0.7339.186",
+  "fontSha256": "c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f",
+  "voicevox": "0.25.1",
+  "speaker": {
+    "version": "0.25.1",
+    "speaker": "ずんだもん",
+    "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+    "speakerVersion": "0.16.1",
+    "userDictionarySha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "ノーマル",
+    "styleId": 3,
+    "engineUuid": "074fc39e-678b-4c13-8916-ffca8d505d1d",
+    "coreVersions": [
+      "0.16.1"
+    ]
+  }
+}

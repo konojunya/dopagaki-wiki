@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "tool": "go version go1.26.3 darwin/arm64",
+  "validOutput": [
+    "uint8 overflow=0",
+    "int8 overflow=-128",
+    "uint8 underflow=255",
+    "widen=100",
+    "narrow=44",
+    "int8 min=-128 max=127",
+    "int16 min=-32768 max=32767",
+    "int32 min=-2147483648 max=2147483647",
+    "int64 min=-9223372036854775808 max=9223372036854775807"
+  ],
+  "rejected": [
+    {
+      "name": "int8-constant",
+      "exitCode": 1,
+      "stderr": "# command-line-arguments\n<temp>/int8-constant.go:2:14: cannot use 128 (untyped int constant) as int8 value in variable declaration (overflows)\n"
+    },
+    {
+      "name": "uint8-constant",
+      "exitCode": 1,
+      "stderr": "# command-line-arguments\n<temp>/uint8-constant.go:2:15: cannot use -1 (untyped int constant) as uint8 value in variable declaration (overflows)\n"
+    },
+    {
+      "name": "mixed-types",
+      "exitCode": 1,
+      "stderr": "# command-line-arguments\n<temp>/mixed-types.go:2:31: cannot use a (variable of type int8) as int64 value in variable declaration\n"
+    }
+  ]
+}

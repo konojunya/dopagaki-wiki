@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "browser": "152.0.7977.82",
+  "samples": [
+    {
+      "requested": 4,
+      "actual": 4.307437,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 134
+    },
+    {
+      "requested": 137,
+      "actual": 137.310391,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 258
+    },
+    {
+      "requested": 219,
+      "actual": 219.309365,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 342
+    },
+    {
+      "requested": 360,
+      "actual": 360.307273,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 406
+    }
+  ],
+  "note": "Muted real browser playback; no subjective listening claim."
+}
