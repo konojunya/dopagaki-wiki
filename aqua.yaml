@@ -14,3 +14,5 @@ packages:
 - name: Tyrrrz/FFmpegBin@9.0.1
 - name: nodejs/node@v24.5.0
 - name: golang/go@go1.26.3
+# Optional: local speech-recognition QA (not required to generate videos)
+- name: astral-sh/uv@0.8.14

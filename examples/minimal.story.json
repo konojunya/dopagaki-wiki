@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "0.0.1",
+  "title": "Go の整数型",
+  "question": "Go の int8, int16, int32, int64 は何か。uint との差はなにかを説明して欲しい",
+  "audience": "Go を学び始めた人。変数と整数は知っているがビットや符号付きは未学習。",
+  "research": {
+    "kind": "concept"
+  },
+  "sources": [
+    {
+      "id": "go-types",
+      "title": "Go specification: Numeric types",
+      "url": "https://go.dev/ref/spec#Numeric_types",
+      "note": "整数の幅、範囲、2の補数、別名と型の区別。",
+      "accessed": "2026-09-09",
+      "kind": "official"
+    },
+    {
+      "id": "go-overflow",
+      "title": "Go specification: Integer overflow",
+      "url": "https://go.dev/ref/spec#Integer_overflow",
+      "note": "実行時の整数演算の折り返しと panic の有無。",
+      "accessed": "2026-09-09",
+      "kind": "official"
+    },
+    {
+      "id": "go-constants",
+      "title": "Go specification: Constants",
+      "url": "https://go.dev/ref/spec#Constants",
+      "note": "型付き定数には表現可能性が必要。",
+      "accessed": "2026-09-09",
+      "kind": "official"
+    },
+    {
+      "id": "go-conversions",
+      "title": "Go specification: Conversions",
+      "url": "https://go.dev/ref/spec#Conversions_between_numeric_types",
+      "note": "整数変換では符号拡張またはゼロ拡張後、目的型の幅に切り詰める。",
+      "accessed": "2026-09-09",
+      "kind": "official"
+    },
+    {
+      "id": "go-tour",
+      "title": "A Tour of Go: Basic types",
+      "url": "https://go.dev/tour/basics/11",
+      "note": "特別な理由がない限り整数には int を選ぶ。",
+      "accessed": "2026-09-09",
+      "kind": "official"
+    },
+    {
+      "id": "go-strings",
+      "title": "Go blog: Strings, bytes, runes and characters",
+      "url": "https://go.dev/blog/strings",
+      "note": "コードポイントと文字の関係。",
+      "accessed": "2026-09-09",
+      "kind": "official"
+    }
+  ],
+  "objectives": [
+    {
+      "id": "basics",
+      "question": "ビット幅と符号を理解する",
+      "slides": [
+        "answer",
+        "bits"
+      ]
+    }
+  ],
+  "voice": {
+    "speaker": "ずんだもん",
+    "style": "ノーマル",
+    "speed": 1.1,
+    "dictionary": {
+      "負の": "ふの",
+      "値": "あたい",
+      "京": "けい",
+      "整数型": "せいすうがた",
+      "型": "かた",
+      "uint64": "ユーイントろくじゅうよん",
+      "uint32": "ユーイントさんじゅうに",
+      "uint16": "ユーイントじゅうろく",
+      "uint8": "ユーイントはち",
+      "int64": "イントろくじゅうよん",
+      "int32": "イントさんじゅうに",
+      "int16": "イントじゅうろく",
+      "int8": "イントはち",
+      "uint": "ユーイント",
+      "int": "イント",
+      "Go": "ゴー",
+      "byte": "バイト",
+      "rune": "ルーン",
+      "Unicode": "ユニコード",
+      "panic": "パニック",
+      "00000101": "ゼロゼロゼロゼロゼロイチゼロイチ"
+    }
+  },
+  "theme": "accessible-light-v1",
+  "slides": [
+    {
+      "id": "answer",
+      "title": "違いは「幅」と「符号」",
+      "claim": "数字はビット幅、u は符号なしを表す。",
+      "content": {
+        "layout": "key",
+        "headline": "数字 = ビット数　／　u = 符号なし",
+        "points": [
+          {
+            "label": "int8 〜 int64",
+            "detail": "負の数・ゼロ・正の数を表す整数型"
+          },
+          {
+            "label": "uint 系",
+            "detail": "ゼロ・正の数を表す整数型"
+          },
+          {
+            "label": "uint は幅が可変",
+            "detail": "32 または 64 ビット。uint8 とは別の型"
+          }
+        ]
+      },
+      "evidence": [
+        "go-types"
+      ],
+      "narration": [
+        {
+          "id": "answer-1",
+          "text": "Goの整数型は、幅と符号を分けると理解しやすいのだ。"
+        },
+        {
+          "id": "answer-2",
+          "text": "int8、int16、int32、int64の数字は、使うビット数を表すのだ。"
+        },
+        {
+          "id": "answer-3",
+          "text": "どれも負の数を扱える、符号付きの整数型なのだ。"
+        },
+        {
+          "id": "answer-4",
+          "text": "一方、uint系は符号なし。ゼロと正の数を扱うのだ。"
+        },
+        {
+          "id": "answer-5",
+          "text": "ただし、数字のないuintと、uint8は別の型なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "bits",
+      "title": "8 ビット = 0 / 1 の箱が 8 個",
+      "claim": "n ビットには 2ⁿ 通りの状態がある。",
+      "content": {
+        "layout": "example",
+        "label": "1 ビットは 0 または 1。この箱が 8 個ある。",
+        "cells": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "1",
+          "0",
+          "1"
+        ],
+        "equation": "2⁸ = 256 通り",
+        "explanation": "幅が増えるほど、区別できる整数の数も増える。"
+      },
+      "evidence": [
+        "go-types"
+      ],
+      "narration": [
+        {
+          "id": "bits-1",
+          "text": "ビットは、ゼロかイチを入れる箱だと考えるのだ。"
+        },
+        {
+          "id": "bits-2",
+          "text": "8ビットなら、箱が8個。並べ方は2の8乗で、256通りなのだ。"
+        },
+        {
+          "id": "bits-3",
+          "text": "右から1と4の位がイチなので、足すと十進数の5になるのだ。"
+        },
+        {
+          "id": "bits-4",
+          "text": "ビット数は十進数の桁数ではなく、この箱の数なのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    }
+  ]
+}

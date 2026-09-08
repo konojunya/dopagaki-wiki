@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="2進数101は4足す0足す1で5">
+<rect x="4" y="4" width="1192" height="352" fill="#e6f5ec" stroke="#115a36" stroke-width="4" rx="16"/>
+<g fill="#115a36" font-family="sans-serif" font-size="88" text-anchor="middle"><text x="250" y="135">1</text><text x="600" y="135">0</text><text x="950" y="135">1</text><text x="600" y="270">4 + 0 + 1 = 5</text></g>
+</svg>
