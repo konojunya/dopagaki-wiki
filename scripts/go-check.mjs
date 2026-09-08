@@ -39,8 +39,9 @@ for (const [name, code] of [
     stderr: r.stderr.replaceAll(tmp, "<temp>"),
   });
 }
+const report = join(tmp, "go-verification.json");
 await writeFile(
-  "docs/generation/0.0.1/go-verification.json",
+  report,
   JSON.stringify(
     {
       passed: true,
@@ -52,4 +53,4 @@ await writeFile(
     2,
   ) + "\n",
 );
-console.log("Go examples and rejection cases passed");
+console.log(`Go examples and rejection cases passed: ${report}`);

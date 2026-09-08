@@ -72,8 +72,9 @@ const repaired = await render("resume-corrupt-speech", spoken);
 assert.equal(repaired.cache.speech, 1);
 assert.equal(repaired.cache.images, 2);
 assert.equal(repaired.audio[0].key, a.audio[0].key);
-await json(join(ROOT, "docs/generation/0.0.1/cache-check.json"), {
+const report = join(tmp, "cache-check.json");
+await json(report, {
   passed: true,
   results,
 });
-console.log("Cache checks passed");
+console.log(`Cache checks passed: ${report}`);

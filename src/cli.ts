@@ -13,6 +13,8 @@ import {
   ROOT,
   run,
   log,
+  resolveMediaBinary,
+  createOutputDirectory,
 } from "./common.js";
 import { renderSlides } from "./slides.js";
 import { Voicevox, synthesize } from "./speech.js";
@@ -29,13 +31,18 @@ const { values, positionals } = parseArgs({
 });
 const [command, storyPath] = positionals;
 let outputStarted = false;
+let outputDirectory: string | undefined;
 async function doctor() {
   const results: Record<string, unknown> = { node: process.version };
-  for (const binary of ["ffmpeg", "ffprobe"])
+  for (const binary of ["ffmpeg", "ffprobe"] as const) {
     results[binary] = (await run(binary, ["-version"])).stdout.split("\n")[0];
+    results[`${binary}Path`] = await resolveMediaBinary(binary);
+  }
   const filters = (await run("ffmpeg", ["-hide_banner", "-filters"])).stdout;
   if (!/\bass\s+V->V/.test(filters))
-    throw new Error("FFmpeg needs libass. Run aqua install using aqua.yaml.");
+    throw new Error(
+      "FFmpeg needs libass (ASS subtitles). Run brew install ffmpeg-full, then retry doctor.",
+    );
   results.libass = true;
   const browser = await chromium.launch();
   results.chromium = browser.version();
@@ -56,7 +63,7 @@ async function doctor() {
 async function main() {
   if (values.help || !command) {
     console.log(
-      "dopagaki-wiki: doctor [--start-voicevox] | validate <story.json> | preview <story.json> --out <dir> | render <story.json> --out <dir> [--cache <dir>]",
+      "dopagaki-wiki: doctor [--start-voicevox] | validate <story.json> | preview <story.json> [--out <dir>] | render <story.json> [--out <dir>] [--cache <dir>]\nDefault output: a new /tmp/dopagaki-wiki-* directory (printed in the result).",
     );
     return;
   }
@@ -81,15 +88,12 @@ async function main() {
     );
     return;
   }
-  if (!values.out)
-    throw new Error(
-      "--out <directory> is required; choose an output directory outside the source repository being explained.",
-    );
-  const out = resolve(values.out),
+  const out = await createOutputDirectory(values.out),
     cache = resolve(
       values.cache ?? join(homedir(), "Library/Caches/dopagaki-wiki"),
     );
-  await mkdir(out, { recursive: true });
+  outputDirectory = out;
+  log(`Output: ${out}`);
   const previous = await readJson(join(out, "story.json")).catch(() => null);
   if (previous && previous.question !== story.question)
     throw new Error(
@@ -183,6 +187,7 @@ async function main() {
     tools: {
       node: process.version,
       ffmpeg: movie.ffmpeg,
+      ffmpegBuildSha256: movie.ffmpegBuildSha256,
       playwright: (
         await readJson(join(ROOT, "node_modules/playwright/package.json"))
       ).version,
@@ -219,12 +224,12 @@ async function main() {
 }
 main().catch(async (e) => {
   const message = e instanceof Error ? e.message : String(e);
-  if (values.out && outputStarted) {
-    await json(join(resolve(values.out), "last-error.json"), {
+  if (outputDirectory && outputStarted) {
+    await json(join(outputDirectory, "last-error.json"), {
       at: new Date().toISOString(),
       message,
     }).catch(() => {});
-    await json(join(resolve(values.out), "manifest.json"), {
+    await json(join(outputDirectory, "manifest.json"), {
       status: "failed",
       message,
     }).catch(() => {});

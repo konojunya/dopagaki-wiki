@@ -36,7 +36,9 @@ export async function compose(
       .join("\n") +
     `\nfile 'slides/${t.slides.at(-1)!.id}.png'\noption framerate 30\n`;
   await atomic(join(out, "frames.ffconcat"), list);
-  const ffmpeg = (await run("ffmpeg", ["-version"])).stdout.split("\n")[0];
+  const build = (await run("ffmpeg", ["-version"])).stdout;
+  const ffmpeg = build.split("\n")[0],
+    ffmpegBuildSha256 = hash(build);
   const key = hash({
     pipeline: 4,
     loudness: { I: -16, TP: -1.5, LRA: 11 },
@@ -47,6 +49,7 @@ export async function compose(
     audio: assets.map((a) => a.key),
     ass: await fileHash(join(out, "subtitles.ass")),
     ffmpeg,
+    ffmpegBuildSha256,
   });
   await mkdir(join(cache, "videos"), { recursive: true });
   const cached = join(cache, "videos", `${key}.mp4`),
@@ -147,7 +150,7 @@ export async function compose(
     );
     await rename(join(out, "video.tmp.mp4"), target);
   }
-  return { target, hit, ffmpeg, key, cached };
+  return { target, hit, ffmpeg, ffmpegBuildSha256, key, cached };
 }
 export async function verifyVideo(path: string, t: Timeline) {
   const p = await probe(path),

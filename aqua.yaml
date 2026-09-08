@@ -11,7 +11,6 @@ registries:
 - type: standard
   ref: v4.558.1 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: Tyrrrz/FFmpegBin@9.0.1
 - name: nodejs/node@v24.5.0
 - name: golang/go@go1.26.3
 # Optional: local speech-recognition QA (not required to generate videos)

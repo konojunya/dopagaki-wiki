@@ -1,8 +1,16 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { readFile, writeFile, mkdir, rename } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import {
+  readFile,
+  writeFile,
+  mkdir,
+  mkdtemp,
+  rename,
+  access,
+} from "node:fs/promises";
+import { constants } from "node:fs";
+import { dirname, resolve, join, delimiter } from "node:path";
 import { fileURLToPath } from "node:url";
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const RATE = 48000,
@@ -24,22 +32,56 @@ export async function atomic(path: string, data: string | Buffer) {
 export const json = async (p: string, data: unknown) =>
   atomic(p, JSON.stringify(data, null, 2) + "\n");
 const exec = promisify(execFile);
-const binaries = new Map<string, string>();
+export async function resolveMediaBinary(
+  name: "ffmpeg" | "ffprobe",
+  env: NodeJS.ProcessEnv = process.env,
+) {
+  const override = env[`${name.toUpperCase()}_PATH`];
+  const prefixes = env.HOMEBREW_PREFIX
+    ? [env.HOMEBREW_PREFIX]
+    : process.platform === "darwin"
+      ? ["/opt/homebrew", "/usr/local"]
+      : [];
+  // Prefer Homebrew over stale aqua shims; ffmpeg-full supplies libass.
+  const candidates = override
+    ? [resolve(override)]
+    : [
+        ...prefixes.map((p) => join(p, "opt/ffmpeg-full/bin", name)),
+        ...prefixes.map((p) => join(p, "opt/ffmpeg/bin", name)),
+        ...prefixes.map((p) => join(p, "bin", name)),
+        ...(env.PATH ?? "")
+          .split(delimiter)
+          .filter(Boolean)
+          .map((p) => resolve(p, name)),
+      ];
+  for (const candidate of candidates) {
+    if (
+      await access(candidate, constants.X_OK).then(
+        () => true,
+        () => false,
+      )
+    )
+      return candidate;
+  }
+  throw new Error(
+    `${name} executable not found. Run brew install ffmpeg-full, or set ${name.toUpperCase()}_PATH to an executable.`,
+  );
+}
+export async function createOutputDirectory(requested?: string) {
+  const out = requested
+    ? resolve(requested)
+    : await mkdtemp("/tmp/dopagaki-wiki-");
+  await mkdir(out, { recursive: true });
+  return out;
+}
 export async function run(
   command: string,
   args: string[],
   options: { cwd?: string; timeout?: number } = {},
 ) {
   try {
-    if (["ffmpeg", "ffprobe"].includes(command)) {
-      const name = command;
-      if (!binaries.has(name))
-        binaries.set(
-          name,
-          (await exec("aqua", ["which", name], { cwd: ROOT })).stdout.trim(),
-        );
-      command = binaries.get(name)!;
-    }
+    if (command === "ffmpeg" || command === "ffprobe")
+      command = await resolveMediaBinary(command);
     return await exec(command, args, {
       maxBuffer: 16 * 1024 * 1024,
       timeout: options.timeout ?? 120000,

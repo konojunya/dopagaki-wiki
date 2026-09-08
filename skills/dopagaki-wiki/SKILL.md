@@ -13,9 +13,11 @@ description: 質問やリポジトリの機能を、根拠付きの日本語原�
 
 ```sh
 node <skill-dir>/scripts/run.mjs doctor --start-voicevox
-node <skill-dir>/scripts/run.mjs validate /absolute/story.json
-node <skill-dir>/scripts/run.mjs preview /absolute/story.json --out /absolute/output
-node <skill-dir>/scripts/run.mjs render /absolute/story.json --out /absolute/output
+# 先に作業領域を作り、調査記録・story.json・画像をここに作成する
+workdir=$(mktemp -d /tmp/dopagaki-wiki.XXXXXX)
+node <skill-dir>/scripts/run.mjs validate "$workdir/story.json"
+node <skill-dir>/scripts/run.mjs preview "$workdir/story.json" --out "$workdir/result"
+node <skill-dir>/scripts/run.mjs render "$workdir/story.json" --out "$workdir/result"
 ```
 
 CLI は LLM API を呼ばない。エージェントが調査と story.json を作り、CLI が構造・レイアウト・音声・字幕・動画を決定的に処理する。通常は同じ出力先とキャッシュで再実行し、途中の素材を再利用する。
@@ -26,7 +28,13 @@ CLI は LLM API を呼ばない。エージェントが調査と story.json を�
 
 対象のAGENTS.md、ソースコード、仕様、テストをエージェントが読み、[research.md](references/research.md) に従って根拠と原稿を作る。CLIに対象リポジトリのパスだけを渡しても、自動でコードを調査する機能はない。ユーザーからは自然言語の依頼を受け、story.json作成とCLI起動はエージェントが行う。
 
-`examples/`、`src/`、`schemas/` を参照するときは、このSkillのシンボリックリンクを解決したツール側のリポジトリを基準にする。対象リポジトリへツールや依存をコピーする必要はない。出力先が未指定なら `~/Movies/dopagaki-wiki/<対象名とトピック>/` を使い、既存の別動画と衝突しない名前にする。CLIのNode.jsとFFmpegはツール側のaqua設定から解決する。
+`examples/`、`src/`、`schemas/` を参照するときは、このSkillのシンボリックリンクを解決したツール側のリポジトリを基準にする。対象リポジトリへツールや依存をコピーする必要はない。CLIのNode.jsはツール側のaqua設定を使い、FFmpeg・ffprobeはHomebrewの `ffmpeg-full` を優先して、次に通常のHomebrew配置とPATHから解決する。`FFMPEG_PATH` / `FFPROBE_PATH` で明示指定もできる。
+
+## 成果物の置き場所
+
+対象リポジトリのコードは動画の説明・根拠を調べるために読む。生成した台本・調査記録・ダウンロード画像・プレビュー・音声・字幕・動画・品質評価は成果物であり、通常はGit管理にしない。対象リポジトリにもツールのリポジトリにも書き込まず、依頼ごとに `mktemp -d /tmp/dopagaki-wiki.XXXXXX` で作った作業領域へまとめる。画像の `asset.path` は `/tmp` 内の原稿を基準に指定する。
+
+`preview` と `render` は同じ `--out` を使う。CLI単体で `--out` を省略した場合も `/tmp/dopagaki-wiki-*` を自動作成してパスを返す。再利用キャッシュだけは速度のため `~/Library/Caches/dopagaki-wiki` に保持する。生成した成果物を自動でコピー・commit・pushしない。Git保存や永続保存をユーザーが明示的に求めた場合だけ、その指定に従う。既存の `docs/generation/0.0.1/` は明示依頼による過去の比較資料であり、新しい動画の既定出力先にはしない。
 
 ## 教材を組み立てる
 
@@ -48,4 +56,4 @@ CLI は LLM API を呼ばない。エージェントが調査と story.json を�
 
 ## 完了時
 
-MP4 をこの会話で表示し、原稿・根拠・プレビュー・manifest・品質評価を参照できるようにする。実測の生成時間、キャッシュ利用、未検証事項を区別する。公開や他者への送信は別の依頼として扱う。成果物の Git 保存が求められた場合は、容量を確認し、再評価に必要な動画と記録を保存する。
+`/tmp` にあるMP4を絶対パスのMarkdown画像記法でこの会話に表示し、必要な原稿・根拠・プレビュー・manifest・品質評価も絶対パスのリンクで共有する。実測の生成時間、キャッシュ利用、未検証事項を区別する。共有後に作業領域を削除しない。公開や他者への送信は別の依頼として扱う。成果物のGit保存が明示的に求められた場合は、容量を確認し、再評価に必要な動画と記録を保存する。
