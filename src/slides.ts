@@ -3,7 +3,7 @@ import { mkdir, copyFile, readFile } from "node:fs/promises";
 import { join, resolve, extname } from "node:path";
 import { pathToFileURL } from "node:url";
 import { ROOT, hash, fileHash, atomic, json, readJson } from "./common.js";
-import { theme, css } from "./theme.js";
+import { theme, css, previewCss } from "./theme.js";
 import type { Story, Slide } from "./schema.js";
 export const esc = (s: string) =>
   s.replace(
@@ -274,7 +274,7 @@ export async function renderSlides(
   });
   await atomic(
     join(out, "preview.html"),
-    `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(story.title)}</title><style>body{font:20px sans-serif;margin:24px;background:#eee}img{width:100%;display:block}article{max-width:1200px;margin:24px auto;background:white;padding:16px}p{line-height:1.8}</style><h1>${esc(story.title)}</h1>${story.slides.map((s) => `<article><a href="slides/${s.id}.html"><img src="slides/${s.id}.png" alt="${esc(s.title)}"></a><p>${s.narration.map((n) => esc(n.text)).join("<br>")}</p></article>`).join("")}</html>`,
+    `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(story.title)}</title><style>${previewCss}</style><h1>${esc(story.title)}</h1>${story.slides.map((s) => `<article><a href="slides/${s.id}.html"><img src="slides/${s.id}.png" alt="${esc(s.title)}">${esc(s.title)}</a><p>${s.narration.map((n) => esc(n.text)).join("<br>")}</p></article>`).join("")}</html>`,
   );
   return { captions, images, hits };
 }

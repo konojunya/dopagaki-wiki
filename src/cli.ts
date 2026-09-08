@@ -20,6 +20,7 @@ import { renderSlides } from "./slides.js";
 import { Voicevox, synthesize } from "./speech.js";
 import { makeTimeline, validateTimeline, subtitles } from "./timeline.js";
 import { compose, verifyVideo } from "./video.js";
+import { designSha256 } from "./design.js";
 const { values, positionals } = parseArgs({
   allowPositionals: true,
   options: {
@@ -182,6 +183,7 @@ async function main() {
       ),
     ),
     lockfileSha256: await fileHash(join(ROOT, "package-lock.json")),
+    designSha256,
     videoSha256: await fileHash(movie.target),
     engine: speech.identity,
     tools: {

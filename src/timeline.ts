@@ -105,8 +105,10 @@ export function subtitles(t: Timeline, wrapped: Record<string, string>) {
         `${i + 1}\n${time(s.startSample)} --> ${time(s.endSample)}\n${wrapped[s.id]}\n`,
     )
     .join("\n");
+  const assColor = (hex: string) =>
+    "&H00" + hex.slice(5, 7) + hex.slice(3, 5) + hex.slice(1, 3);
   const assText = (text: string) => text.replace(/\n/g, "\\N");
-  const ass = `[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\nWrapStyle: 2\nScaledBorderAndShadow: yes\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,${theme.font},${theme.caption},&H001C1A1A,&H001C1A1A,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,0,0,1,0,0,2,${theme.captionMargin},${theme.captionMargin},${theme.captionBottom},1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n${t.segments.map((s) => `Dialogue: 0,${time(s.startSample, true)},${time(s.endSample, true)},Default,,0,0,0,,${assText(wrapped[s.id]!)}`).join("\n")}\n`;
+  const ass = `[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\nWrapStyle: 2\nScaledBorderAndShadow: yes\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,${theme.font},${theme.caption},${assColor(theme.captionInk)},${assColor(theme.captionInk)},${assColor(theme.captionBackground)},${assColor(theme.captionBackground)},${theme.captionBold ? -1 : 0},0,0,0,100,100,0,0,1,0,0,2,${theme.captionMargin},${theme.captionMargin},${theme.captionBottom},1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n${t.segments.map((s) => `Dialogue: 0,${time(s.startSample, true)},${time(s.endSample, true)},Default,,0,0,0,,${assText(wrapped[s.id]!)}`).join("\n")}\n`;
   for (const seg of t.segments)
     if (wrapped[seg.id]?.replace(/\n/g, "") !== seg.text.replace(/\n/g, ""))
       throw new Error(`Subtitle text mismatch ${seg.id}`);
