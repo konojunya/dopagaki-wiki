@@ -39,6 +39,11 @@ for (const at of [4, 137, 219, 360]) {
   if (at === 137) {
     await page.locator("video").evaluate((v) => (v.controls = false));
     await page.setViewportSize({ width: 844, height: 475 });
+    await page.locator("video").evaluate(async (v) => {
+      await v.play();
+      await new Promise((r) => setTimeout(r, 350));
+      v.pause();
+    });
     await page.screenshot({ path: join(out, "review/mobile-landscape.png") });
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.locator("video").evaluate((v) => (v.controls = true));

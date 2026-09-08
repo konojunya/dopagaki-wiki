@@ -4,7 +4,7 @@
   "samples": [
     {
       "requested": 4,
-      "actual": 4.307437,
+      "actual": 4.31017,
       "width": 1920,
       "height": 1080,
       "error": null,
@@ -12,7 +12,7 @@
     },
     {
       "requested": 137,
-      "actual": 137.310391,
+      "actual": 137.30982,
       "width": 1920,
       "height": 1080,
       "error": null,
@@ -20,19 +20,19 @@
     },
     {
       "requested": 219,
-      "actual": 219.309365,
+      "actual": 219.310526,
       "width": 1920,
       "height": 1080,
       "error": null,
-      "decodedFrames": 342
+      "decodedFrames": 353
     },
     {
       "requested": 360,
-      "actual": 360.307273,
+      "actual": 360.308411,
       "width": 1920,
       "height": 1080,
       "error": null,
-      "decodedFrames": 406
+      "decodedFrames": 417
     }
   ],
   "note": "Muted real browser playback; no subjective listening claim."
