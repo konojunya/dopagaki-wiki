@@ -20,6 +20,14 @@ node <skill-dir>/scripts/run.mjs render /absolute/story.json --out /absolute/out
 
 CLI は LLM API を呼ばない。エージェントが調査と story.json を作り、CLI が構造・レイアウト・音声・字幕・動画を決定的に処理する。通常は同じ出力先とキャッシュで再実行し、途中の素材を再利用する。
 
+## 他のリポジトリで使う
+
+調査対象は、ユーザーが指定したパスまたはリポジトリURL。指定がなく「このリポジトリ」と言われた場合は、そのタスクの作業ディレクトリを対象にする。Skillのリンク先であるdopagaki-wikiは動画生成ツールの所在であり、調査対象は別に扱う。
+
+対象のAGENTS.md、ソースコード、仕様、テストをエージェントが読み、[research.md](references/research.md) に従って根拠と原稿を作る。CLIに対象リポジトリのパスだけを渡しても、自動でコードを調査する機能はない。ユーザーからは自然言語の依頼を受け、story.json作成とCLI起動はエージェントが行う。
+
+`examples/`、`src/`、`schemas/` を参照するときは、このSkillのシンボリックリンクを解決したツール側のリポジトリを基準にする。対象リポジトリへツールや依存をコピーする必要はない。出力先が未指定なら `~/Movies/dopagaki-wiki/<対象名とトピック>/` を使い、既存の別動画と衝突しない名前にする。CLIのNode.jsとFFmpegはツール側のaqua設定から解決する。
+
 ## 教材を組み立てる
 
 1. [research.md](references/research.md) を読み、質問への答え、必要な前提、仕組み、検算できる具体例、制約を根拠に結びつける。リポジトリなら revision を固定する。

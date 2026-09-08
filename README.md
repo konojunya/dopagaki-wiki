@@ -31,6 +31,15 @@ npm run cli -- render examples/go-integers.story.json --out output/my-video
 
 任意の作業ディレクトリからは、Skillの `scripts/run.mjs` を絶対パスで実行できます。FFmpegの場所はリポジトリのaqua設定から解決します。
 
+Skillはグローバルに登録されるため、別プロジェクトのタスクでも、例えば次のように依頼できます。
+
+```text
+$dopagaki-wiki このリポジトリの認証処理をソースコードから調べて、ずんだもんの解説動画にして
+$dopagaki-wiki /path/to/another-repo のキャッシュの仕組みを動画で説明して
+```
+
+エージェントが指定先（「このリポジトリ」ならそのタスクの作業ディレクトリ）のコードを調べて原稿を作成し、グローバルSkillのCLIを起動します。対象リポジトリへのインストールは不要です。出力先未指定時は `~/Movies/dopagaki-wiki/<対象名とトピック>/`。CLIのNode.jsもツール側のaqua設定で固定します。
+
 `VOICEVOX_URL` の初期値は `http://127.0.0.1:50021`。生成前に doctor で接続を確認します。話者・スタイルは `/speakers` から名前で解決し、通常はずんだもんのノーマルを使用します。VOICEVOXを処理後に終了しません。
 
 `--cache <directory>` を省略すると `~/Library/Caches/dopagaki-wiki`。同じ出力先で再実行できます。見た目のみ変更した場合は音声を再利用し、1文の変更では該当する音声を再生成します。原稿全体の辞書・声・速度を変更すると音声キャッシュが失効します。

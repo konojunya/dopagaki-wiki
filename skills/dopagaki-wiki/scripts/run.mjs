@@ -13,8 +13,21 @@ if (!existsSync(join(root, "node_modules/tsx/dist/cli.mjs"))) {
   );
   process.exit(1);
 }
+// Resolve the pinned runtime from the tool repository, while preserving the
+// caller's working directory for relative story and output paths.
+const runtime = spawnSync("aqua", ["which", "node"], {
+  cwd: root,
+  encoding: "utf8",
+});
+if (runtime.error || runtime.status !== 0 || !runtime.stdout.trim()) {
+  console.error(
+    `Cannot resolve the CLI's Node.js runtime. Run aqua install in "${root}".`,
+  );
+  console.error(runtime.error?.message ?? runtime.stderr);
+  process.exit(1);
+}
 const result = spawnSync(
-  process.execPath,
+  runtime.stdout.trim(),
   [
     join(root, "node_modules/tsx/dist/cli.mjs"),
     join(root, "src/cli.ts"),
