@@ -56,6 +56,7 @@ node scripts/go-check.mjs
 node scripts/contact-sheet.mjs output/my-video
 node scripts/playback-check.mjs output/my-video
 ./node_modules/.bin/tsx scripts/audio-check.ts output/my-video
+./node_modules/.bin/tsx scripts/subtitle-check.ts output/my-video
 ```
 
 `npm test` は構造、100ページの端数タイムライン、長文・クリップの拒否、実FFmpegの34秒動画と字幕表示を検証します。`playback-check` はMacにあるGoogle Chromeで冒頭・中間・末尾の再生を確認します。音声認識による補助確認は任意です。

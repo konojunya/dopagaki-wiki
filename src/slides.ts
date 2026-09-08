@@ -153,7 +153,13 @@ export async function renderSlides(
 ) {
   await mkdir(join(out, "slides", "fonts"), { recursive: true });
   await mkdir(join(cache, "images"), { recursive: true });
-  for (const f of ["NotoSansJP.ttf", "NotoSansMono.ttf"])
+  for (const f of [
+    "NotoSansJP.ttf",
+    "NotoSansMono.ttf",
+    "OFL.txt",
+    "OFL-NotoSansMono.txt",
+    "SOURCES.md",
+  ])
     await copyFile(join(ROOT, "assets/fonts", f), join(out, "slides/fonts", f));
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({
@@ -261,6 +267,7 @@ export async function renderSlides(
   }
   await json(join(out, "layout-report.json"), {
     passed: true,
+    chromiumVersion: browser.version(),
     slides: reports,
     theme,
     fontHash,
