@@ -1,9 +1,10 @@
 import { readJson, json, run } from "../src/common.js";
 import { wavData, Voicevox, pronunciation } from "../src/speech.js";
+import { parseStory } from "../src/schema.js";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 const out = resolve(process.argv[2]!);
-const story = await readJson(join(out, "story.json")),
+const story = parseStory(await readJson(join(out, "story.json"))),
   timeline = await readJson(join(out, "timeline.json"));
 const pcm = wavData(await readFile(join(out, "narration.wav")));
 let peak = 0,
@@ -34,11 +35,12 @@ if (clipped || segments.some((s: any) => s.rms < 10))
 const voice = new Voicevox(),
   speaker = await voice.resolve(story.voice),
   readings = [];
-for (const original of [
-  "どれも負の数を扱える、符号付きの整数型なのだ。",
-  "どちらも値は256個。",
-  "およそマイナス922京から、プラス922京まで表せるのだ。",
-]) {
+const originals = new Set(
+  story.slides.flatMap((slide) =>
+    slide.narration.map((segment) => segment.text),
+  ),
+);
+for (const original of originals) {
   const spoken = pronunciation(original, story.voice.dictionary),
     q = (await (
       await voice.request(

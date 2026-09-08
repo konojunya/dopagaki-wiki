@@ -10,6 +10,7 @@
     "cli": "tsx src/cli.ts",
     "check": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "tsx scripts/cache-check.ts",
     "setup": "playwright install chromium",
     "skill:install": "node scripts/install-skill.mjs"
   },

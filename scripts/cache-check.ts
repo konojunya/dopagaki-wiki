@@ -72,9 +72,23 @@ const repaired = await render("resume-corrupt-speech", spoken);
 assert.equal(repaired.cache.speech, 1);
 assert.equal(repaired.cache.images, 2);
 assert.equal(repaired.audio[0].key, a.audio[0].key);
+// Inspect the resulting video and audio, in addition to CLI/cache assertions.
+for (const script of ["subtitle-check.ts", "audio-check.ts"]) {
+  await run(
+    process.execPath,
+    [
+      join(ROOT, "node_modules/tsx/dist/cli.mjs"),
+      join(ROOT, "scripts", script),
+      out,
+    ],
+    { timeout: 120000 },
+  );
+}
 const report = join(tmp, "cache-check.json");
 await json(report, {
   passed: true,
   results,
+  output: out,
+  checks: { burnedSubtitles: true, audio: true },
 });
-console.log(`Cache checks passed: ${report}`);
+console.log(`Video generation E2E passed: ${report}`);

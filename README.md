@@ -16,7 +16,7 @@ npm run cli -- doctor --start-voicevox
 npm run skill:install
 ```
 
-Node.js / 検算用Goは `aqua.yaml` で固定します。FFmpeg・ffprobeはHomebrewでグローバルに導入します。字幕描画用libassを含む [ffmpeg-full](https://formulae.brew.sh/formula/ffmpeg-full) が必要です。VOICEVOXアプリは別途インストールが必要です。Chromiumはnpmで固定したPlaywrightが対応ビルドを管理します。日本語・コード用フォントは `assets/fonts/` に同梱しています。
+Node.jsは `aqua.yaml` で固定します。FFmpeg・ffprobeはHomebrewでグローバルに導入します。字幕描画用libassを含む [ffmpeg-full](https://formulae.brew.sh/formula/ffmpeg-full) が必要です。VOICEVOXアプリは別途インストールが必要です。Chromiumはnpmで固定したPlaywrightが対応ビルドを管理します。日本語・コード用フォントは `assets/fonts/` に同梱しています。動画生成とこのリポジトリの回帰テストにGo・Python・uvは不要です。
 
 Skillインストールは `~/.codex/skills/dopagaki-wiki` からこのリポジトリへのシンボリックリンクです。`CODEX_HOME` があればそちらを使います。既存の別Skillは上書きしません。リポジトリを動かしたらリンクを張り直してください。Skillだけのコピーでは動きません。
 
@@ -66,21 +66,25 @@ CLIの `--out` も省略できます。その場合は実行ごとに新しい `
 ```sh
 npm run check
 npm test
-node scripts/go-check.mjs
-./node_modules/.bin/tsx scripts/cache-check.ts
+npm run test:e2e
+```
+
+`npm test` は構造、100ページの端数タイムライン、長文・クリップの拒否、実FFmpegの34秒動画と字幕表示を検証します。ChromiumとFFmpegが必要ですが、VOICEVOXへの接続は不要です。
+
+`npm run test:e2e` は実際のVOICEVOXに接続してCLIから動画を生成し、初回・キャッシュ再利用・見た目のみ変更・1文変更・音声キャッシュ破損からの復旧を検証します。完成動画の字幕表示と無音区間、音声の欠落・クリッピングも検査します。生成物とレポートは一時ディレクトリに保存し、終了時にパスを表示します。事前に `npm run cli -- doctor --start-voicevox` で環境を確認してください。
+
+任意の生成動画を個別に確認する場合は、上の生成例の `$workdir/result` または実際の出力先を指定します。
+
+```sh
 node scripts/contact-sheet.mjs "$workdir/result"
 node scripts/playback-check.mjs "$workdir/result"
 ./node_modules/.bin/tsx scripts/audio-check.ts "$workdir/result"
 ./node_modules/.bin/tsx scripts/subtitle-check.ts "$workdir/result"
 ```
 
-`npm test` は構造、100ページの端数タイムライン、長文・クリップの拒否、実FFmpegの34秒動画と字幕表示を検証します。`playback-check` はMacにあるGoogle Chromeで冒頭・中間・末尾の再生を確認します。音声認識による補助確認は任意です。
+`playback-check` はMacにあるGoogle Chromeで冒頭・中間・末尾の再生を確認します。`audio-check` は入力原稿全体のENGINEカナを確認用に記録します。カナ記録や波形の検査は、実際の発音の正しさを自動判定するものではありません。
 
-```sh
-aqua exec -- uv run --with mlx-whisper==0.4.3 python scripts/asr-check.py "$workdir/result/narration.wav" "$workdir/result/review/asr.json"
-```
-
-ASRは初回に公開モデルとPython依存をダウンロードします。音声は外部サービスに送信しません。動画生成には不要です。
+初期教材のGoコード検算とPythonによる文字起こしは、一度の教材評価に使った補助処理のため削除しました。`docs/generation/0.0.1/` の結果は当時の比較記録として保持しています。教材中のコードを実行して確認する場合は、その教材に応じた環境を別途使い、動画生成ツールの共通依存には追加しません。
 
 機械検査は内容の真偽や説明の自然さを証明しません。Skillは根拠・全スライド・代表フレーム・用語の読みを確認し、実施した方法と未検証事項を `quality-review.md` に記録します。
 
