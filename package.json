@@ -1,0 +1,7 @@
+{
+  "name": "dopagaki-wiki", "version": "0.0.1", "private": true, "type": "module",
+  "engines": {"node": ">=24.5.0 <25"},
+  "scripts": {"cli": "tsx src/cli.ts", "check": "tsc --noEmit", "test": "tsx --test tests/*.test.ts", "setup": "playwright install chromium", "skill:install": "node scripts/install-skill.mjs"},
+  "dependencies": {"playwright": "1.55.0", "zod": "4.1.5"},
+  "devDependencies": {"@types/node": "24.3.1", "tsx": "4.20.5", "typescript": "5.9.2"}
+}
