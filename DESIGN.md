@@ -189,7 +189,7 @@ components:
 
 DOMで表せる構造はDOM、SVGの方が簡潔な図はSVGを使う。創造的な素材が理解を助ける場合は画像生成を利用する。言語・ツールのロゴは公式配布元からダウンロードし、生成で代用しない。画像の元URL・生成プロンプトは `asset.origin` に記録する。詳細な入力形式は [原稿のガイド](skills/dopagaki-wiki/references/schema.md) を参照。
 
-compare / flow / code / example / visual の補足文は、先頭に必ず 💡 を置き、背景色を付けず、四辺を2pxの枠線で囲む。複数行でもアイコンは先頭に一つとする。
+compare / flow / code / example / visual の補足文は、先頭に必ず 💡 を置き、背景色を付けず、四辺をprimary（Blue-900）の2pxの枠線で囲む。複数行でもアイコンは先頭に一つとする。
 
 code の右側は通常の番号付きリスト（1. / 2. / 3.）にする。構文ハイライトは明示した言語を使い、キーワードをBlue-900、文字列・数値・関数名をBlue-1000、コメントをSolid Gray-700で表示する。色数を増やさず、コード本文と改行を保つ。
 
