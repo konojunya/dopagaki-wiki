@@ -77,10 +77,18 @@ test("subtitle originals are preserved in SRT and drift is rejected", () => {
   const s = two(),
     t = makeTimeline(s, { "answer-1": 48001, "bits-1": 97001 }),
     w = Object.fromEntries(t.segments.map((s) => [s.id, s.text]));
-  const sub = subtitles(t, w);
+  const boxes = Object.fromEntries(
+    t.segments.map((s) => [s.id, { x: 460, y: 860, width: 1000, height: 100 }]),
+  );
+  const sub = subtitles(t, w, boxes);
   assert.match(sub.srt, /00:00:01,000 --> 00:00:02,000/);
   assert.ok(sub.srt.includes(t.segments[0]!.text));
-  assert.throws(() => subtitles(t, { ...w, "answer-1": "changed" }));
+  assert.throws(() => subtitles(t, { ...w, "answer-1": "changed" }, boxes));
+  assert.throws(() => subtitles(t, w, {}), /background bounds/);
+  assert.equal(
+    sub.ass.split("\n").filter((l) => l.startsWith("Dialogue: 0,")).length,
+    t.segments.length,
+  );
   t.segments[1]!.startSample = 0;
   assert.throws(() => validateTimeline(t));
 });

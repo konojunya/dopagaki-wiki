@@ -40,7 +40,10 @@ export async function compose(
   const ffmpeg = build.split("\n")[0],
     ffmpegBuildSha256 = hash(build);
   const key = hash({
-    pipeline: 4,
+    pipeline: 5,
+    captionFont: await fileHash(
+      join(out, "slides/fonts/NotoSansJP-Regular.otf"),
+    ),
     loudness: { I: -16, TP: -1.5, LRA: 11 },
     t,
     images: await Promise.all(
@@ -113,7 +116,7 @@ export async function compose(
         "-i",
         "narration.wav",
         "-vf",
-        "fps=30,ass=subtitles.ass:fontsdir=slides/fonts",
+        "fps=30,format=yuv420p,ass=subtitles.ass:fontsdir=slides/fonts",
         "-r",
         String(FPS),
         "-frames:v",

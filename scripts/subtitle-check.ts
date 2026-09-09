@@ -4,10 +4,11 @@ import { join, resolve } from "node:path";
 import { readJson, json, run } from "../src/common.js";
 const out = resolve(process.argv[2]!),
   t = await readJson(join(out, "timeline.json"));
+const layout = await readJson(join(out, "layout-report.json"));
 const ass = await readFile(join(out, "subtitles.ass"), "utf8");
 const expected = ass
   .split("\n")
-  .filter((l) => l.startsWith("Dialogue:"))
+  .filter((l) => l.startsWith("Dialogue: 1,"))
   .map((l) => l.split("\\N").length);
 await mkdir(join(out, "review/captions"), { recursive: true });
 const browser = await chromium.launch(),
@@ -36,7 +37,7 @@ try {
       "-frames:v",
       "1",
       "-vf",
-      "crop=1728:150:96:842",
+      "crop=1728:160:96:832",
       path,
     ]);
     const data =
@@ -89,21 +90,31 @@ try {
       measured.lines !== s.expected ||
       (measured.bounds &&
         (measured.bounds.top! < 1 ||
-          measured.bounds.bottom! > 148 ||
+          measured.bounds.bottom! > 158 ||
           measured.bounds.left < 1 ||
           measured.bounds.right > 1726))
     )
       throw new Error(
         `Subtitle ${s.id}: ${JSON.stringify({ expected: s.expected, measured })}`,
       );
-    reports.push({ ...s, ...measured });
+    const box = layout.captionBoxes[s.id];
+    if (
+      box &&
+      measured.bounds &&
+      (measured.bounds.left + 96 < box.x - 2 ||
+        measured.bounds.right + 96 > box.x + box.width + 2 ||
+        measured.bounds.top! + 832 < box.y - 2 ||
+        measured.bounds.bottom! + 832 > box.y + box.height + 2)
+    )
+      throw new Error(`Subtitle ${s.id}: text escapes fitted background`);
+    reports.push({ ...s, ...measured, box });
   }
 } finally {
   await browser.close();
 }
 await json(join(out, "review/subtitle-check.json"), {
   passed: true,
-  crop: { x: 96, y: 842, width: 1728, height: 150 },
+  crop: { x: 96, y: 832, width: 1728, height: 160 },
   samples: reports,
 });
 console.log(`Checked ${reports.length} burned subtitle/gap frames`);

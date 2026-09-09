@@ -45,3 +45,5 @@ FFmpegではフレームを30fpsで用意してからASS字幕を描画します
 当初の設計意図は [実装プラン](implementation-plan.md)、初期実装で採用した判断は [0.0.1の記録](generation/0.0.1/decisions.md) に残しています。
 
 コードの構文ハイライトは、生成時に [highlight.jsのAPI](https://highlightjs.readthedocs.io/en/latest/api.html#highlight) で静的HTMLへ変換します。`content.language` が未指定・未対応なら通常のコード表示に戻ります。ブラウザーでハイライト処理やネットワーク通信は行いません。
+
+字幕背景はChromiumで文章ごとの幅・高さを測り、ASSの背景レイヤーとして発話区間だけ表示します。FFmpegはYUV420pへ変換してから合成し、背景の透過色を揃えます。字幕用の静的フォントとそのメトリクスを固定し、フォントのハッシュも動画キャッシュに含めます。

@@ -11,6 +11,9 @@ import { atomic, RATE, run } from "../src/common.js";
 test("real FFmpeg renders exactly 34s and burns subtitles only during measured speech", async () => {
   const s = JSON.parse(await readFile("examples/minimal.story.json", "utf8"));
   s.slides.forEach((s: any) => (s.narration = s.narration.slice(0, 1)));
+  s.slides[0].narration[0].text = "短い字幕なのだ。";
+  s.slides[1].narration[0].text =
+    "字幕が長くなって二行に分かれた場合も、背景の幅と高さを文章に合わせて変えれば、読みやすさを保ったまま表示できるのだ。";
   const story = parseStory(s),
     out = await mkdtemp(join(tmpdir(), "dopagaki-video-")),
     cache = join(out, "cache");
@@ -32,11 +35,14 @@ test("real FFmpeg renders exactly 34s and burns subtitles only during measured s
         hit: false,
       };
     });
+  const boxes = Object.values(visuals.captionBoxes);
+  assert.ok(boxes[1]!.width > boxes[0]!.width * 2);
+  assert.ok(boxes[1]!.height > boxes[0]!.height + 60);
   const timeline = makeTimeline(
       story,
       Object.fromEntries(assets.map((a) => [a.id, a.samples])),
     ),
-    subs = subtitles(timeline, visuals.captions);
+    subs = subtitles(timeline, visuals.captions, visuals.captionBoxes);
   await atomic(join(out, "subtitles.ass"), subs.ass);
   const movie = await compose(timeline, assets, out, cache),
     report = await verifyVideo(movie.target, timeline);

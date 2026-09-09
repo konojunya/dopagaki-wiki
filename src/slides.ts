@@ -16,6 +16,12 @@ export const esc = (s: string) =>
   );
 const takeaway = (text: string) =>
   `<p class="takeaway"><span class="takeaway-icon" aria-hidden="true">💡</span><span>${esc(text)}</span></p>`;
+export type CaptionBox = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
 export function slideSection(story: Story, s: Slide, i: number) {
   const c = s.content;
   let body = "";
@@ -256,6 +262,8 @@ export async function renderSlides(
   for (const f of [
     "NotoSansJP.ttf",
     "NotoSansMono.ttf",
+    "NotoSansJP-Regular.otf",
+    "OFL-NotoSansJP-Regular.txt",
     "OFL.txt",
     "OFL-NotoSansMono.txt",
     "SOURCES.md",
@@ -268,13 +276,14 @@ export async function renderSlides(
   });
   const reports: unknown[] = [],
     captions: Record<string, string> = {},
+    captionBoxes: Record<string, CaptionBox> = {},
     images: string[] = [];
   let hits = 0;
   let pdf: Awaited<ReturnType<typeof renderSlidePdf>>;
   const fontHash = hash(
     await Promise.all(
-      ["NotoSansJP.ttf", "NotoSansMono.ttf"].map((f) =>
-        fileHash(join(ROOT, "assets/fonts", f)),
+      ["NotoSansJP.ttf", "NotoSansMono.ttf", "NotoSansJP-Regular.otf"].map(
+        (f) => fileHash(join(ROOT, "assets/fonts", f)),
       ),
     ),
   );
@@ -329,15 +338,23 @@ export async function renderSlides(
           throw new Error(
             `Slide ${s.id}, segment ${seg.id}: ${check.errors.join("; ")}`,
           );
-        const lines = await page
-          .locator(".caption p")
-          .evaluate(
-            (el) =>
-              el.getBoundingClientRect().height /
-              parseFloat(getComputedStyle(el).lineHeight),
+        const lines = await page.locator(".caption p").evaluate((el) => {
+          const cs = getComputedStyle(el);
+          return (
+            (el.getBoundingClientRect().height -
+              parseFloat(cs.paddingTop) -
+              parseFloat(cs.paddingBottom)) /
+            parseFloat(cs.lineHeight)
           );
+        });
         if (lines > 2.1)
           throw new Error(`Segment ${seg.id}: >2 rendered subtitle lines`);
+        captionBoxes[seg.id] = await page
+          .locator(".caption p")
+          .evaluate((el) => {
+            const { x, y, width, height } = el.getBoundingClientRect();
+            return { x, y, width, height };
+          });
       }
       await page.locator(".caption p").evaluate((el) => (el.textContent = ""));
       const key = hash({
@@ -381,10 +398,11 @@ export async function renderSlides(
     slides: reports,
     theme,
     fontHash,
+    captionBoxes,
   });
   await atomic(
     join(out, "preview.html"),
     `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(story.title)}</title><style>${previewCss}</style><h1>${esc(story.title)}</h1><p><a href="slides.pdf">スライドPDF（字幕なし）</a></p>${story.slides.map((s) => `<article><a href="slides/${s.id}.html"><img src="slides/${s.id}.png" alt="${esc(s.title)}">${esc(s.title)}</a><p>${s.narration.map((n) => esc(n.text)).join("<br>")}</p></article>`).join("")}</html>`,
   );
-  return { captions, images, hits, pdf };
+  return { captions, captionBoxes, images, hits, pdf };
 }

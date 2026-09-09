@@ -20,7 +20,7 @@ export function buildTheme(design: Design) {
     metadata: componentTypography(design, "metadata"),
   };
   const theme = {
-    version: "accessible-light-v1.3.0",
+    version: "accessible-light-v1.4.0",
     designSha256: hash(design),
     width: pixels(design.components.slide.width),
     height: pixels(design.components.slide.height),
@@ -32,10 +32,12 @@ export function buildTheme(design: Design) {
     captionHeight: pixels(design.components.caption.height),
     captionMargin: 112,
     captionBottom: 100,
-    font: type.caption.fontFamily,
+    font: "Noto Sans JP Caption",
+    assFont: type.caption.fontFamily,
     ink: color("slide"),
     captionInk: color("caption"),
     captionBackground: color("caption", "backgroundColor"),
+    captionOpacity: 0.7,
     captionBold: type.caption.fontWeight === 700,
     muted: color("metadata"),
     accent: color("headline"),
@@ -44,6 +46,7 @@ export function buildTheme(design: Design) {
   };
   const css = `
 @font-face{font-family:'Noto Sans JP';src:url('fonts/NotoSansJP.ttf');font-weight:100 900;font-display:block}
+@font-face{font-family:'Noto Sans JP Caption';src:url('fonts/NotoSansJP-Regular.otf');font-weight:400;font-display:block}
 @font-face{font-family:'Noto Sans Mono';src:url('fonts/NotoSansMono.ttf');font-weight:100 900;font-display:block}
 *{box-sizing:border-box}html,body{margin:0;background:${colors["code-background"]};color:${theme.ink};font-family:'${type.body.fontFamily}',sans-serif;font-weight:${type.body.fontWeight}}body{width:${theme.width}px}
 .slide{width:${theme.width}px;height:${theme.height}px;padding:${design.spacing.top} ${design.spacing.horizontal} ${design.spacing.lg};background:${theme.background};display:grid;grid-template-rows:48px 120px 1fr ${theme.captionHeight}px 40px;gap:${design.spacing.sm}}
@@ -59,7 +62,8 @@ table{font-family:'${type.table.fontFamily}',sans-serif;border-collapse:collapse
 .visual{height:400px;display:flex;align-items:center;justify-content:center}.visual img{max-width:100%;max-height:100%;object-fit:contain}
 .paired-panels,.focus-grid{display:grid;grid-template-columns:minmax(0,1fr) 52px minmax(0,1fr);gap:28px;align-items:stretch}.diagram-panel{min-width:0;display:flex;flex-direction:column;gap:16px;padding:24px;border:2px solid ${colors.primary};border-radius:${design.rounded.step};font-size:${theme.body}px;line-height:${type.body.lineHeight};overflow-wrap:anywhere}.panel-heading{font-size:40px;line-height:1.5;color:${theme.accent};font-weight:700}.diagram-panel b{font-weight:700}.branch-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}.branch-panels .diagram-panel{padding:16px 24px;gap:12px}.condition{text-align:center;font-size:${theme.body}px;line-height:${type.body.lineHeight};font-weight:700;color:${theme.accent}}.overview{display:grid;gap:12px;align-content:center}.overview-part{border:2px solid ${colors.border};border-radius:${design.rounded.step};padding:12px 24px;font-size:${theme.body}px;line-height:${type.body.lineHeight}}.is-active{background:${theme.tint};border-color:${colors.primary}}.overview-part.is-active{font-weight:700}.sequence{display:grid;row-gap:8px}.actor{grid-column:span 2;text-align:center;padding:8px 12px;border-bottom:2px solid ${colors.primary};font-size:${theme.body}px;line-height:1.5}.message{min-width:0;padding:0;border-radius:${design.rounded.cell};font-size:40px;line-height:1.5;color:${theme.accent};text-align:center}.message p{white-space:nowrap}.message.is-active{font-weight:700}.message-rail{display:flex;align-items:center;height:24px}.tip-left{border-top:12px solid transparent;border-bottom:12px solid transparent;border-right:18px solid currentColor}.tip-right{border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:18px solid currentColor}.message-line{flex:1;border-top:3px solid ${colors.primary}}.message.is-active .message-line{border-top-width:6px}
 .example-label{font-size:${theme.body}px;color:${theme.muted}}.cells{display:flex;gap:12px;justify-content:center}.cell{flex:1;text-align:center;border:3px solid ${theme.accent};border-radius:${resolveReference(design, design.components.cell.rounded)};background:${color("cell", "backgroundColor")};color:${color("cell")};padding:${design.spacing.md} ${design.spacing.xs};font-size:${theme.title}px;font-weight:${type.title.fontWeight};line-height:${type.title.lineHeight}}.equation{font-size:${theme.title}px;line-height:${type.title.lineHeight};font-weight:${type.title.fontWeight};text-align:center;color:${color("cell")}}
-.caption{background:color-mix(in srgb, ${theme.captionBackground} 70%, transparent);height:${theme.captionHeight}px;display:flex;align-items:center;justify-content:center;padding:12px ${design.spacing.sm}}.caption p{color:${color("caption")};font-family:'${type.caption.fontFamily}',sans-serif;font-size:${theme.caption}px;line-height:${type.caption.lineHeight};font-weight:${type.caption.fontWeight};text-align:center;white-space:pre-wrap;overflow-wrap:normal;word-break:normal}
+.caption{height:${theme.captionHeight}px;display:flex;align-items:center;justify-content:center}.caption p{width:fit-content;max-width:100%;padding:12px ${design.spacing.sm};background:color-mix(in srgb, ${theme.captionBackground} ${theme.captionOpacity * 100}%, transparent);color:${color("caption")};font-family:'${theme.font}',sans-serif;font-size:${theme.caption}px;line-height:${type.caption.lineHeight};font-weight:${type.caption.fontWeight};text-align:center;white-space:pre-wrap;overflow-wrap:normal;word-break:normal}
+.caption p:empty{padding:0;background:none}
 footer{background:${color("metadata", "backgroundColor")};display:flex;justify-content:space-between;font-size:${type.metadata.fontSize};font-weight:${type.metadata.fontWeight};color:${theme.muted};line-height:${type.body.lineHeight}}
 `;
 

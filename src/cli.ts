@@ -151,7 +151,7 @@ async function main() {
   );
   validateTimeline(timeline);
   await json(join(out, "timeline.json"), timeline);
-  const subs = subtitles(timeline, visuals.captions);
+  const subs = subtitles(timeline, visuals.captions, visuals.captionBoxes);
   await atomic(join(out, "subtitles.ass"), subs.ass);
   await atomic(join(out, "subtitles.srt"), subs.srt);
   await atomic(
