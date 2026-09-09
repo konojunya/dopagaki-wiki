@@ -1,0 +1,237 @@
+{
+  "status": "complete",
+  "version": "0.0.1",
+  "generatedAt": "2026-09-08T22:49:21.653Z",
+  "storySha256": "dbd9d2d6a50e27b6f7f15bb5e432c2cdf388bdefceb3d1f4228397e4521a32e7",
+  "implementationSha256": "211ace51fc9a54a23a8a0d9e52c543c33e6d33fde73f6b2599c7dce369e6a138",
+  "lockfileSha256": "f8e8beb591061598325e9a6e55409a104c8d75ffd0f4887799d15b623c13bc7e",
+  "designSha256": "6a1382bcad7b090ae90c129bf66f6e26703bfd3d63896f5af2c8599bb0a28344",
+  "videoSha256": "174c4cda7686f88ed0c189f00ee6edd2e8ec9ae4b4e6ed8be776db742d304bb4",
+  "engine": {
+    "version": "0.25.1",
+    "speaker": "ずんだもん",
+    "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+    "speakerVersion": "0.16.1",
+    "userDictionarySha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "ノーマル",
+    "styleId": 3,
+    "engineUuid": "074fc39e-678b-4c13-8916-ffca8d505d1d",
+    "coreVersions": [
+      "0.16.1"
+    ]
+  },
+  "tools": {
+    "node": "v24.5.0",
+    "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffmpegBuildSha256": "2d4b9ce4a108e1255d4fc7527f8794a65524a73401c4dec80231bf9279784757",
+    "playwright": "1.55.1"
+  },
+  "stagesMs": {
+    "slides": 646,
+    "speech": 14398,
+    "timeline": 2,
+    "encode": 11745,
+    "videoValidation": 3346
+  },
+  "totalMs": 30159,
+  "cache": {
+    "images": 9,
+    "speech": 0,
+    "video": false
+  },
+  "audio": [
+    {
+      "id": "overview-1",
+      "key": "f883235bd84c4cece36c1c4e4a8a3b52c835a8318c6c93ee49f0a9f8ac1aa5d8",
+      "samples": 202752,
+      "hit": false
+    },
+    {
+      "id": "overview-2",
+      "key": "0ed692623aa0b7a54a06e60c44b13fe286e38bf032d6d25f2cdd064ac43fe33a",
+      "samples": 280064,
+      "hit": false
+    },
+    {
+      "id": "overview-3",
+      "key": "cc94a1e344229b09aeb9d9f326c635049f20ed82a0ccb6460914e77fb90073b2",
+      "samples": 250880,
+      "hit": false
+    },
+    {
+      "id": "request-1",
+      "key": "15984429877f93db9776bce70ca6256d4b38dee2cde7dbd4b5fcdbb03ca4ad0c",
+      "samples": 287744,
+      "hit": false
+    },
+    {
+      "id": "request-2",
+      "key": "0673259c30e74c7667a180bd172fae9056d26f862e590dd01d1d98b3fe487b3d",
+      "samples": 218624,
+      "hit": false
+    },
+    {
+      "id": "request-3",
+      "key": "667437185fb54ac09a36fb0212a207db82bf52ecb523171371389f6e8c6ceed4",
+      "samples": 180736,
+      "hit": false
+    },
+    {
+      "id": "handoff-1",
+      "key": "2ca912b3aaaaa72a2b6bf24e55ed9b0a5dd9aa8459e1cffa7eb0ce4aa2282daa",
+      "samples": 289280,
+      "hit": false
+    },
+    {
+      "id": "handoff-2",
+      "key": "ddda479a56403a2b47d26652f4681af93b901e5c29e402320797341ad97c734f",
+      "samples": 262656,
+      "hit": false
+    },
+    {
+      "id": "handoff-3",
+      "key": "cf7ea25adaae1daff2c8f224a33ed059d66b3271344c463a2116b4188f07f347",
+      "samples": 352768,
+      "hit": false
+    },
+    {
+      "id": "screen-1",
+      "key": "e43c61633afd5db4ecf6791e764247192cdf4742dc0a06be8eaa8e189538a345",
+      "samples": 256000,
+      "hit": false
+    },
+    {
+      "id": "screen-2",
+      "key": "c257ed5365d0af5278db899d81521757c75945058c9b8f8358791b5d14f879c9",
+      "samples": 254976,
+      "hit": false
+    },
+    {
+      "id": "screen-3",
+      "key": "c9dbfa2dd34dbc63f6678c3a3ad26aeaecbb76a265b9d42d553b6732ff1aa0c1",
+      "samples": 281600,
+      "hit": false
+    },
+    {
+      "id": "voice-time-1",
+      "key": "4a4391584d8646793ea39bafad74423ad9ab49c3eb2955e8fc3dbdb64a386dac",
+      "samples": 248832,
+      "hit": false
+    },
+    {
+      "id": "voice-time-2",
+      "key": "58d3f6691598319bed6884fd6c0426e47f73ed7a0bfd32f6eab7f36c2f18f1a6",
+      "samples": 308224,
+      "hit": false
+    },
+    {
+      "id": "voice-time-3",
+      "key": "eba0cb10f1696167245c67293da00fe1c95e0e03fda3472673499b81037a8543",
+      "samples": 278528,
+      "hit": false
+    },
+    {
+      "id": "finish-1",
+      "key": "b211a5a5aed1e145bd1f58c6101d3f17c98515b83dcbc3c3fb65262e204e38eb",
+      "samples": 322560,
+      "hit": false
+    },
+    {
+      "id": "finish-2",
+      "key": "93b2f28a65ca5a90ab687cc522aa34af073424ba661ddc49d56fed4519e1b28e",
+      "samples": 289280,
+      "hit": false
+    },
+    {
+      "id": "finish-3",
+      "key": "5051e8df415102bbf6d2ff48c50971eed272efce2062119b153c8a062ae25125",
+      "samples": 292864,
+      "hit": false
+    },
+    {
+      "id": "finish-4",
+      "key": "1e914a7a447c83441e9c7b7f4b496b47089815e7562f4365dbbc80b58c1d5851",
+      "samples": 283136,
+      "hit": false
+    },
+    {
+      "id": "cache-1",
+      "key": "d2fa19dcd936fdd5db6ef4f59ed6a4e7d5f0eab42252c0e672dd927d9b07b281",
+      "samples": 310272,
+      "hit": false
+    },
+    {
+      "id": "cache-2",
+      "key": "d85d03497e0a0a0bb729743c29515e6675ab0c3b415c966d6bc9b9349906d297",
+      "samples": 225792,
+      "hit": false
+    },
+    {
+      "id": "cache-3",
+      "key": "762a5b713110063ed16b422f0b0c51b28db138360b45332de672a95859300dc7",
+      "samples": 241664,
+      "hit": false
+    },
+    {
+      "id": "one-sentence-1",
+      "key": "4b64b099fddebda7aa23603a2ccf2320dddc61dd7520be2f3398f12f113ab3b0",
+      "samples": 242176,
+      "hit": false
+    },
+    {
+      "id": "one-sentence-2",
+      "key": "c0a820b574266d8fa265dd7a49a3b885f053e311094e00f3ec6b36a0fcdb3aaf",
+      "samples": 318976,
+      "hit": false
+    },
+    {
+      "id": "one-sentence-3",
+      "key": "162028d1cf41e9584f4cbc84f1bd0a499137548fa1e9c65f72f3b155ed7996a9",
+      "samples": 355840,
+      "hit": false
+    },
+    {
+      "id": "reuse-summary-1",
+      "key": "97bd7247618fbbbdcef0f501decefbc1353ef6a4f9bf1fd51034c9e1e960e00b",
+      "samples": 355328,
+      "hit": false
+    },
+    {
+      "id": "reuse-summary-2",
+      "key": "df40d6c19f23ce184a6d40411365805f3c6793859405c98852e1942fa1c708a5",
+      "samples": 235520,
+      "hit": false
+    },
+    {
+      "id": "reuse-summary-3",
+      "key": "207c15a645ef749f90bd6f67f229a4669ec5f7356d5ab97cab5b11582a63010f",
+      "samples": 327168,
+      "hit": false
+    }
+  ],
+  "validation": {
+    "schema": true,
+    "layout": true,
+    "timeline": true,
+    "video": {
+      "passed": true,
+      "decoded": true,
+      "audioLoudness": {
+        "integratedLufs": -16.26,
+        "truePeakDbtp": -1.24
+      },
+      "expectedSeconds": 179.73333333333332,
+      "actualSeconds": 179.733333,
+      "frames": 5392,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "videoCodec": "h264",
+      "audioCodec": "aac",
+      "bytes": 9356753,
+      "toleranceSeconds": 0.05466666666666667
+    },
+    "semanticReview": "required: see quality-review.md; automation does not prove factual correctness",
+    "listeningReview": "required"
+  }
+}

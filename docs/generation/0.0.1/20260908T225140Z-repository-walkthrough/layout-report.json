@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "chromiumVersion": "140.0.7339.186",
+  "slides": [
+    {
+      "slide": "overview",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "request",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "handoff",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "screen",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "voice-time",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "finish",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 4
+    },
+    {
+      "slide": "cache",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "one-sentence",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    },
+    {
+      "slide": "reuse-summary",
+      "errors": [],
+      "caption": {
+        "top": 832,
+        "bottom": 992
+      },
+      "bodyBottom": 816,
+      "segments": 3
+    }
+  ],
+  "theme": {
+    "version": "accessible-light-v1.1.0",
+    "designSha256": "6a1382bcad7b090ae90c129bf66f6e26703bfd3d63896f5af2c8599bb0a28344",
+    "width": 1920,
+    "height": 1080,
+    "title": 64,
+    "body": 48,
+    "code": 40,
+    "caption": 48,
+    "captionTop": 832,
+    "captionHeight": 160,
+    "captionMargin": 112,
+    "captionBottom": 100,
+    "font": "Noto Sans JP",
+    "ink": "#1a1a1a",
+    "captionInk": "#1a1a1a",
+    "captionBackground": "#ffffff",
+    "captionBold": false,
+    "muted": "#4d4d4d",
+    "accent": "#0017c1",
+    "tint": "#e8f1fe",
+    "background": "#ffffff"
+  },
+  "fontHash": "3b1a6d22d4d6b8162d866c8a6cfa62902dfd75397baf8f0f00944213e1a5fc7f"
+}

@@ -1,0 +1,82 @@
+{
+  "scope": "CLI only; excludes research, scripting, preview and review",
+  "measurementCountPerCondition": 1,
+  "cachePolicy": "Existing shared cache. Initial audio and video uncached; all images already cached by preview. Not a fully cold benchmark.",
+  "baseline": "Before the final pronunciation and wording polish; inputs and manifests preserved separately.",
+  "hardware": null,
+  "model": null,
+  "reasoningEffort": null,
+  "tools": {
+    "node": "v24.5.0",
+    "ffmpeg": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffmpegBuildSha256": "2d4b9ce4a108e1255d4fc7527f8794a65524a73401c4dec80231bf9279784757",
+    "playwright": "1.55.1"
+  },
+  "engine": {
+    "version": "0.25.1",
+    "speaker": "ずんだもん",
+    "speakerUuid": "388f246b-8c41-4ac1-8e2d-5d79f3ff56d9",
+    "speakerVersion": "0.16.1",
+    "userDictionarySha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "style": "ノーマル",
+    "styleId": 3,
+    "engineUuid": "074fc39e-678b-4c13-8916-ffca8d505d1d",
+    "coreVersions": [
+      "0.16.1"
+    ]
+  },
+  "runs": [
+    {
+      "condition": "initial",
+      "manifest": "benchmarks/initial-manifest.json",
+      "story": "benchmarks/initial-story.json",
+      "totalMs": 30159,
+      "cache": {
+        "images": 9,
+        "speech": 0,
+        "video": false
+      },
+      "storySha256": "dbd9d2d6a50e27b6f7f15bb5e432c2cdf388bdefceb3d1f4228397e4521a32e7",
+      "videoSha256": "174c4cda7686f88ed0c189f00ee6edd2e8ec9ae4b4e6ed8be776db742d304bb4"
+    },
+    {
+      "condition": "display-only",
+      "manifest": "benchmarks/display-only-manifest.json",
+      "story": "benchmarks/display-only-story.json",
+      "totalMs": 15951,
+      "cache": {
+        "images": 8,
+        "speech": 28,
+        "video": false
+      },
+      "storySha256": "89f180c0b671a2f1cc5dbaf8d786df4eeaa1504fa32920dc740ff0618fb86b10",
+      "videoSha256": "ce93ff83c4b26dbc157acecc55779c53cf764e9ca45238c677d0a5a2c41d9681"
+    },
+    {
+      "condition": "warm",
+      "manifest": "benchmarks/warm-manifest.json",
+      "story": "benchmarks/display-only-story.json",
+      "totalMs": 4158,
+      "cache": {
+        "images": 9,
+        "speech": 28,
+        "video": true
+      },
+      "storySha256": "89f180c0b671a2f1cc5dbaf8d786df4eeaa1504fa32920dc740ff0618fb86b10",
+      "videoSha256": "ce93ff83c4b26dbc157acecc55779c53cf764e9ca45238c677d0a5a2c41d9681"
+    },
+    {
+      "condition": "one-sentence",
+      "manifest": "benchmarks/one-sentence-manifest.json",
+      "story": "benchmarks/one-sentence-story.json",
+      "totalMs": 16280,
+      "cache": {
+        "images": 9,
+        "speech": 27,
+        "video": false
+      },
+      "storySha256": "3ff4ad66e1073ecb7c9168cb88bda0add630bde440752584f1a2e5c18044c4cf",
+      "videoSha256": "af5f8a9b25b8f1c19b4654382915d36806ca5cb0e09afdfe8900e805b9e85477"
+    }
+  ]
+}

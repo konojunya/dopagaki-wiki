@@ -1,0 +1,24 @@
+{
+  "kind": "new-demo-baseline",
+  "baselineRecord": null,
+  "reason": "New question and narrative; no same-question comparison with the Go integer video.",
+  "implementation": {
+    "before": null,
+    "after": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "dirty": false
+  },
+  "generatedAt": "2026-09-08T22:51:40.755Z",
+  "model": null,
+  "reasoningEffort": null,
+  "hashes": {
+    "story": "2d8253d0f2c9063d9ecb5327403d4848b1ac5505abfff213636733b2c635474a",
+    "archivedStory": "2d8253d0f2c9063d9ecb5327403d4848b1ac5505abfff213636733b2c635474a",
+    "video": "a83ec0c447e568a3f539fbd5779e26c1b976f763cae7a5f6082228989a0a0a07",
+    "design": "6a1382bcad7b090ae90c129bf66f6e26703bfd3d63896f5af2c8599bb0a28344",
+    "implementation": "211ace51fc9a54a23a8a0d9e52c543c33e6d33fde73f6b2599c7dce369e6a138",
+    "lockfile": "f8e8beb591061598325e9a6e55409a104c8d75ffd0f4887799d15b623c13bc7e"
+  },
+  "videoBytes": 9453726,
+  "inputPathChanged": false,
+  "benchmark": "benchmark.json"
+}

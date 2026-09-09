@@ -1,0 +1,114 @@
+[
+  {
+    "id": "skill",
+    "title": "skills/dopagaki-wiki/SKILL.md",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/skills/dopagaki-wiki/SKILL.md#L23-L59",
+    "accessed": "2026-09-09",
+    "kind": "spec",
+    "note": "調査対象・台本作成・見た目と内容の確認・共有先を定める作業手順。自動処理としての実装とは区別する。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "skills/dopagaki-wiki/SKILL.md",
+    "lines": [
+      23,
+      59
+    ]
+  },
+  {
+    "id": "input",
+    "title": "src/schema.ts",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/schema.ts#L96-L229",
+    "accessed": "2026-09-09",
+    "kind": "implementation",
+    "note": "台本・根拠・説明項目の構造と参照を検証する。文章の真偽は検証しない。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "src/schema.ts",
+    "lines": [
+      96,
+      229
+    ]
+  },
+  {
+    "id": "slides",
+    "title": "src/slides.ts",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/slides.ts#L13-L280",
+    "accessed": "2026-09-09",
+    "kind": "implementation",
+    "note": "定型HTML、画像描画、字幕の実測、画像のハッシュ検証とキャッシュ。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "src/slides.ts",
+    "lines": [
+      13,
+      280
+    ]
+  },
+  {
+    "id": "voice",
+    "title": "src/speech.ts",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/speech.ts#L171-L230",
+    "accessed": "2026-09-09",
+    "kind": "implementation",
+    "note": "文・発音・辞書・エンジン情報・設定で音声を識別し、ハッシュを照合して再利用する。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "src/speech.ts",
+    "lines": [
+      171,
+      230
+    ]
+  },
+  {
+    "id": "timing",
+    "title": "src/timeline.ts",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/timeline.ts#L24-L115",
+    "accessed": "2026-09-09",
+    "kind": "implementation",
+    "note": "実音声のサンプル数から時刻を組み立て、字幕の原稿一致と時間範囲を検査する。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "src/timeline.ts",
+    "lines": [
+      24,
+      115
+    ]
+  },
+  {
+    "id": "movie",
+    "title": "src/video.ts",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/video.ts#L17-L218",
+    "accessed": "2026-09-09",
+    "kind": "implementation",
+    "note": "画像・音声・字幕・時刻・FFmpegビルド等で動画キャッシュを判定し、合成後に形式・尺・音量・デコードを検証。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "src/video.ts",
+    "lines": [
+      17,
+      218
+    ]
+  },
+  {
+    "id": "runner",
+    "title": "src/cli.ts",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/cli.ts#L92-L168",
+    "accessed": "2026-09-09",
+    "kind": "implementation",
+    "note": "出力とキャッシュの配置、実行順序、再利用時にも完成動画を再検査する。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "src/cli.ts",
+    "lines": [
+      92,
+      168
+    ]
+  },
+  {
+    "id": "design",
+    "title": "DESIGN.md",
+    "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/DESIGN.md#L1-L184",
+    "accessed": "2026-09-09",
+    "kind": "spec",
+    "note": "デジタル庁の青とニュートラル色を使うデザイン値。動画向け寸法はこのプロジェクトの設定。",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+    "file": "DESIGN.md",
+    "lines": [
+      1,
+      184
+    ]
+  }
+]

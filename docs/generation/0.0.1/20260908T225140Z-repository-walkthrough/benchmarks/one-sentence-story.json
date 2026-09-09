@@ -1,0 +1,565 @@
+{
+  "schemaVersion": "0.0.1",
+  "title": "質問が動画になるまで",
+  "question": "このリポジトリを読んで、質問してから、ずんだもんの動画が完成するまでを初めて使う人向けに説明して。エージェントとプログラムの役割を図で示し、台本修正時の再利用も説明して。",
+  "audience": "初めてdopagaki-wikiを使う人。動画生成や実装の予備知識は不要。",
+  "research": {
+    "kind": "repository",
+    "repository": "https://github.com/konojunya/dopagaki-wiki",
+    "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457"
+  },
+  "sources": [
+    {
+      "id": "skill",
+      "title": "skills/dopagaki-wiki/SKILL.md",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/skills/dopagaki-wiki/SKILL.md#L23-L59",
+      "accessed": "2026-09-09",
+      "kind": "spec",
+      "note": "調査対象・台本作成・見た目と内容の確認・共有先を定める作業手順。自動処理としての実装とは区別する。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "skills/dopagaki-wiki/SKILL.md",
+      "lines": [
+        23,
+        59
+      ]
+    },
+    {
+      "id": "input",
+      "title": "src/schema.ts",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/schema.ts#L96-L229",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "台本・根拠・説明項目の構造と参照を検証する。文章の真偽は検証しない。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "src/schema.ts",
+      "lines": [
+        96,
+        229
+      ]
+    },
+    {
+      "id": "slides",
+      "title": "src/slides.ts",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/slides.ts#L13-L280",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "定型HTML、画像描画、字幕の実測、画像のハッシュ検証とキャッシュ。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "src/slides.ts",
+      "lines": [
+        13,
+        280
+      ]
+    },
+    {
+      "id": "voice",
+      "title": "src/speech.ts",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/speech.ts#L171-L230",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "文・発音・辞書・エンジン情報・設定で音声を識別し、ハッシュを照合して再利用する。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "src/speech.ts",
+      "lines": [
+        171,
+        230
+      ]
+    },
+    {
+      "id": "timing",
+      "title": "src/timeline.ts",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/timeline.ts#L24-L115",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "実音声のサンプル数から時刻を組み立て、字幕の原稿一致と時間範囲を検査する。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "src/timeline.ts",
+      "lines": [
+        24,
+        115
+      ]
+    },
+    {
+      "id": "movie",
+      "title": "src/video.ts",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/video.ts#L17-L218",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "画像・音声・字幕・時刻・FFmpegビルド等で動画キャッシュを判定し、合成後に形式・尺・音量・デコードを検証。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "src/video.ts",
+      "lines": [
+        17,
+        218
+      ]
+    },
+    {
+      "id": "runner",
+      "title": "src/cli.ts",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/src/cli.ts#L92-L168",
+      "accessed": "2026-09-09",
+      "kind": "implementation",
+      "note": "出力とキャッシュの配置、実行順序、再利用時にも完成動画を再検査する。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "src/cli.ts",
+      "lines": [
+        92,
+        168
+      ]
+    },
+    {
+      "id": "design",
+      "title": "DESIGN.md",
+      "url": "https://github.com/konojunya/dopagaki-wiki/blob/9f0c8e66294229e87ab01b83ddbfac0eb10f5457/DESIGN.md#L1-L184",
+      "accessed": "2026-09-09",
+      "kind": "spec",
+      "note": "デジタル庁の青とニュートラル色を使うデザイン値。動画向け寸法はこのプロジェクトの設定。",
+      "revision": "9f0c8e66294229e87ab01b83ddbfac0eb10f5457",
+      "file": "DESIGN.md",
+      "lines": [
+        1,
+        184
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "id": "roles",
+      "question": "利用者とエージェントとプログラムは何をする？",
+      "slides": [
+        "overview",
+        "request",
+        "handoff"
+      ]
+    },
+    {
+      "id": "generation",
+      "question": "どのように映像・音声・字幕を作り品質を確認する？",
+      "slides": [
+        "screen",
+        "voice-time",
+        "finish"
+      ]
+    },
+    {
+      "id": "reuse",
+      "question": "台本を直したとき何を再利用できる？",
+      "slides": [
+        "cache",
+        "one-sentence",
+        "reuse-summary"
+      ]
+    }
+  ],
+  "voice": {
+    "speaker": "ずんだもん",
+    "style": "ノーマル",
+    "speed": 1.08,
+    "dictionary": {
+      "VOICEVOX": "ボイスボックス",
+      "MP4": "エムピーフォー",
+      "１文": "いちぶん",
+      "一文": "いちぶん"
+    }
+  },
+  "theme": "accessible-light-v1",
+  "slides": [
+    {
+      "id": "overview",
+      "title": "質問から動画へ、３つの役割",
+      "claim": "エージェントが構成し、プログラムが映像化と検査を行い、エージェントが内容を確認して共有する。",
+      "evidence": [
+        "skill",
+        "runner"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "① エージェント",
+            "detail": "コードを調べ、台本と図を考える"
+          },
+          {
+            "label": "② プログラム",
+            "detail": "映像と音声を作り、形式を検査する"
+          },
+          {
+            "label": "③ エージェント",
+            "detail": "内容と見た目を確認し、対話で共有"
+          }
+        ],
+        "takeaway": "「何を伝えるか」と「どう映像化するか」を分担"
+      },
+      "narration": [
+        {
+          "id": "overview-1",
+          "text": "質問から動画ができるまでには、三つの役割があるのだ。"
+        },
+        {
+          "id": "overview-2",
+          "text": "まずエージェントが調べて台本を作り、プログラムが映像と音声にするのだ。"
+        },
+        {
+          "id": "overview-3",
+          "text": "最後にエージェントが内容と見た目を確認し、動画を共有するのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "request",
+      "title": "最初に伝えるのは、知りたいこと",
+      "claim": "質問・対象・視聴者をエージェントへ伝え、指定されたリポジトリを調べる。",
+      "evidence": [
+        "skill"
+      ],
+      "content": {
+        "layout": "key",
+        "headline": "「このリポジトリの仕組みを、初めての人向けに」",
+        "points": [
+          {
+            "label": "何を知りたい？",
+            "detail": "質問から動画が完成するまでの流れ"
+          },
+          {
+            "label": "何を調べる？",
+            "detail": "このリポジトリのコードと作業手順"
+          },
+          {
+            "label": "誰に説明する？",
+            "detail": "初めてこのツールを使う人"
+          }
+        ]
+      },
+      "narration": [
+        {
+          "id": "request-1",
+          "text": "今回の依頼は、このツールの仕組みを、初めての人向けに説明することなのだ。"
+        },
+        {
+          "id": "request-2",
+          "text": "エージェントは指定されたコードを読み、実際の処理をたどるのだ。"
+        },
+        {
+          "id": "request-3",
+          "text": "利用者が台本のデータを手書きする必要はないのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "handoff",
+      "title": "台本データが、処理への受け渡しになる",
+      "claim": "エージェントは根拠・説明順・図と発話を構造化し、CLIが入力を検証する。",
+      "evidence": [
+        "skill",
+        "input"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "調査と構成",
+            "detail": "根拠を確かめ、説明の順番を決める"
+          },
+          {
+            "label": "台本データ",
+            "detail": "ページの図と文章、読み上げ文と出典"
+          },
+          {
+            "label": "入力の検証",
+            "detail": "必須項目と、出典の参照を確認"
+          }
+        ],
+        "takeaway": "台本データの名前は story.json"
+      },
+      "narration": [
+        {
+          "id": "handoff-1",
+          "text": "調べた内容は、ページごとの図、文章、読み上げる文に整理するのだ。"
+        },
+        {
+          "id": "handoff-2",
+          "text": "その受け渡しに使うのが、ストーリー・ジェイソンという台本データなのだ。"
+        },
+        {
+          "id": "handoff-3",
+          "text": "プログラムは項目や参照先を検査するけれど、説明の正しさは根拠と照らして確認するのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "screen",
+      "title": "見た目は、共通のルールで揃える",
+      "claim": "台本とDESIGN.mdの値から定型HTMLを描画し、はみ出しと字幕行数を検査する。",
+      "evidence": [
+        "slides",
+        "design"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "共通ルールで描画",
+            "detail": "配色と書体を適用し、ブラウザーに表示"
+          },
+          {
+            "label": "表示を検査",
+            "detail": "文字のはみ出しと、字幕の行数"
+          },
+          {
+            "label": "画像を保存",
+            "detail": "検査した各ページを、動画用の画像へ"
+          }
+        ],
+        "takeaway": "デジタル庁の青 ＋ 白・グレーを基本にする"
+      },
+      "narration": [
+        {
+          "id": "screen-1",
+          "text": "スライドは、共通の配色や書体と、決まったレイアウトで描くのだ。"
+        },
+        {
+          "id": "screen-2",
+          "text": "ブラウザーで表示して、文字のはみ出しや字幕の行数を実測するのだ。"
+        },
+        {
+          "id": "screen-3",
+          "text": "モデルが変わっても見た目のルールは揃うけれど、説明の内容には差が残るのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "voice-time",
+      "title": "字幕の時刻は、できた音声から決める",
+      "claim": "VOICEVOXが文単位の音声を合成し、実音声の長さを使って原稿と一致する字幕を配置する。",
+      "evidence": [
+        "voice",
+        "timing"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "① 音声を作る",
+            "detail": "VOICEVOXで、ずんだもんの声を合成"
+          },
+          {
+            "label": "② 長さを測る",
+            "detail": "各文の開始と終了を、実音声から計算"
+          },
+          {
+            "label": "③ 字幕を合わせる",
+            "detail": "読み上げる文章を、音声の区間に表示"
+          }
+        ],
+        "takeaway": "文字数から秒数を推測せず、音声の長さを使う"
+      },
+      "narration": [
+        {
+          "id": "voice-time-1",
+          "text": "次に、ボイスボックスが文ごとに、ずんだもんの音声を作るのだ。"
+        },
+        {
+          "id": "voice-time-2",
+          "text": "できた音声の長さを測り、その文を表示する開始時刻と終了時刻を決めるのだ。"
+        },
+        {
+          "id": "voice-time-3",
+          "text": "字幕には読み上げと同じ文章を使うので、別の要約に置き換わらないのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "finish",
+      "title": "合成して検査し、動画を共有する",
+      "claim": "FFmpegによる合成と技術的検査を経て、内容・見た目等を確認しMP4と関連資料を共有する。",
+      "evidence": [
+        "movie",
+        "runner",
+        "skill"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "合成する",
+            "detail": "画像・音声・字幕を、１本のMP4へ"
+          },
+          {
+            "label": "機械で検査",
+            "detail": "形式・尺・音量と、全編デコード"
+          },
+          {
+            "label": "内容を確認・共有",
+            "detail": "図と説明を見直し、動画と台本を渡す"
+          }
+        ],
+        "takeaway": "動画は /tmp に保存し、対話から開ける"
+      },
+      "narration": [
+        {
+          "id": "finish-1",
+          "text": "画像、音声、字幕をエフエフエムペグで合成すると、一本の動画になるのだ。"
+        },
+        {
+          "id": "finish-2",
+          "text": "プログラムが形式や音量を検査し、全編を読み解けることも確認するのだ。"
+        },
+        {
+          "id": "finish-3",
+          "text": "ただし機械検査だけでは、説明の正しさや声の自然さまでは証明できないのだ。"
+        },
+        {
+          "id": "finish-4",
+          "text": "確認した動画と台本は、作業用フォルダーに保存して対話で共有するのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "cache",
+      "title": "作り直しのために、素材を保存する",
+      "claim": "画像・文単位の音声・完成動画を別々にキャッシュし、条件とハッシュが一致するものを再利用する。",
+      "evidence": [
+        "slides",
+        "voice",
+        "movie"
+      ],
+      "content": {
+        "layout": "key",
+        "headline": "キャッシュ ＝ 再利用する保存物",
+        "points": [
+          {
+            "label": "画像：ページ単位",
+            "detail": "表示内容・フォント・画像素材などで判定"
+          },
+          {
+            "label": "音声：文単位",
+            "detail": "文章・発音・辞書・声の設定などで判定"
+          },
+          {
+            "label": "完成動画も保存",
+            "detail": "素材・字幕・時刻・合成条件などで判定"
+          }
+        ]
+      },
+      "narration": [
+        {
+          "id": "cache-1",
+          "text": "作り直すときのために、画像と音声と完成動画を、別々に保存しているのだ。"
+        },
+        {
+          "id": "cache-2",
+          "text": "この保存物をキャッシュと呼び、同じ条件なら再利用するのだ。"
+        },
+        {
+          "id": "cache-3",
+          "text": "ファイルの中身も照合するので、壊れた保存物は作り直すのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "one-sentence",
+      "title": "読み上げる１文だけを直したら？",
+      "claim": "画面・辞書・音声設定を変えずに1文のみ変更すれば、その文の音声を再合成し他の音声と画像を再利用できる。",
+      "evidence": [
+        "voice",
+        "slides",
+        "movie"
+      ],
+      "content": {
+        "layout": "visual",
+        "asset": {
+          "path": "assets/one-sentence.png",
+          "alt": "3文のうち文②だけを変更すると、文①と文③の音声は再利用し、文②の音声だけを再合成する。",
+          "origin": {
+            "kind": "diagram",
+            "description": "自作SVGを同梱Noto Sans JPで描画した図。青い枠と「再合成」のラベルで変更を示す。"
+          }
+        },
+        "explanation": "字幕と時刻を組み直し、完成動画は再合成する"
+      },
+      "narration": [
+        {
+          "id": "one-sentence-1",
+          "text": "例えば、三つの文のうち、二つ目の読み上げだけを直すのだ。"
+        },
+        {
+          "id": "one-sentence-2",
+          "text": "画面と声の設定が同じなら、画像と、変えていない文の音声を再利用できるのだ。"
+        },
+        {
+          "id": "one-sentence-3",
+          "text": "変えた文は音声を作り直し、字幕と時刻を組み直して、完成動画を再合成するのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
+    {
+      "id": "reuse-summary",
+      "title": "直す場所によって、再利用するものが変わる",
+      "claim": "表示だけの変更は音声、読み上げだけの変更は画像と他文音声を再利用でき、全条件一致なら動画を再利用するが検査は行う。",
+      "evidence": [
+        "slides",
+        "voice",
+        "movie",
+        "runner"
+      ],
+      "content": {
+        "layout": "compare",
+        "columns": [
+          "変更するもの",
+          "再利用できるもの",
+          "再実行する処理"
+        ],
+        "rows": [
+          [
+            "表示だけ",
+            "音声",
+            "変更した画像・動画"
+          ],
+          [
+            "読み上げ１文",
+            "画像・他の文の音声",
+            "その文の音声・動画"
+          ],
+          [
+            "変更なし",
+            "画像・音声・動画",
+            "完成動画も再検査"
+          ]
+        ],
+        "takeaway": "同じキャッシュ・生成条件が前提。検査は毎回行う。"
+      },
+      "narration": [
+        {
+          "id": "reuse-summary-1",
+          "text": "画面の説明だけを直した場合は、音声を再利用して、変えた画像と動画を作り直すのだ。"
+        },
+        {
+          "id": "reuse-summary-2",
+          "text": "何も変えず条件も同じなら、完成動画も再利用できるのだ。"
+        },
+        {
+          "id": "reuse-summary-3",
+          "text": "再利用した場合も検査は行い、使える素材を残しながら説明を改善していけるのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "browser": "152.0.7977.83",
+  "samples": [
+    {
+      "requested": 3.112,
+      "actual": 3.47206,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 109
+    },
+    {
+      "requested": 58.166666666666664,
+      "actual": 58.526719,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 370
+    },
+    {
+      "requested": 77.35866666666666,
+      "actual": 77.720059,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 457
+    },
+    {
+      "requested": 142.02266666666668,
+      "actual": 142.385166,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 484
+    },
+    {
+      "requested": 164.33466666666666,
+      "actual": 164.696476,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "decodedFrames": 692
+    }
+  ],
+  "note": "Muted real Chrome playback. Human listening and ASR not performed."
+}
