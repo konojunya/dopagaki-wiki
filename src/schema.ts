@@ -45,6 +45,10 @@ const content = z.discriminatedUnion("layout", [
   z
     .object({
       layout: z.literal("code"),
+      language: z
+        .string()
+        .regex(/^[a-zA-Z0-9_+-]{1,32}$/)
+        .optional(),
       code: z.string().min(1).max(600),
       explanation: z.array(text).min(1).max(3),
       takeaway: text,

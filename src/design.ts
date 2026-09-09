@@ -25,6 +25,7 @@ const schema = z.object({
         "muted",
         "border",
         "code-background",
+        "caption-background",
         "visited",
         "focus",
         "focus-outline",
@@ -39,7 +40,7 @@ const schema = z.object({
     caption: typography,
     metadata: typography,
   }),
-  rounded: z.object({ cell: px }),
+  rounded: z.object({ cell: px, step: px }),
   spacing: z.object({
     xs: px,
     sm: px,

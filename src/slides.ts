@@ -5,6 +5,7 @@ import { pathToFileURL } from "node:url";
 import { ROOT, hash, fileHash, atomic, json, readJson } from "./common.js";
 import { theme, css, previewCss } from "./theme.js";
 import type { Story, Slide } from "./schema.js";
+import hljs from "highlight.js/lib/common";
 export const esc = (s: string) =>
   s.replace(
     /[&<>"']/g,
@@ -13,22 +14,30 @@ export const esc = (s: string) =>
         c
       ]!,
   );
+const takeaway = (text: string) =>
+  `<p class="takeaway"><span class="takeaway-icon" aria-hidden="true">💡</span><span>${esc(text)}</span></p>`;
 export function slideHtml(story: Story, s: Slide, i: number) {
   const c = s.content;
   let body = "";
   if (c.layout === "key")
     body = `<p class="headline">${esc(c.headline)}</p><div class="points">${c.points.map((p) => `<div class="point"><strong>${esc(p.label)}</strong><p>${esc(p.detail)}</p></div>`).join("")}</div>`;
   if (c.layout === "compare")
-    body = `<table><thead><tr>${c.columns.map((t) => `<th>${esc(t)}</th>`).join("")}</tr></thead><tbody>${c.rows.map((r) => `<tr>${r.map((t) => `<td>${esc(t)}</td>`).join("")}</tr>`).join("")}</tbody></table><p class="takeaway">${esc(c.takeaway)}</p>`;
+    body = `<table><thead><tr>${c.columns.map((t) => `<th>${esc(t)}</th>`).join("")}</tr></thead><tbody>${c.rows.map((r) => `<tr>${r.map((t) => `<td>${esc(t)}</td>`).join("")}</tr>`).join("")}</tbody></table>${takeaway(c.takeaway)}`;
   if (c.layout === "flow")
-    body = `<div class="steps">${c.steps.map((p, j) => `${j ? '<div class="arrow">→</div>' : ""}<div class="step"><b>${esc(p.label)}</b><p>${esc(p.detail)}</p></div>`).join("")}</div><p class="takeaway">${esc(c.takeaway)}</p>`;
-  if (c.layout === "code")
-    body = `<div class="code-grid"><pre>${esc(c.code)}</pre><div class="explanations">${c.explanation.map((t) => `<p>${esc(t)}</p>`).join("")}</div></div><p class="takeaway">${esc(c.takeaway)}</p>`;
+    body = `<div class="steps">${c.steps.map((p, j) => `${j ? '<div class="arrow">→</div>' : ""}<div class="step"><b>${esc(p.label)}</b><p>${esc(p.detail)}</p></div>`).join("")}</div>${takeaway(c.takeaway)}`;
+  if (c.layout === "code") {
+    const code =
+      c.language && hljs.getLanguage(c.language)
+        ? hljs.highlight(c.code, { language: c.language, ignoreIllegals: true })
+            .value
+        : esc(c.code);
+    body = `<div class="code-grid"><pre><code>${code}</code></pre><ol class="explanations">${c.explanation.map((t) => `<li>${esc(t)}</li>`).join("")}</ol></div>${takeaway(c.takeaway)}`;
+  }
   if (c.layout === "visual")
-    body = `<div class="visual"><img src="media/${s.id}${extname(c.asset.path).toLowerCase()}" alt="${esc(c.asset.alt)}"></div><p class="takeaway">${esc(c.explanation)}</p>`;
+    body = `<div class="visual"><img src="media/${s.id}${extname(c.asset.path).toLowerCase()}" alt="${esc(c.asset.alt)}"></div>${takeaway(c.explanation)}`;
   if (c.layout === "example")
-    body = `<p class="example-label">${esc(c.label)}</p><div class="cells">${c.cells.map((t) => `<div class="cell">${esc(t)}</div>`).join("")}</div><p class="equation">${esc(c.equation)}</p><p class="takeaway">${esc(c.explanation)}</p>`;
-  return `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(s.title)}</title><style>${css}</style><section class="slide"><div class="topline"><span>ずんだもんと学ぶ · ${esc(story.title)}</span><span>${String(i + 1).padStart(2, "0")} / ${String(story.slides.length).padStart(2, "0")}</span></div><h1>${esc(s.title)}</h1><main>${body}</main><div class="caption"><p></p></div><footer><span>出典: ${esc(s.evidence.join(" / "))}</span><span>VOICEVOX:${esc(story.voice.speaker)}</span></footer></section></html>`;
+    body = `<p class="example-label">${esc(c.label)}</p><div class="cells">${c.cells.map((t) => `<div class="cell">${esc(t)}</div>`).join("")}</div><p class="equation">${esc(c.equation)}</p>${takeaway(c.explanation)}`;
+  return `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(s.title)}</title><style>${css}</style><section class="slide"><div class="topline"><span>ずんだもんと学ぶ · ${esc(story.title)}</span><span>${String(i + 1).padStart(2, "0")} / ${String(story.slides.length).padStart(2, "0")}</span></div><h1>${esc(s.title)}</h1><main>${body}</main><div class="caption"><p></p></div><footer><span>出典: ${esc(s.evidence.join(" / "))}</span></footer></section></html>`;
 }
 export async function inspectPage(page: Page) {
   return page.evaluate(() => {

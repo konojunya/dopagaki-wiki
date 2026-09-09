@@ -10,6 +10,30 @@ import { slideHtml, inspectPage, wrapCaption } from "../src/slides.js";
 const raw = JSON.parse(
   await readFile("examples/go-integers.story.json", "utf8"),
 );
+test("code highlighting preserves literal text and safely falls back for unknown languages", async () => {
+  const b = await chromium.launch(),
+    p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+  const s = parseStory(raw),
+    slide = s.slides.find((slide) => slide.content.layout === "code")!;
+  if (slide.content.layout !== "code") throw new Error("Missing code fixture");
+  const original =
+    'var n int8 = 127\n// <img src=x onerror=alert(1)>\nfmt.Println("<script>alert(1)</script>", n)';
+  slide.content.code = original;
+  try {
+    for (const language of ["go", "not-a-supported-language", undefined]) {
+      slide.content.language = language;
+      await p.setContent(slideHtml(s, slide, 0));
+      assert.equal(await p.locator("pre code").textContent(), original);
+      assert.equal(await p.locator("script, pre img").count(), 0);
+      assert.equal(
+        (await p.locator("pre .hljs-keyword").count()) > 0,
+        language === "go",
+      );
+    }
+  } finally {
+    await b.close();
+  }
+});
 test("browser rejects clipping, long identifier, oversized Japanese text and >2-line captions", async () => {
   const b = await chromium.launch(),
     p = await b.newPage({ viewport: { width: 1920, height: 1080 } });

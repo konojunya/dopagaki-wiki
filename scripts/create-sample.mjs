@@ -198,6 +198,7 @@ add(
   "実行時の整数演算はオーバーフローし、panic しない。",
   {
     layout: "code",
+    language: "go",
     code: "var u uint8 = 255\nu++\nfmt.Println(u) // 0\nvar i int8 = 127\ni++\nfmt.Println(i) // -128",
     explanation: [
       "uint8：255 の次は 0",
@@ -220,6 +221,7 @@ add(
   "符号なしのゼロからの減算も折り返す。",
   {
     layout: "code",
+    language: "go",
     code: "var stock uint8 = 0\nstock--\nfmt.Println(stock)\n// 255",
     explanation: [
       "0 から 1 を引く",
@@ -241,6 +243,7 @@ add(
   "表現不能な定数はコンパイルエラー。実行時演算と区別する。",
   {
     layout: "code",
+    language: "go",
     code: "var a int8 = 128\n// コンパイルエラー\n\nvar b uint8 = -1\n// コンパイルエラー",
     explanation: [
       "128 は int8 に入らない",
@@ -262,6 +265,7 @@ add(
   "異なる整数型の代入には明示変換が必要。縮小変換は切り詰められる。",
   {
     layout: "code",
+    language: "go",
     code: "var a int8 = 100\nvar b int64 = int64(a)\n// int8 → int64 は収まる\nvar x int16 = 300\ny := uint8(x)\nfmt.Println(y) // 44",
     explanation: [
       "変換を int64(a) のように書く",

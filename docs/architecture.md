@@ -40,6 +40,8 @@ FFmpegではフレームを30fpsで用意してからASS字幕を描画します
 
 配色・書体・図・画像・ロゴの扱いは [DESIGN.md](../DESIGN.md) にまとめています。そこにあるYAMLの値を実行時に読むため、説明資料と実装で色を二重管理しません。生成モデルが任意のHTML/CSSを入力する構成ではありません。
 
-音声のクレジット `VOICEVOX:ずんだもん` は全ページに表示します。キャラクター立ち絵は使用していません。[VOICEVOX規約](https://voicevox.hiroshiba.jp/term/)、[音声ライブラリの案内](https://voicevox.hiroshiba.jp/product/zundamon/) と [同梱フォントの配布元・OFL](../assets/fonts/SOURCES.md) を参照してください。
+画面のフッターは出典のみを表示します。音声のクレジット `VOICEVOX:ずんだもん` は生成した台本（`script.md`）に記載します。キャラクター立ち絵は使用していません。[VOICEVOX規約](https://voicevox.hiroshiba.jp/term/)、[音声ライブラリの案内](https://voicevox.hiroshiba.jp/product/zundamon/) と [同梱フォントの配布元・OFL](../assets/fonts/SOURCES.md) を参照してください。
 
 当初の設計意図は [実装プラン](implementation-plan.md)、初期実装で採用した判断は [0.0.1の記録](generation/0.0.1/decisions.md) に残しています。
+
+コードの構文ハイライトは、生成時に [highlight.jsのAPI](https://highlightjs.readthedocs.io/en/latest/api.html#highlight) で静的HTMLへ変換します。`content.language` が未指定・未対応なら通常のコード表示に戻ります。ブラウザーでハイライト処理やネットワーク通信は行いません。

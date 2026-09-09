@@ -20,7 +20,7 @@ theme は `accessible-light-v1` のみ。voice は初期 `ずんだもん` / `�
 {"layout":"key","headline":"一つの結論","points":[{"label":"見出し","detail":"説明"}]}
 {"layout":"compare","columns":["項目","結果"],"rows":[["A","値"]],"takeaway":"意味"}
 {"layout":"flow","steps":[{"label":"入力","detail":"内容"},{"label":"出力","detail":"内容"}],"takeaway":"意味"}
-{"layout":"code","code":"fmt.Println(1)","explanation":["1 が表示される"],"takeaway":"意味"}
+{"layout":"code","language":"go","code":"fmt.Println(1)","explanation":["1 が表示される"],"takeaway":"意味"}
 {"layout":"example","label":"図の見方","cells":["0","1"],"equation":"結果","explanation":"意味"}
 {"layout":"visual","asset":{"path":"assets/diagram.svg","alt":"図の内容","origin":{"kind":"diagram","description":"構造化した手順図"}},"explanation":"図からわかること"}
 ```
@@ -30,3 +30,5 @@ visual の path は story.json のある場所からの相対パス、または�
 `key` は最大3項目、`compare` は2〜3列・4行、`flow` は2〜3段階、`code` は説明3項目まで、`example` は8セルまで。機械的な上限まで詰めず、長ければ分割する。
 
 原文はエスケープしてDOMに置く。任意CSS・スクリプト・外部参照SVGは許可しない。JSON SchemaだけではID参照やrepository根拠の対応を検証できないので、最終的には必ずCLI validateを実行する。
+
+`code.language` で構文ハイライトの言語を明示する。例: `go` / `javascript` / `typescript` / `python` / `bash` / `json` / `rust` / `sql` / `xml` / `css` / `yaml`。highlight.jsのcommon言語セットを使用し、自動判定は行わない。省略または未対応の言語は、HTMLをエスケープした通常のコードとして表示する。

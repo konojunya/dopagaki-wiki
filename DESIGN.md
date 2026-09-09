@@ -12,6 +12,7 @@ colors:
   muted: "#4d4d4d"
   border: "#7f7f7f"
   code-background: "#f2f2f2"
+  caption-background: "#e6e6e6"
   visited: "#8b008b"
   focus: "#ffd43d"
   focus-outline: "#000000"
@@ -48,6 +49,7 @@ typography:
     lineHeight: 1.5
 rounded:
   cell: 8px
+  step: 16px
 spacing:
   xs: 8px
   sm: 16px
@@ -69,6 +71,11 @@ components:
     backgroundColor: "{colors.tint}"
     textColor: "{colors.ink}"
     typography: "{typography.body}"
+  takeaway:
+    textColor: "{colors.ink}"
+  step:
+    textColor: "{colors.ink}"
+    rounded: "{rounded.step}"
   flow-arrow:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.secondary}"
@@ -80,12 +87,21 @@ components:
     backgroundColor: "{colors.code-background}"
     textColor: "{colors.ink}"
     typography: "{typography.code}"
+  code-keyword:
+    backgroundColor: "{colors.code-background}"
+    textColor: "{colors.primary}"
+  code-literal:
+    backgroundColor: "{colors.code-background}"
+    textColor: "{colors.tertiary}"
+  code-comment:
+    backgroundColor: "{colors.code-background}"
+    textColor: "{colors.muted}"
   table:
     backgroundColor: "{colors.tint}"
     textColor: "{colors.ink}"
     typography: "{typography.table}"
   caption:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: "{colors.caption-background}"
     textColor: "{colors.ink}"
     typography: "{typography.caption}"
     height: 160px
@@ -128,6 +144,7 @@ components:
 | `surface` / `ink`         | White / Solid Gray-900                           | スライド背景、通常の見出し・本文・字幕     |
 | `muted` / `border`        | Solid Gray-700 / Solid Gray-500                  | 出典・補助情報、意味のある区切り線         |
 | `code-background`         | Solid Gray-50                                    | コードとプレビュー外周の背景               |
+| `caption-background` | Solid Gray-100 | 字幕領域へ70%の不透明度で適用 |
 | `visited`                 | Magenta-900                                      | HTMLの訪問済みリンク                       |
 | `focus` / `focus-outline` | Yellow-300 / Black                               | HTMLのキーボードフォーカス                 |
 
@@ -157,7 +174,7 @@ components:
 
 ## Shapes
 
-表・説明枠は角を丸めず、ビットのセルだけ8pxの角丸を使う。角丸を増やして情報の意味を変えない。
+表と補足文は角を丸めない。ビットのセルは8px、手順の箱は16pxの角丸を使う。手順の箱は塗りなし・2pxの枠線とし、色だけで順序を示さない。
 
 ## Components
 
@@ -171,6 +188,14 @@ components:
 | `visual`  | SVG・画像と説明           |
 
 DOMで表せる構造はDOM、SVGの方が簡潔な図はSVGを使う。創造的な素材が理解を助ける場合は画像生成を利用する。言語・ツールのロゴは公式配布元からダウンロードし、生成で代用しない。画像の元URL・生成プロンプトは `asset.origin` に記録する。詳細な入力形式は [原稿のガイド](skills/dopagaki-wiki/references/schema.md) を参照。
+
+compare / flow / code / example / visual の補足文は、先頭に必ず 💡 を置き、背景色を付けず、四辺を2pxの枠線で囲む。複数行でもアイコンは先頭に一つとする。
+
+code の右側は通常の番号付きリスト（1. / 2. / 3.）にする。構文ハイライトは明示した言語を使い、キーワードをBlue-900、文字列・数値・関数名をBlue-1000、コメントをSolid Gray-700で表示する。色数を増やさず、コード本文と改行を保つ。
+
+字幕領域はSolid Gray-100（#e6e6e6）を70%の不透明度で敷き、文字自体は透過させない。上辺の区切り線は使わない。動画ではブラウザーが白背景に重ねた色をスライド画像へ描画し、その上に字幕を合成する。
+
+画面のフッターは出典のみを表示し、音声クレジットを常時表示しない。生成した台本には音声クレジットを残す。
 
 動画の青い文字はインタラクティブなリンクではない。HTMLプレビューの実リンクは青と下線を組み合わせ、訪問済みはマゼンタ、フォーカスは黄色と黒で示す。[公式のリンク指針](https://design.digital.go.jp/dads/foundations/link-text/) を参照。動画にボタンやフォームの状態を持ち込まない。
 
