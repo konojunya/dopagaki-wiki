@@ -39,7 +39,7 @@ CLI は LLM API を呼ばない。エージェントが調査と story.json を�
 ## 教材を組み立てる
 
 1. [research.md](references/research.md) を読み、質問への答え、必要な前提、仕組み、検算できる具体例、制約を根拠に結びつける。リポジトリなら revision を固定する。
-2. [storytelling.md](references/storytelling.md) と [schema.md](references/schema.md) を読み、説明項目 `objectives` → `slides` → `evidence` の対応を作る。小さな入力例はリポジトリの `examples/minimal.story.json`、詳細な教材例は `examples/go-integers.story.json`。
+2. [storytelling.md](references/storytelling.md) と [schema.md](references/schema.md) を読み、説明項目 `objectives` → `slides` → `evidence` の対応を作る。[layouts.md](references/layouts.md) の選択基準に従い、各ページの主張から `content.layout` をエージェントが決める。小さな入力例はリポジトリの `examples/minimal.story.json`、詳細な教材例は `examples/go-integers.story.json`。
 3. ツール側の [DESIGN.md](../../DESIGN.md) を読み、デジタル庁の青とニュートラル色、書体、固定レイアウトの使い方に従う。このファイルのYAMLはCLIが直接読み込む。任意 HTML/CSS は入力しない。1枚1主張を基本にし、比較・ビット・手順などを図として示す。説明のない装飾で枚数を増やさない。
 4. 原稿を自然な短文で分割する。字幕は `narration.text` と同じ文章を使う。発音だけ `voice.dictionary` で補う。字幕のために別の要約を生成しない。
 5. `validate` と `preview` を実行する。違反は表示された slide / segment ID の内容を分割・修正する。文字を小さくする、隠す、位置を無理にずらす回避は禁止。自動修正を3回行っても残る問題は、原因を特定してから再構成する。

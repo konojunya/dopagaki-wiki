@@ -50,6 +50,7 @@ typography:
 rounded:
   cell: 8px
   step: 16px
+  callout: 16px
 spacing:
   xs: 8px
   sm: 16px
@@ -73,9 +74,13 @@ components:
     typography: "{typography.body}"
   takeaway:
     textColor: "{colors.ink}"
+    rounded: "{rounded.callout}"
   step:
     textColor: "{colors.ink}"
     rounded: "{rounded.step}"
+  step-border:
+    backgroundColor: "{colors.primary}"
+    width: 4px
   flow-arrow:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.secondary}"
@@ -174,7 +179,7 @@ components:
 
 ## Shapes
 
-表と補足文は角を丸めない。ビットのセルは8px、手順の箱は16pxの角丸を使う。手順の箱は塗りなし・2pxの枠線とし、色だけで順序を示さない。
+表は角を丸めない。補足文のcalloutは16pxの角丸を使う。ビットのセルは8px、手順の箱は16pxの角丸を使う。手順の箱は塗りなし・primary（Blue-900）の4pxの枠線とし、色だけで順序を示さない。
 
 ## Components
 
@@ -207,3 +212,12 @@ code の右側は通常の番号付きリスト（1. / 2. / 3.）にする。構
 - デザイン上の色と、ダウンロードした公式ロゴの色を混同しない。ロゴは勝手に青へ変換しない。
 - デジタル庁の基礎仕様と、この動画向けの寸法・役割の適用を区別する。公式サイトの完全な複製やデジタル庁の認証を意味しない。
 - 比較資料の保存時は [保存ルール](docs/generation/README.md) に従い、旧動画は上書きしない。
+
+### 関係を示す図解と段階表示
+
+- `before-after` は同じ対象の変更前と変更後を左右に並べ、間に矢印を置く。変更後は青の淡色背景で示す。
+- `sequence` は主体を等幅の列にし、通信を上から順に配置する。矢印の端は主体の列の中心に揃える。2〜3主体・最大3通信とし、長い説明は別ページに分ける。
+- `branch` は上に条件、下の左右に「はい」「いいえ」の結果を示す。成功・失敗の色には依存しない。
+- `focus` は左に構成部分の一覧、右に選択した部分の詳細を置く。選択は青の淡色背景・太字・三角の記号を併用する。
+- 新しい図のパネルは2pxのprimary色borderと16pxの角丸。本文48px、補助見出しと通信ラベル40px。既存のflowの枠は4pxを維持する。
+- `flow.activeStep` / `sequence.activeMessage` は選択項目に青の淡色背景を付け、記号または線の太さでも強調する。非選択項目の文字を薄くしない。段階表示は固定した図の強調箇所だけを変えた複数スライドで構成し、配置を動かさない。

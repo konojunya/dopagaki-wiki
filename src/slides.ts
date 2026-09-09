@@ -19,12 +19,35 @@ const takeaway = (text: string) =>
 export function slideHtml(story: Story, s: Slide, i: number) {
   const c = s.content;
   let body = "";
+  const panel = (
+    heading: string,
+    p: { label: string; detail: string },
+    extra = "",
+  ) =>
+    `<section class="diagram-panel ${extra}"><p class="panel-heading">${esc(heading)}</p><b>${esc(p.label)}</b><p>${esc(p.detail)}</p></section>`;
+  if (c.layout === "before-after")
+    body = `<div class="paired-panels">${panel("変更前", c.before)}<div class="arrow">→</div>${panel("変更後", c.after, "is-active")}</div>${takeaway(c.takeaway)}`;
+  if (c.layout === "branch")
+    body = `<p class="condition">${esc(c.condition)}</p><div class="branch-panels">${panel("↙ はい", c.yes)}${panel("いいえ ↘", c.no)}</div>${takeaway(c.takeaway)}`;
+  if (c.layout === "focus")
+    body = `<div class="focus-grid"><div class="overview"><p class="panel-heading">全体の構成</p>${c.parts.map((p) => `<div class="overview-part${p.id === c.selected ? " is-active" : ""}"${p.id === c.selected ? ' aria-current="true"' : ""}>${p.id === c.selected ? "▶ " : ""}${esc(p.label)}</div>`).join("")}</div><div class="arrow">→</div>${panel(c.parts.find((p) => p.id === c.selected)!.label + "の詳細", c.detail)}</div>${takeaway(c.takeaway)}`;
+  if (c.layout === "sequence") {
+    const count = c.actors.length * 2;
+    body = `<div class="sequence" style="grid-template-columns:repeat(${count},minmax(0,1fr))">${c.actors.map((a) => `<b class="actor">${esc(a.label)}</b>`).join("")}${c.messages
+      .map((m, j) => {
+        const from = c.actors.findIndex((a) => a.id === m.from),
+          to = c.actors.findIndex((a) => a.id === m.to);
+        const right = to > from;
+        return `<div class="message${c.activeMessage === j + 1 ? " is-active" : ""}" data-from="${esc(m.from)}" data-to="${esc(m.to)}"${c.activeMessage === j + 1 ? ' aria-current="step"' : ""} style="grid-row:${j + 2};grid-column:${Math.min(from, to) * 2 + 2}/${Math.max(from, to) * 2 + 2}"><p>${j + 1}. ${esc(m.label)}</p><div class="message-rail" aria-hidden="true"><span class="${right ? "" : "tip-left"}"></span><span class="message-line"></span><span class="${right ? "tip-right" : ""}"></span></div></div>`;
+      })
+      .join("")}</div>${takeaway(c.takeaway)}`;
+  }
   if (c.layout === "key")
     body = `<p class="headline">${esc(c.headline)}</p><div class="points">${c.points.map((p) => `<div class="point"><strong>${esc(p.label)}</strong><p>${esc(p.detail)}</p></div>`).join("")}</div>`;
   if (c.layout === "compare")
     body = `<table><thead><tr>${c.columns.map((t) => `<th>${esc(t)}</th>`).join("")}</tr></thead><tbody>${c.rows.map((r) => `<tr>${r.map((t) => `<td>${esc(t)}</td>`).join("")}</tr>`).join("")}</tbody></table>${takeaway(c.takeaway)}`;
   if (c.layout === "flow")
-    body = `<div class="steps">${c.steps.map((p, j) => `${j ? '<div class="arrow">→</div>' : ""}<div class="step"><b>${esc(p.label)}</b><p>${esc(p.detail)}</p></div>`).join("")}</div>${takeaway(c.takeaway)}`;
+    body = `<div class="steps">${c.steps.map((p, j) => `${j ? '<div class="arrow">→</div>' : ""}<div class="step${c.activeStep === j + 1 ? " is-active" : ""}"${c.activeStep === j + 1 ? ' aria-current="step"' : ""}><b class="step-label">${c.activeStep !== undefined ? `<span class="step-marker" aria-hidden="true">${c.activeStep === j + 1 ? "▶" : ""}</span>` : ""}<span>${esc(p.label)}</span></b><p>${esc(p.detail)}</p></div>`).join("")}</div>${takeaway(c.takeaway)}`;
   if (c.layout === "code") {
     const code =
       c.language && hljs.getLanguage(c.language)

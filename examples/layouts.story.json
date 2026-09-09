@@ -1,0 +1,317 @@
+{
+  "schemaVersion": "0.0.1",
+  "title": "図解レイアウトの見本",
+  "question": "説明する関係に合わせて、どの図を選ぶか",
+  "audience": "Go を学び始めた人。変数と整数は知っているがビットや符号付きは未学習。",
+  "research": {
+    "kind": "concept"
+  },
+  "sources": [
+    {
+      "id": "illustration",
+      "title": "レイアウト確認用の模式例",
+      "url": "https://github.com/konojunya/dopagaki-wiki",
+      "accessed": "2026-09-09",
+      "kind": "inference",
+      "note": "表示確認のために単純化した説明例。通信図は特定の実装を示さず、DBからの応答などは省略している。"
+    }
+  ],
+  "objectives": [
+    {
+      "id": "layouts",
+      "question": "説明する関係に合わせて、どの図を選ぶか",
+      "slides": [
+        "before-after",
+        "sequence",
+        "branch",
+        "focus",
+        "flow-stage-1",
+        "flow-stage-2",
+        "flow-stage-3"
+      ]
+    }
+  ],
+  "voice": {
+    "speaker": "ずんだもん",
+    "style": "ノーマル",
+    "speed": 1.1,
+    "dictionary": {
+      "負の": "ふの",
+      "値": "あたい",
+      "京": "けい",
+      "整数型": "せいすうがた",
+      "型": "かた",
+      "uint64": "ユーイントろくじゅうよん",
+      "uint32": "ユーイントさんじゅうに",
+      "uint16": "ユーイントじゅうろく",
+      "uint8": "ユーイントはち",
+      "int64": "イントろくじゅうよん",
+      "int32": "イントさんじゅうに",
+      "int16": "イントじゅうろく",
+      "int8": "イントはち",
+      "uint": "ユーイント",
+      "int": "イント",
+      "Go": "ゴー",
+      "byte": "バイト",
+      "rune": "ルーン",
+      "Unicode": "ユニコード",
+      "panic": "パニック",
+      "00000101": "ゼロゼロゼロゼロゼロイチゼロイチ"
+    }
+  },
+  "theme": "accessible-light-v1",
+  "slides": [
+    {
+      "id": "before-after",
+      "title": "文章を図にすると関係が見える",
+      "claim": "同じ内容でも、順序を図にすると追いやすい。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "before-after",
+        "before": {
+          "label": "文章だけで説明",
+          "detail": "入力を検証してから、音声と動画を作る。"
+        },
+        "after": {
+          "label": "手順を図で説明",
+          "detail": "入力 → 検証 → 動画生成"
+        },
+        "takeaway": "同じ内容でも、順序を図にすると追いやすい。"
+      },
+      "narration": [
+        {
+          "id": "before-after-n1",
+          "text": "同じ内容でも、順序を図にすると追いやすくなるのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    },
+    {
+      "id": "sequence",
+      "title": "要求と応答を順番に追う",
+      "claim": "上から順に読む。DBからの応答は省略。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "sequence",
+        "actors": [
+          {
+            "id": "browser",
+            "label": "ブラウザー"
+          },
+          {
+            "id": "server",
+            "label": "サーバー"
+          },
+          {
+            "id": "database",
+            "label": "DB"
+          }
+        ],
+        "messages": [
+          {
+            "from": "browser",
+            "to": "server",
+            "label": "ページを要求"
+          },
+          {
+            "from": "server",
+            "to": "database",
+            "label": "データを取得"
+          },
+          {
+            "from": "server",
+            "to": "browser",
+            "label": "HTMLを返す"
+          }
+        ],
+        "takeaway": "上から順に読む。DBからの応答は省略。"
+      },
+      "narration": [
+        {
+          "id": "sequence-n1",
+          "text": "矢印は通信の向きを示しているのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    },
+    {
+      "id": "branch",
+      "title": "条件に応じて進む先が変わる",
+      "claim": "判断の条件と、それぞれの結果を並べる。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "branch",
+        "condition": "保存済みの素材を再利用できる？",
+        "yes": {
+          "label": "素材を再利用",
+          "detail": "保存済みの素材を使う。"
+        },
+        "no": {
+          "label": "素材を作成",
+          "detail": "必要な素材を作り直す。"
+        },
+        "takeaway": "判断の条件と、それぞれの結果を並べる。"
+      },
+      "narration": [
+        {
+          "id": "branch-n1",
+          "text": "条件を満たすかどうかで、進む先が変わるのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    },
+    {
+      "id": "focus",
+      "title": "全体の中で、説明中の場所を示す",
+      "claim": "全体の位置を残したまま、ひとつを詳しく見る。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "focus",
+        "parts": [
+          {
+            "id": "input",
+            "label": "1. 入力"
+          },
+          {
+            "id": "validation",
+            "label": "2. 検証"
+          },
+          {
+            "id": "output",
+            "label": "3. 出力"
+          }
+        ],
+        "selected": "validation",
+        "detail": {
+          "label": "入力を確認する",
+          "detail": "必須項目や参照先が揃っているか調べる。"
+        },
+        "takeaway": "全体の位置を残したまま、ひとつを詳しく見る。"
+      },
+      "narration": [
+        {
+          "id": "focus-n1",
+          "text": "全体のどこを説明しているのか、残しておくのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    },
+    {
+      "id": "flow-stage-1",
+      "title": "同じ図で、説明する場所を移す",
+      "claim": "現在は「入力」の説明。図の配置は変えない。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "1. 入力",
+            "detail": "原稿を用意する"
+          },
+          {
+            "label": "2. 検証",
+            "detail": "内容を確認する"
+          },
+          {
+            "label": "3. 出力",
+            "detail": "動画を作成する"
+          }
+        ],
+        "activeStep": 1,
+        "takeaway": "現在は「入力」の説明。図の配置は変えない。"
+      },
+      "narration": [
+        {
+          "id": "flow-stage-1-n1",
+          "text": "まずは入力の段階で、原稿を用意するのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    },
+    {
+      "id": "flow-stage-2",
+      "title": "同じ図で、説明する場所を移す",
+      "claim": "現在は「検証」の説明。図の配置は変えない。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "1. 入力",
+            "detail": "原稿を用意する"
+          },
+          {
+            "label": "2. 検証",
+            "detail": "内容を確認する"
+          },
+          {
+            "label": "3. 出力",
+            "detail": "動画を作成する"
+          }
+        ],
+        "activeStep": 2,
+        "takeaway": "現在は「検証」の説明。図の配置は変えない。"
+      },
+      "narration": [
+        {
+          "id": "flow-stage-2-n1",
+          "text": "次は検証の段階で、内容を確認するのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    },
+    {
+      "id": "flow-stage-3",
+      "title": "同じ図で、説明する場所を移す",
+      "claim": "現在は「出力」の説明。図の配置は変えない。",
+      "evidence": [
+        "illustration"
+      ],
+      "content": {
+        "layout": "flow",
+        "steps": [
+          {
+            "label": "1. 入力",
+            "detail": "原稿を用意する"
+          },
+          {
+            "label": "2. 検証",
+            "detail": "内容を確認する"
+          },
+          {
+            "label": "3. 出力",
+            "detail": "動画を作成する"
+          }
+        ],
+        "activeStep": 3,
+        "takeaway": "現在は「出力」の説明。図の配置は変えない。"
+      },
+      "narration": [
+        {
+          "id": "flow-stage-3-n1",
+          "text": "最後に出力の段階で、動画を作成するのだ。"
+        }
+      ],
+      "gapBefore": 0.3,
+      "gapAfter": 0.3
+    }
+  ]
+}

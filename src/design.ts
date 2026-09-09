@@ -40,7 +40,7 @@ const schema = z.object({
     caption: typography,
     metadata: typography,
   }),
-  rounded: z.object({ cell: px, step: px }),
+  rounded: z.object({ cell: px, step: px, callout: px }),
   spacing: z.object({
     xs: px,
     sm: px,

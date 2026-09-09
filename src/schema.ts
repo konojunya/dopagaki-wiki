@@ -22,6 +22,50 @@ const point = z.object({ label: text, detail: text }).strict();
 const content = z.discriminatedUnion("layout", [
   z
     .object({
+      layout: z.literal("before-after"),
+      before: point,
+      after: point,
+      takeaway: text,
+    })
+    .strict(),
+  z
+    .object({
+      layout: z.literal("sequence"),
+      actors: z
+        .array(z.object({ id, label: text }).strict())
+        .min(2)
+        .max(3),
+      messages: z
+        .array(z.object({ from: id, to: id, label: text }).strict())
+        .min(1)
+        .max(3),
+      activeMessage: z.int().min(1).max(3).optional(),
+      takeaway: text,
+    })
+    .strict(),
+  z
+    .object({
+      layout: z.literal("branch"),
+      condition: text,
+      yes: point,
+      no: point,
+      takeaway: text,
+    })
+    .strict(),
+  z
+    .object({
+      layout: z.literal("focus"),
+      parts: z
+        .array(z.object({ id, label: text }).strict())
+        .min(2)
+        .max(3),
+      selected: id,
+      detail: point,
+      takeaway: text,
+    })
+    .strict(),
+  z
+    .object({
       layout: z.literal("key"),
       headline: text,
       points: z.array(point).min(1).max(3),
@@ -39,6 +83,7 @@ const content = z.discriminatedUnion("layout", [
     .object({
       layout: z.literal("flow"),
       steps: z.array(point).min(2).max(3),
+      activeStep: z.int().min(1).max(3).optional(),
       takeaway: text,
     })
     .strict(),
@@ -187,6 +232,42 @@ export const storySchema = z
         if (!sources.has(e))
           fail(["slides", i, "evidence"], `Unknown source ${e}`);
       const c = slide.content;
+      const contentPath = ["slides", i, "content"];
+      if (
+        c.layout === "flow" &&
+        c.activeStep !== undefined &&
+        c.activeStep > c.steps.length
+      )
+        fail([...contentPath, "activeStep"], "Active step does not exist");
+      if (c.layout === "sequence") {
+        const actors = new Set(c.actors.map((a) => a.id));
+        if (actors.size !== c.actors.length)
+          fail([...contentPath, "actors"], "Duplicate actor IDs");
+        c.messages.forEach((m, j) => {
+          if (!actors.has(m.from) || !actors.has(m.to))
+            fail([...contentPath, "messages", j], "Unknown sequence actor");
+          if (m.from === m.to)
+            fail(
+              [...contentPath, "messages", j],
+              "Self messages are not supported; use a separate slide for internal processing",
+            );
+        });
+        if (
+          c.activeMessage !== undefined &&
+          c.activeMessage > c.messages.length
+        )
+          fail(
+            [...contentPath, "activeMessage"],
+            "Active message does not exist",
+          );
+      }
+      if (c.layout === "focus") {
+        const parts = new Set(c.parts.map((p) => p.id));
+        if (parts.size !== c.parts.length)
+          fail([...contentPath, "parts"], "Duplicate part IDs");
+        if (!parts.has(c.selected))
+          fail([...contentPath, "selected"], "Unknown focused part");
+      }
       if (
         c.layout === "compare" &&
         c.rows.some((r) => r.length !== c.columns.length)
