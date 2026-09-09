@@ -40,6 +40,8 @@ node <skill-dir>/scripts/run.mjs render /absolute/story.json
 
 CLIの `--out` も省略できます。その場合は実行ごとに新しい `/tmp/dopagaki-wiki-*` を作り、出力パスを返します。プレビューから再開するときは返されたパスを `--out` に指定してください。
 
+`slides.pdf` は `preview` でも作成します。PDFだけ必要な場合はVOICEVOXやFFmpegを起動せず、`preview` を使えます。`preview.html` からPDFを開けます。
+
 ## 音声と接続先
 
 `VOICEVOX_URL` の初期値は `http://127.0.0.1:50021`。生成前に doctor で接続を確認します。話者・スタイルは `/speakers` から名前で解決し、通常はずんだもんのノーマルを使用します。VOICEVOXを処理後に終了しません。
@@ -48,11 +50,15 @@ CLIの `--out` も省略できます。その場合は実行ごとに新しい `
 
 `--cache <directory>` を省略すると `~/Library/Caches/dopagaki-wiki`。同じ出力先で再実行できます。見た目のみ変更した場合は音声を再利用し、1文の変更では該当する音声を再生成します。原稿全体の辞書・声・速度を変更すると音声キャッシュが失効します。
 
+PDFは表示内容・画像・フォント・ブラウザーに基づいてキャッシュします。読み上げ文だけの変更なら再利用し、本文や図、並び順、配色などが変われば更新します。破損したPDFキャッシュは再生成します。
+
 動画キャッシュにはFFmpegのビルド設定とリンクライブラリのバージョンも含めます。同じFFmpegバージョンでも異なる構成のビルドへ切り替えると再エンコードし、画像・音声は再利用します。
 
 ## 出力と保存先
 
 - `video.mp4`: 焼き込み字幕付き動画
+- `slides.pdf`: 字幕なしのスライド資料。横長16:9で1スライド1ページ、文字を検索・選択可能。本文・図・出典を動画と同じ順序で掲載し、字幕の灰色の帯は表示しない。段階表示も各段階を1ページとして残す
+- `slides.print.html`: PDFと同じ内容の印刷用HTML
 - `preview.html`, `slides/`: 原稿を伴うHTMLプレビュー、PNG、固定レイアウトHTML
 - `story.json`, `script.md`, `evidence.json`: 原稿・構成・根拠
 - `timeline.json`, `subtitles.srt`, `subtitles.ass`: 実音声に基づくタイムラインと字幕

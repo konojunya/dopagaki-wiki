@@ -16,7 +16,7 @@ export const esc = (s: string) =>
   );
 const takeaway = (text: string) =>
   `<p class="takeaway"><span class="takeaway-icon" aria-hidden="true">💡</span><span>${esc(text)}</span></p>`;
-export function slideHtml(story: Story, s: Slide, i: number) {
+export function slideSection(story: Story, s: Slide, i: number) {
   const c = s.content;
   let body = "";
   const panel = (
@@ -60,7 +60,75 @@ export function slideHtml(story: Story, s: Slide, i: number) {
     body = `<div class="visual"><img src="media/${s.id}${extname(c.asset.path).toLowerCase()}" alt="${esc(c.asset.alt)}"></div>${takeaway(c.explanation)}`;
   if (c.layout === "example")
     body = `<p class="example-label">${esc(c.label)}</p><div class="cells">${c.cells.map((t) => `<div class="cell">${esc(t)}</div>`).join("")}</div><p class="equation">${esc(c.equation)}</p>${takeaway(c.explanation)}`;
-  return `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(s.title)}</title><style>${css}</style><section class="slide"><div class="topline"><span>ずんだもんと学ぶ · ${esc(story.title)}</span><span>${String(i + 1).padStart(2, "0")} / ${String(story.slides.length).padStart(2, "0")}</span></div><h1>${esc(s.title)}</h1><main>${body}</main><div class="caption"><p></p></div><footer><span>出典: ${esc(s.evidence.join(" / "))}</span></footer></section></html>`;
+  return `<section class="slide"><div class="topline"><span>ずんだもんと学ぶ · ${esc(story.title)}</span><span>${String(i + 1).padStart(2, "0")} / ${String(story.slides.length).padStart(2, "0")}</span></div><h1>${esc(s.title)}</h1><main>${body}</main><div class="caption"><p></p></div><footer><span>出典: ${esc(s.evidence.join(" / "))}</span></footer></section>`;
+}
+export function slideHtml(story: Story, s: Slide, i: number) {
+  return `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(s.title)}</title><style>${css}</style>${slideSection(story, s, i)}</html>`;
+}
+async function renderSlidePdf(
+  page: Page,
+  story: Story,
+  out: string,
+  cache: string,
+  images: string[],
+  fontHash: string,
+  browserVersion: string,
+) {
+  const started = performance.now();
+  // Preserve video geometry, but omit narration and the subtitle band entirely.
+  const html = `<!doctype html><html lang="ja"><meta charset="utf-8"><base href="slides/"><title>${esc(story.title)}</title><style>${css}
+@page{size:1920px 1080px;margin:0}
+html,body{background:white;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.slide{break-after:page;break-inside:avoid}.slide:last-child{break-after:auto}
+.caption{visibility:hidden}
+</style>${story.slides.map((s, i) => slideSection(story, s, i)).join("")}</html>`;
+  const htmlPath = join(out, "slides.print.html");
+  await atomic(htmlPath, html);
+  const key = hash({
+    version: 1,
+    html,
+    fontHash,
+    browserVersion,
+    images: await Promise.all(images.map(fileHash)),
+  });
+  const target = join(out, "slides.pdf"),
+    cached = join(cache, "pdf", `${key}.pdf`);
+  let hit = false;
+  let data: Buffer;
+  try {
+    data = await readFile(cached);
+    if (
+      (await readJson(cached + ".json")).sha256 !== hash(data) ||
+      data.subarray(0, 5).toString() !== "%PDF-"
+    )
+      throw new Error("PDF cache checksum mismatch");
+    hit = true;
+  } catch {
+    await page.goto(pathToFileURL(htmlPath).href);
+    await page.emulateMedia({ media: "screen" });
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await Promise.all([...document.images].map((image) => image.decode()));
+    });
+    data = await page.pdf({
+      printBackground: true,
+      preferCSSPageSize: true,
+      tagged: true,
+      outline: true,
+      displayHeaderFooter: false,
+    });
+    await atomic(cached, data);
+    await json(cached + ".json", { sha256: hash(data) });
+  }
+  await atomic(target, data);
+  return {
+    target,
+    sha256: hash(data),
+    bytes: data.length,
+    pages: story.slides.length,
+    hit,
+    ms: Math.round(performance.now() - started),
+  };
 }
 export async function inspectPage(page: Page) {
   return page.evaluate(() => {
@@ -202,6 +270,7 @@ export async function renderSlides(
     captions: Record<string, string> = {},
     images: string[] = [];
   let hits = 0;
+  let pdf: Awaited<ReturnType<typeof renderSlidePdf>>;
   const fontHash = hash(
     await Promise.all(
       ["NotoSansJP.ttf", "NotoSansMono.ttf"].map((f) =>
@@ -294,6 +363,15 @@ export async function renderSlides(
       images.push(imagePath);
       reports.push({ slide: s.id, ...report, segments: s.narration.length });
     }
+    pdf = await renderSlidePdf(
+      page,
+      story,
+      out,
+      cache,
+      images,
+      fontHash,
+      browser.version(),
+    );
   } finally {
     await browser.close();
   }
@@ -306,7 +384,7 @@ export async function renderSlides(
   });
   await atomic(
     join(out, "preview.html"),
-    `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(story.title)}</title><style>${previewCss}</style><h1>${esc(story.title)}</h1>${story.slides.map((s) => `<article><a href="slides/${s.id}.html"><img src="slides/${s.id}.png" alt="${esc(s.title)}">${esc(s.title)}</a><p>${s.narration.map((n) => esc(n.text)).join("<br>")}</p></article>`).join("")}</html>`,
+    `<!doctype html><html lang="ja"><meta charset="utf-8"><title>${esc(story.title)}</title><style>${previewCss}</style><h1>${esc(story.title)}</h1><p><a href="slides.pdf">スライドPDF（字幕なし）</a></p>${story.slides.map((s) => `<article><a href="slides/${s.id}.html"><img src="slides/${s.id}.png" alt="${esc(s.title)}">${esc(s.title)}</a><p>${s.narration.map((n) => esc(n.text)).join("<br>")}</p></article>`).join("")}</html>`,
   );
-  return { captions, images, hits };
+  return { captions, images, hits, pdf };
 }

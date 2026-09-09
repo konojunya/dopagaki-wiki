@@ -7,7 +7,7 @@
 ## 動画になるまで
 
 1. 質問・対象リポジトリを調査し、根拠と原稿を作る。
-2. 入力を検証し、HTMLスライドをChromiumで描画する。
+2. 入力を検証し、HTMLスライドをChromiumで描画する。同じHTMLから字幕なしのスライドPDFも出力する。
 3. VOICEVOXで音声を合成し、実音声から字幕時刻を算出する。
 4. FFmpegで合成し、尺・音量・字幕・デコードを検査する。
 5. エージェントが内容・見た目・音声を確認し、対話で共有する。
@@ -22,7 +22,7 @@
 | [src/design.ts](../src/design.ts) | DESIGN.mdのYAML読み込み・検証・参照解決 |
 | [src/theme.ts](../src/theme.ts) | トークンからCSSと字幕用テーマを組み立てる |
 | [src/schema.ts](../src/schema.ts) | 原稿の構造と根拠参照の検証 |
-| [src/slides.ts](../src/slides.ts) | 固定HTML、撮影、レイアウト検査 |
+| [src/slides.ts](../src/slides.ts) | 固定HTML、撮影、レイアウト検査、字幕なしPDF |
 | [src/speech.ts](../src/speech.ts) | VOICEVOX通信・読み辞書・音声キャッシュ |
 | [src/timeline.ts](../src/timeline.ts) | 実音声のサンプル数に基づく時刻・字幕 |
 | [src/video.ts](../src/video.ts) | 音量調整・合成・完成動画の検査 |

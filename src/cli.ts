@@ -121,16 +121,21 @@ async function main() {
     dirname(resolve(storyPath)),
   );
   measure("slides");
+  stages.slides = Math.max(0, stages.slides! - visuals.pdf.ms);
+  stages.pdf = visuals.pdf.ms;
   if (command === "preview") {
     await json(join(out, "manifest.json"), {
       status: "preview",
       storySha256: hash(story),
       layoutPassed: true,
+      pdf: visuals.pdf,
     });
     await rm(join(out, "last-error.json"), { force: true });
     console.log(
       JSON.stringify({
         out,
+        pdf: visuals.pdf.target,
+        pdfCacheHit: visuals.pdf.hit,
         layoutPassed: true,
         imageCacheHits: visuals.hits,
         stages,
@@ -185,6 +190,7 @@ async function main() {
     lockfileSha256: await fileHash(join(ROOT, "package-lock.json")),
     designSha256,
     videoSha256: await fileHash(movie.target),
+    pdf: visuals.pdf,
     engine: speech.identity,
     tools: {
       node: process.version,
@@ -196,7 +202,12 @@ async function main() {
     },
     stagesMs: stages,
     totalMs: Math.round(performance.now() - started),
-    cache: { images: visuals.hits, speech: speech.hits, video: movie.hit },
+    cache: {
+      images: visuals.hits,
+      speech: speech.hits,
+      video: movie.hit,
+      pdf: visuals.pdf.hit,
+    },
     audio: speech.assets.map(({ pcm, ...a }) => ({ ...a, path: undefined })),
     validation: {
       schema: true,
@@ -214,6 +225,7 @@ async function main() {
     JSON.stringify(
       {
         video: movie.target,
+        pdf: visuals.pdf.target,
         seconds: validation.expectedSeconds,
         bytes: validation.bytes,
         totalMs: manifest.totalMs,
