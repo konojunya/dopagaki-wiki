@@ -17,6 +17,7 @@ theme は `accessible-light-v1` のみ。voice は初期 `ずんだもん` / `�
 ## content の形
 
 ```json
+{"layout":"title","topics":["今回扱う話題1","今回扱う話題2"]}
 {"layout":"key","headline":"一つの結論","points":[{"label":"見出し","detail":"説明"}]}
 {"layout":"compare","columns":["項目","結果"],"rows":[["A","値"]],"takeaway":"意味"}
 {"layout":"flow","steps":[{"label":"入力","detail":"内容"},{"label":"出力","detail":"内容"}],"takeaway":"意味"}
@@ -24,6 +25,8 @@ theme は `accessible-light-v1` のみ。voice は初期 `ずんだもん` / `�
 {"layout":"example","label":"図の見方","cells":["0","1"],"equation":"結果","explanation":"意味"}
 {"layout":"visual","asset":{"path":"assets/diagram.svg","alt":"図の内容","origin":{"kind":"diagram","description":"構造化した手順図"}},"explanation":"図からわかること"}
 ```
+
+`title` は先頭の1枚だけに使用できる。slide.title に教材タイトル、topics に今回話すことを1〜3点、narration に短いタイトルコールを記述する。通常どおり evidence と objectives に対応させる。既存原稿は互換性のためタイトルなしでも読み込めるが、新規作成では必ず追加する。
 
 visual の path は story.json のある場所からの相対パス、または絶対パス。PNG / JPEG / WebP / 自己完結したSVG、20MiB以内。図を入力の任意HTMLとして埋め込まない。ダウンロードした画像は origin を `{"kind":"download","url":"https://公式の配布URL"}`、生成画像は `{"kind":"generated","prompt":"実際の生成指示"}` とする。画像ハッシュも撮影キャッシュに含める。
 

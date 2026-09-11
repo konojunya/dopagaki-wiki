@@ -59,6 +59,11 @@ spacing:
   top: 48px
   horizontal: 96px
 components:
+  title-card:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.primary}"
+    borderWidth: 8px
   slide:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
@@ -185,6 +190,7 @@ components:
 
 | layout    | 内容                      |
 | --------- | ------------------------- |
+| `title`   | 冒頭のタイトルと今回話すこと（1〜3点） |
 | `key`     | 一つの結論と3点以内の要点 |
 | `compare` | 2〜3列、4行以内の比較     |
 | `flow`    | 2〜3段階の処理と矢印      |
@@ -205,6 +211,8 @@ code の右側は通常の番号付きリスト（1. / 2. / 3.）にする。構
 動画の青い文字はインタラクティブなリンクではない。HTMLプレビューの実リンクは青と下線を組み合わせ、訪問済みはマゼンタ、フォーカスは黄色と黒で示す。[公式のリンク指針](https://design.digital.go.jp/dads/foundations/link-text/) を参照。動画にボタンやフォームの状態を持ち込まない。
 
 ## Do's and Don'ts
+
+タイトルコールは1枚目に置く。白地にprimaryの8pxの四辺枠を使い、角丸・影・画像による装飾は加えない。枠内に既存のタイトル書体と「今回話すこと」の短い箇条書きを1〜3点置く。枠内余白は48px、見出しと話題の間は32px。字幕は枠外の既存160px領域に表示し、PDFでは非表示にする。
 
 - 一枚一主張を基本にし、見出し・図・字幕を同じ答えに結びつける。
 - `DESIGN.md` の値を更新し、プレビューと実動画を検査する。生成モデルに任意の配色を選ばせない。

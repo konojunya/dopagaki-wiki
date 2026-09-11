@@ -22,6 +22,12 @@ const point = z.object({ label: text, detail: text }).strict();
 const content = z.discriminatedUnion("layout", [
   z
     .object({
+      layout: z.literal("title"),
+      topics: z.array(text).min(1).max(3),
+    })
+    .strict(),
+  z
+    .object({
       layout: z.literal("before-after"),
       before: point,
       after: point,
@@ -233,6 +239,8 @@ export const storySchema = z
           fail(["slides", i, "evidence"], `Unknown source ${e}`);
       const c = slide.content;
       const contentPath = ["slides", i, "content"];
+      if (c.layout === "title" && i !== 0)
+        fail(contentPath, "Title call must be the first slide");
       if (
         c.layout === "flow" &&
         c.activeStep !== undefined &&

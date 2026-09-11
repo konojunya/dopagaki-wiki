@@ -10,6 +10,8 @@ import { compose, verifyVideo } from "../src/video.js";
 import { atomic, RATE, run } from "../src/common.js";
 test("real FFmpeg renders exactly 34s and burns subtitles only during measured speech", async () => {
   const s = JSON.parse(await readFile("examples/minimal.story.json", "utf8"));
+  s.slides = s.slides.slice(0, 2);
+  s.objectives[0].slides = s.slides.map((slide: { id: string }) => slide.id);
   s.slides.forEach((s: any) => (s.narration = s.narration.slice(0, 1)));
   s.slides[0].narration[0].text = "短い字幕なのだ。";
   s.slides[1].narration[0].text =

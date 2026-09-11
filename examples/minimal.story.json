@@ -61,6 +61,7 @@
       "id": "basics",
       "question": "ビット幅と符号を理解する",
       "slides": [
+        "title-call",
         "answer",
         "bits"
       ]
@@ -96,6 +97,34 @@
   },
   "theme": "accessible-light-v1",
   "slides": [
+    {
+      "id": "title-call",
+      "title": "Go の整数型",
+      "claim": "Goの整数型を、ビット幅と符号から理解する。",
+      "evidence": [
+        "go-types"
+      ],
+      "content": {
+        "layout": "title",
+        "topics": [
+          "int8〜int64のビット幅",
+          "符号付きと符号なしの違い",
+          "ビットで整数を表す仕組み"
+        ]
+      },
+      "narration": [
+        {
+          "id": "title-call-1",
+          "text": "今回は、Goの整数型を学ぶのだ。"
+        },
+        {
+          "id": "title-call-2",
+          "text": "ビット幅と符号の違い、ビットで整数を表す仕組みを見ていくのだ。"
+        }
+      ],
+      "gapBefore": 1,
+      "gapAfter": 1
+    },
     {
       "id": "answer",
       "title": "違いは「幅」と「符号」",

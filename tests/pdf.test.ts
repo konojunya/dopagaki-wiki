@@ -13,6 +13,10 @@ test("PDF preserves slide order, searchable Japanese and dimensions, omits subti
     const story = parseStory(
       JSON.parse(await readFile("examples/layouts.story.json", "utf8")),
     );
+    const opening = parseStory(
+      JSON.parse(await readFile("examples/minimal.story.json", "utf8")),
+    ).slides[0]!;
+    story.slides.unshift(opening);
     story.slides[0]!.narration[0]!.text = "字幕だけにある秘密の合言葉なのだ。";
     const out = join(dir, "out"),
       cache = join(dir, "cache");
@@ -39,6 +43,15 @@ test("PDF preserves slide order, searchable Japanese and dimensions, omits subti
           `Page ${i + 1}: missing Japanese title`,
         );
         assert.ok(!text.includes("秘密の合言葉"));
+        if (i === 0) {
+          assert.ok(text.includes("今回話すこと"));
+          if (opening.content.layout !== "title")
+            throw new Error("Missing title fixture");
+          for (const topic of opening.content.topics)
+            assert.ok(
+              text.includes(topic.normalize("NFKC").replaceAll(/\s/g, "")),
+            );
+        }
       }
     } finally {
       await loading.destroy();

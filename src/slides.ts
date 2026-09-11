@@ -24,6 +24,8 @@ export type CaptionBox = {
 };
 export function slideSection(story: Story, s: Slide, i: number) {
   const c = s.content;
+  if (c.layout === "title")
+    return `<section class="slide title-slide"><div class="topline"><span>ずんだもんと学ぶ</span><span>${String(i + 1).padStart(2, "0")} / ${String(story.slides.length).padStart(2, "0")}</span></div><main class="title-card"><h1>${esc(s.title)}</h1><div class="title-agenda"><p class="title-label">今回話すこと</p><ul>${c.topics.map((topic) => `<li>${esc(topic)}</li>`).join("")}</ul></div></main><div class="caption"><p></p></div><footer><span>出典: ${esc(s.evidence.join(" / "))}</span></footer></section>`;
   let body = "";
   const panel = (
     heading: string,

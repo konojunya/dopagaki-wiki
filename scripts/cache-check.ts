@@ -49,8 +49,8 @@ assert.equal(cold.cache.speech, 0);
 assert.equal(cold.cache.pdf, false);
 assert.equal(cold.pdf.pages, base.slides.length);
 const warm = await render("warm", base);
-assert.equal(warm.cache.speech, 2);
-assert.equal(warm.cache.images, 2);
+assert.equal(warm.cache.speech, base.slides.length);
+assert.equal(warm.cache.images, base.slides.length);
 assert.equal(warm.cache.video, true);
 assert.equal(warm.cache.pdf, true);
 assert.equal(warm.pdf.sha256, cold.pdf.sha256);
@@ -58,8 +58,8 @@ assert.equal(cold.videoSha256, warm.videoSha256);
 const visual = structuredClone(base);
 visual.slides[0].title = "幅と符号を、分けて考える";
 const v = await render("visual-only", visual);
-assert.equal(v.cache.speech, 2);
-assert.equal(v.cache.images, 1);
+assert.equal(v.cache.speech, base.slides.length);
+assert.equal(v.cache.images, base.slides.length - 1);
 assert.equal(v.cache.video, false);
 assert.equal(v.cache.pdf, false);
 assert.notEqual(v.pdf.sha256, warm.pdf.sha256);
@@ -67,8 +67,8 @@ const spoken = structuredClone(visual);
 spoken.slides[0].narration[0].text =
   "Goの整数型は、まず幅と符号を分けて考えるとわかりやすいのだ。";
 const a = await render("one-sentence", spoken);
-assert.equal(a.cache.speech, 1);
-assert.equal(a.cache.images, 2);
+assert.equal(a.cache.speech, base.slides.length - 1);
+assert.equal(a.cache.images, base.slides.length);
 assert.equal(a.cache.pdf, true);
 assert.equal(a.pdf.sha256, v.pdf.sha256);
 assert.notEqual(a.audio[0].key, v.audio[0].key);
@@ -78,8 +78,8 @@ await writeFile(
   Buffer.from("broken cache"),
 );
 const repaired = await render("resume-corrupt-speech", spoken);
-assert.equal(repaired.cache.speech, 1);
-assert.equal(repaired.cache.images, 2);
+assert.equal(repaired.cache.speech, base.slides.length - 1);
+assert.equal(repaired.cache.images, base.slides.length);
 assert.equal(repaired.audio[0].key, a.audio[0].key);
 // Inspect the resulting video and audio, in addition to CLI/cache assertions.
 for (const script of ["subtitle-check.ts", "audio-check.ts"]) {

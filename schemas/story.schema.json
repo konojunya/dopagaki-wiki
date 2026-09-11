@@ -235,6 +235,30 @@
                 "properties": {
                   "layout": {
                     "type": "string",
+                    "const": "title"
+                  },
+                  "topics": {
+                    "minItems": 1,
+                    "maxItems": 3,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 300
+                    }
+                  }
+                },
+                "required": [
+                  "layout",
+                  "topics"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "layout": {
+                    "type": "string",
                     "const": "before-after"
                   },
                   "before": {

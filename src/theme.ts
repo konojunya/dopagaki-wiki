@@ -20,7 +20,7 @@ export function buildTheme(design: Design) {
     metadata: componentTypography(design, "metadata"),
   };
   const theme = {
-    version: "accessible-light-v1.4.0",
+    version: "accessible-light-v1.5.0",
     designSha256: hash(design),
     width: pixels(design.components.slide.width),
     height: pixels(design.components.slide.height),
@@ -53,6 +53,7 @@ export function buildTheme(design: Design) {
 .topline{display:flex;justify-content:space-between;align-items:center;color:${theme.accent};font-size:${type.metadata.fontSize};line-height:${type.body.lineHeight};font-weight:${type.title.fontWeight};border-bottom:${design.components.divider.height} solid ${color("divider", "backgroundColor")};padding-bottom:${design.spacing.xs}}
 h1{font-family:'${type.title.fontFamily}',sans-serif;font-size:${theme.title}px;line-height:${type.title.lineHeight};padding:4px 0;margin:0;font-weight:${type.title.fontWeight};align-self:center;letter-spacing:.01em}
 main{min-height:0;display:flex;flex-direction:column;justify-content:center;gap:28px}p{margin:0} .headline{background:${color("headline", "backgroundColor")};font-size:${theme.title}px;line-height:${type.title.lineHeight};font-weight:${type.title.fontWeight};color:${theme.accent}}
+.title-slide{grid-template-rows:48px 1fr ${theme.captionHeight}px 40px}.title-card{border:${design.components["title-card"].borderWidth} solid ${color("title-card", "borderColor")};background:${color("title-card", "backgroundColor")};color:${color("title-card")};padding:${design.spacing.top};gap:${design.spacing.lg}}.title-card h1{align-self:stretch;color:${theme.accent}}.title-agenda{display:flex;flex-direction:column;gap:${design.spacing.sm};font-size:${theme.body}px;line-height:${type.body.lineHeight}}.title-label{font-weight:${type.title.fontWeight}}.title-agenda ul{margin:0;padding-left:1.5em;display:grid;gap:${design.spacing.xs}}
 .points{display:grid;gap:20px}.point{display:grid;grid-template-columns:410px 1fr;gap:${design.spacing.lg};align-items:baseline;border-top:${design.components.divider.height} solid ${color("divider", "backgroundColor")};padding-top:20px;font-size:${theme.body}px;line-height:${type.body.lineHeight}}.point strong{color:${theme.ink}}.point p{font-size:${theme.body}px}
 .takeaway{color:${color("takeaway")};font-size:${theme.body}px;line-height:${type.body.lineHeight};padding:18px 24px;display:flex;align-items:flex-start;gap:${design.spacing.sm};border:${design.components.divider.height} solid ${colors.primary};border-radius:${resolveReference(design, design.components.takeaway.rounded)}}.takeaway-icon{flex:none}.takeaway>span:last-child{min-width:0}
 table{font-family:'${type.table.fontFamily}',sans-serif;border-collapse:collapse;width:100%;table-layout:fixed;font-size:${type.table.fontSize};line-height:${type.table.lineHeight};font-weight:${type.table.fontWeight}}th{text-align:left;background:${color("table", "backgroundColor")};color:${color("table")};font-weight:${type.title.fontWeight}}td,th{padding:18px ${design.spacing.md};border-bottom:${design.components.divider.height} solid ${color("divider", "backgroundColor")};overflow-wrap:anywhere}td:first-child{font-weight:${type.title.fontWeight}}

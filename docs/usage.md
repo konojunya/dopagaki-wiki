@@ -70,3 +70,7 @@ PDFは表示内容・画像・フォント・ブラウザーに基づいてキ�
 比較記録の保存先・必須情報・評価基準・容量上限・追加手順は [docs/generationの保存ルール](generation/README.md) に定めています。
 
 原稿の入力形式は [schemaのガイド](../skills/dopagaki-wiki/references/schema.md)、配色・書体・図のルールは [DESIGN.md](../DESIGN.md) を参照してください。
+
+## 冒頭のタイトルコール
+
+新しく作る教材は、1枚目を `content: {"layout":"title","topics":["今回話すこと"]}` にします。`slide.title` に教材のタイトル、`topics` に短い話題を1〜3点、`narration` にタイトルコールを入れ、`objectives` と `evidence` に対応させます。`examples/minimal.story.json` が入力例です。動画とスライドPDFの両方に同じ表紙が入り、動画では発話と字幕も付いてから2枚目へ進みます。既存原稿へ自動挿入はしないため、再生成するときは先頭に追加してください。
